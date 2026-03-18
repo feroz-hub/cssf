@@ -20,6 +20,9 @@ public class ClientsModel
 
     public string? ClientSecret { get; set; }
 
+    // Used by Next.js admin client secrets page.
+    public DateTime? ClientSecretExpiresAt { get; set; }
+
     public string? LogoUri { get; set; }
 
     public string? TermsOfServiceUri { get; set; }

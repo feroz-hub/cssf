@@ -1,0 +1,165 @@
+@model HCL.CS.SF.Admin.UI.Models.Api.UserSessionsViewModel
+
+@{
+    var sessions = Model?.Sessions ?? new List<HCL.CS.SF.Admin.UI.Models.Api.SecurityTokensModel>();
+}
+
+<!-- Page Header -->
+<div class="hcl-page-header" style="margin-bottom: 2rem;">
+    <div style="display: flex; align-items: center; gap: 1rem;">
+        <div class="hcl-avatar" style="width: 56px; height: 56px; font-size: 1.5rem;">
+            <span>@((Model.UserName?.Substring(0, 1) ?? Model.UserId?.Substring(0, 1) ?? "?").ToUpper())</span>
+        </div>
+        <div>
+            <h1 class="hcl-page-title">
+                <span class="hcl-gradient-text">Active Sessions</span>
+            </h1>
+            <p style="color: var(--hcl-text-secondary); font-size: 0.875rem; margin-top: 0.25rem;">
+                @(Model.UserName) &middot; @Model.UserId
+            </p>
+        </div>
+    </div>
+    <div class="hcl-page-actions" style="display: flex; gap: 0.5rem; align-items: center;">
+        <button class="hcl-btn hcl-btn-danger hcl-btn-sm" onclick="revokeAllSessions()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                <polyline points="3 6 5 6 21 6" />
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+            </svg>
+            Revoke All Sessions
+        </button>
+        <a href="/Admin/Users/@Model.UserId" class="hcl-btn hcl-btn-sm" style="background: var(--hcl-bg-tertiary); color: var(--hcl-text-secondary); border: 1px solid var(--hcl-border);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                <line x1="19" y1="12" x2="5" y2="12" />
+                <polyline points="12 19 5 12 12 5" />
+            </svg>
+            Back to User
+        </a>
+    </div>
+</div>
+
+<!-- Sessions Table -->
+<div class="hcl-card hcl-glass">
+    <div class="hcl-table-wrapper">
+        <table class="hcl-table" id="sessionsTable">
+            <thead>
+                <tr>
+                    <th>Token Type</th>
+                    <th>Client</th>
+                    <th>Last Activity</th>
+                    <th>IP Address</th>
+                    <th>User Agent</th>
+                    <th style="text-align: right;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!sessions.Any())
+                {
+                    <tr>
+                        <td colspan="6">
+                            <div class="hcl-empty-state" style="padding: 3rem 0;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="48" height="48" style="color: var(--hcl-text-tertiary); margin-bottom: 1rem;">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <path d="M8 12h8" />
+                                </svg>
+                                <p style="color: var(--hcl-text-tertiary);">No active sessions found for this user.</p>
+                            </div>
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var s in sessions)
+                    {
+                        var token = s.Token ?? s.TokenValue ?? s.Key ?? s.Id;
+                        var tokenTypeHint = s.TokenTypeHint ?? s.TokenType ?? "access_token";
+                        var client = s.ClientName ?? s.ClientId ?? "-";
+                        var lastActivity = (s.LoginDateTime ?? s.CreationTime)?.ToString("g") ?? "-";
+
+                        <tr>
+                            <td data-label="Token Type">
+                                <span class="hcl-badge" style="background: rgba(234,179,8,0.15); color: #eab308;">
+                                    @(tokenTypeHint)
+                                </span>
+                            </td>
+                            <td data-label="Client">
+                                <span style="font-weight: 500; color: var(--hcl-text-primary);">@client</span>
+                            </td>
+                            <td data-label="Last Activity" style="color: var(--hcl-text-secondary); font-size: 0.875rem;">
+                                @lastActivity
+                            </td>
+                            <td data-label="IP Address" style="color: var(--hcl-text-tertiary);">-</td>
+                            <td data-label="User Agent" style="color: var(--hcl-text-tertiary);">-</td>
+                            <td data-label="Action" style="text-align: right;">
+                                <button class="hcl-btn hcl-btn-danger hcl-btn-sm"
+                                        onclick="revokeSession(this)"
+                                        data-token="@token"
+                                        data-token-type-hint="@tokenTypeHint">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                                        <polyline points="3 6 5 6 21 6" />
+                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                                    </svg>
+                                    Revoke
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<p class="inline-message" style="margin-top: 1rem;">
+    IP address and user-agent are not exposed by current token APIs; fields are shown as unavailable.
+</p>
+
+@section Scripts {
+<script>
+    async function revokeSession(btn) {
+        const token = btn.getAttribute('data-token') || '';
+        const tokenTypeHint = btn.getAttribute('data-token-type-hint') || 'access_token';
+
+        const ok = await HCL.confirm('Revoke session', 'This token will be invalidated immediately.');
+        if (!ok) return;
+
+        try {
+            const result = await HCL.apiRequest('/Admin/Revocation/Revoke', 'POST', {
+                token: token,
+                tokenTypeHint: tokenTypeHint
+            });
+
+            if (result.success) {
+                HCL.toastSuccess('Session token revoked successfully.');
+                setTimeout(function () { location.reload(); }, 800);
+            } else {
+                HCL.toastError('Failed to revoke session.');
+            }
+        } catch (err) {
+            HCL.toastError('An error occurred while revoking the session.');
+        }
+    }
+
+    async function revokeAllSessions() {
+        const userId = '@Model.UserId';
+        const ok = await HCL.confirm('Revoke all sessions', 'All active tokens for this user will be revoked.');
+        if (!ok) return;
+
+        try {
+            const result = await HCL.apiRequest('/Admin/Revocation/RevokeAllByUserId', 'POST', {
+                userId: userId
+            });
+
+            if (result.success) {
+                const count = result.revokedCount ?? 0;
+                HCL.toastSuccess(count > 0 ? (count + ' session token(s) revoked.') : 'No active sessions found.');
+                setTimeout(function () { location.reload(); }, 800);
+            } else {
+                HCL.toastError('Failed to revoke all sessions.');
+            }
+        } catch (err) {
+            HCL.toastError('An error occurred while revoking all sessions.');
+        }
+    }
+</script>
+}
+

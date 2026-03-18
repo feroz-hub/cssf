@@ -1,0 +1,153 @@
+@{
+    ViewData["Title"] = ViewData["Title"] ?? "API Explorer";
+}
+
+<!-- Page Header -->
+<div class="hcl-page-header" style="margin-bottom: 1.5rem;">
+    <div>
+        <h1 class="hcl-page-title">
+            <span class="hcl-gradient-text" style="font-size: 2rem; font-weight: 700;">API Explorer</span>
+        </h1>
+        <p style="color: var(--hcl-text-secondary); margin-top: 0.35rem; font-size: 0.875rem;">
+            Call any HCL.CS.SF API endpoint by selecting it and executing a request.
+        </p>
+    </div>
+    <div class="hcl-page-actions">
+        <a href="/Admin/Operations" class="hcl-btn hcl-btn-sm" style="background: var(--hcl-bg-tertiary); color: var(--hcl-text-secondary); border: 1px solid var(--hcl-border);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                <line x1="19" y1="12" x2="5" y2="12" />
+                <polyline points="12 19 5 12 12 5" />
+            </svg>
+            Back
+        </a>
+    </div>
+</div>
+
+<!-- Controls -->
+<div class="hcl-card hcl-glass" style="margin-bottom: 1.25rem;">
+    <div style="padding: 1.25rem; display:flex; flex-wrap:wrap; gap:0.75rem; align-items:center;">
+        <div style="display:flex; flex-direction:column; gap:0.25rem;">
+            <label class="hcl-label">Search</label>
+            <input id="apiExplorerQuery" type="text" class="hcl-input" placeholder="Search endpoints…" style="min-width: 280px;" />
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:0.25rem;">
+            <label class="hcl-label">Base</label>
+            <select id="apiExplorerBaseSelect" class="hcl-input" style="min-width: 180px;">
+                <option value="api">Gateway / API</option>
+                <option value="installer">Installer</option>
+                <option value="demo">Demo server</option>
+            </select>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:0.25rem;">
+            <label class="hcl-label">Method</label>
+            <div style="display:flex; gap:0.5rem; align-items:center;">
+                <button id="apiExplorerMethodGet" type="button" class="hcl-btn hcl-btn-ghost hcl-btn-sm">GET</button>
+                <button id="apiExplorerMethodPost" type="button" class="hcl-btn hcl-btn-primary hcl-btn-sm">POST</button>
+            </div>
+            <div class="hcl-text-secondary" style="font-size:0.75rem;">
+                When base is `api`, POST is enforced.
+            </div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:0.25rem;">
+            <label class="hcl-label">Flow preset</label>
+            <select id="apiExplorerFlowSelect" class="hcl-input" style="min-width: 210px;">
+                <option value="none">None</option>
+                <option value="clientCredentials">Client Credentials</option>
+                <option value="authorizationCode">Authorization Code</option>
+                <option value="password">Password Grant</option>
+                <option value="introspect">Introspect</option>
+                <option value="revocation">Revocation</option>
+            </select>
+        </div>
+
+        <div style="margin-left:auto; display:flex; align-items:flex-end;">
+            <button id="apiExplorerExecuteBtn" type="button" class="hcl-btn hcl-btn-secondary">
+                Execute
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Main Layout -->
+<div style="display:grid; grid-template-columns: minmax(0, 320px) 1fr; gap: 1.25rem;">
+    <!-- Endpoint list -->
+    <div class="hcl-card hcl-glass" style="margin:0;">
+        <div style="padding: 1rem; border-bottom: 1px solid var(--hcl-border);">
+            <h3 style="margin:0; font-size:0.9rem; font-weight:800; color: var(--hcl-text-primary);">
+                Endpoints
+            </h3>
+        </div>
+        <div style="padding: 0.75rem; overflow-y:auto; max-height: 560px; display:flex; flex-direction:column; gap:0.25rem;" id="apiExplorerEndpointList">
+            <!-- JS populates -->
+        </div>
+    </div>
+
+    <!-- Request / Response -->
+    <div style="display:flex; flex-direction:column; gap:1.25rem;">
+        <!-- Request -->
+        <div class="hcl-card hcl-glass" style="margin:0;">
+            <div style="padding: 1rem; border-bottom: 1px solid var(--hcl-border); display:flex; flex-direction:column; gap:0.5rem;">
+                <h3 style="margin:0; font-size:0.9rem; font-weight:800; color: var(--hcl-text-primary);">
+                    Request
+                </h3>
+                <div class="hcl-text-secondary" style="font-family:var(--font-mono); font-size:0.8rem;">
+                    Path: <span id="apiExplorerSelectedPath">—</span>
+                </div>
+            </div>
+
+            <div style="padding: 1rem; display:flex; flex-direction:column; gap:1rem;">
+                <div id="apiExplorerSchemaBanner"></div>
+
+                <!-- Body mode -->
+                <div id="apiExplorerBodyModeControls" style="display:block; padding: 0.75rem; border:1px solid var(--hcl-border); border-radius: 10px; background: var(--hcl-bg-tertiary);">
+                    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem;">
+                        <div style="display:flex; gap:0.5rem;">
+                            <button id="apiExplorerBodyModeForm" type="button" class="hcl-btn hcl-btn-ghost hcl-btn-sm">Form</button>
+                            <button id="apiExplorerBodyModeRaw" type="button" class="hcl-btn hcl-btn-ghost hcl-btn-sm">Raw JSON</button>
+                        </div>
+                        <div class="hcl-text-secondary" style="font-size:0.75rem;">
+                            Build the body using schema-aware fields or raw JSON.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form -->
+                <div id="apiExplorerFormContainer"></div>
+
+                <!-- Raw -->
+                <div id="apiExplorerRawContainer" style="display:none;">
+                    <textarea id="apiExplorerRawTextarea" class="hcl-input" style="width:100%; min-height: 210px; font-family:var(--font-mono); font-size:0.85rem; border-radius:10px;"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Response -->
+        <div class="hcl-card hcl-glass" style="margin:0;">
+            <div style="padding:1rem; border-bottom: 1px solid var(--hcl-border); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:0.75rem;">
+                <h3 style="margin:0; font-size:0.9rem; font-weight:800; color: var(--hcl-text-primary);">
+                    Response
+                </h3>
+                <div style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap;">
+                    <span class="hcl-badge" id="apiExplorerStatus" style="display:inline-block; min-width:52px; text-align:center;">—</span>
+                    <span class="hcl-text-secondary" id="apiExplorerContentType" style="font-size:0.8rem;"></span>
+                    <div id="apiExplorerAccessTokenActions"></div>
+                    <button id="apiExplorerCopyResponseBtn" type="button" class="hcl-btn hcl-btn-ghost hcl-btn-sm">
+                        Copy Response
+                    </button>
+                </div>
+            </div>
+            <div style="padding:1rem;">
+                <pre id="apiExplorerResponsePre" style="margin:0; min-height:240px; overflow:auto; padding:1rem; border-radius:10px; background:var(--hcl-bg-tertiary); border:1px solid var(--hcl-border); font-family:var(--font-mono); font-size:0.85rem; line-height:1.5;">No response yet. Run a request.</pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/api-explorer-data.js" asp-append-version="true"></script>
+    <script src="~/js/api-explorer.js" asp-append-version="true"></script>
+}
+

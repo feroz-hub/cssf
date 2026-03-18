@@ -50,7 +50,7 @@ public interface IAdminApiService
     Task<FrameworkResult> RegisterClientAsync(ClientsModel client, CancellationToken ct = default);
     Task<FrameworkResult> UpdateClientAsync(ClientsModel client, CancellationToken ct = default);
     Task<FrameworkResult> DeleteClientAsync(string clientId, CancellationToken ct = default);
-    Task<FrameworkResult> GenerateClientSecretAsync(string clientId, CancellationToken ct = default);
+    Task<FrameworkResult<ClientsModel>> GenerateClientSecretAsync(string clientId, CancellationToken ct = default);
 
     // Resources
     Task<FrameworkResult<ApiResourcesModel>> GetApiResourceByIdAsync(string resourceId, CancellationToken ct = default);
@@ -248,8 +248,8 @@ public sealed class AdminApiService : IAdminApiService
     public Task<FrameworkResult> DeleteClientAsync(string clientId, CancellationToken ct = default)
         => PostAndDeserializeAsync<object, FrameworkResult>(ApiRoutePathConstants.DeleteClient, new { clientId }, ct);
 
-    public Task<FrameworkResult> GenerateClientSecretAsync(string clientId, CancellationToken ct = default)
-        => PostAndDeserializeAsync<object, FrameworkResult>(ApiRoutePathConstants.GenerateClientSecret, new { clientId }, ct);
+    public Task<FrameworkResult<ClientsModel>> GenerateClientSecretAsync(string clientId, CancellationToken ct = default)
+        => PostAndDeserializeAsync<object, FrameworkResult<ClientsModel>>(ApiRoutePathConstants.GenerateClientSecret, new { clientId }, ct);
 
     // -----------------------------------------------------------------------
     // API Resources

@@ -46,6 +46,7 @@ const HCL = (() => {
         if (token) {
             headers['RequestVerificationToken'] = token;
             headers['X-XSRF-TOKEN'] = token;
+            headers['X-CSRF-TOKEN'] = token;
         }
         return headers;
     }

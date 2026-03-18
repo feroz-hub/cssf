@@ -56,4 +56,37 @@ public class RevocationController : Controller
         var result = await _api.RevokeTokenAsync(request.Token, request.TokenTypeHint);
         return Json(new { success = result });
     }
+
+    [HttpPost("RevokeAllByUserId")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> RevokeAllByUserId([FromBody] RevokeAllByUserIdRequest request)
+    {
+        if (string.IsNullOrWhiteSpace(request.UserId))
+        {
+            return Json(new { success = false, message = "UserId is required.", revokedCount = 0 });
+        }
+
+        var tokens = await _api.GetActiveTokensByUserIdsAsync(new List<string> { request.UserId });
+
+        var revokedCount = 0;
+        foreach (var t in tokens)
+        {
+            var tokenValue = t.Token ?? t.TokenValue ?? t.Key ?? t.Id;
+            var tokenTypeHint = t.TokenTypeHint ?? t.TokenType ?? "access_token";
+
+            if (string.IsNullOrWhiteSpace(tokenValue))
+                continue;
+
+            var revoked = await _api.RevokeTokenAsync(tokenValue, tokenTypeHint);
+            if (revoked)
+                revokedCount++;
+        }
+
+        return Json(new { success = true, revokedCount });
+    }
+}
+
+public class RevokeAllByUserIdRequest
+{
+    public string UserId { get; set; } = string.Empty;
 }

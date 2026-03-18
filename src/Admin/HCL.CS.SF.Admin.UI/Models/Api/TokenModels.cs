@@ -18,6 +18,16 @@ public class SecurityTokensModel
 
     public string? TokenValue { get; set; }
 
+    // Fields used by Next.js Admin sessions UI.
+    // The underlying API payload may expose either Token/TokenTypeHint or TokenValue/TokenType.
+    // Controllers/views should treat these as best-effort aliases.
+    public string? Token { get; set; }
+    public string? TokenTypeHint { get; set; }
+
+    public string? ClientName { get; set; }
+    public string? UserName { get; set; }
+    public DateTime? LoginDateTime { get; set; }
+
     public DateTime? ConsumedTime { get; set; }
 
     public string? ConsumedAt { get; set; }

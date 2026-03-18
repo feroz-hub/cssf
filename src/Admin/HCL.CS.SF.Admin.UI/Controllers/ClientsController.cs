@@ -46,6 +46,25 @@ public class ClientsController : Controller
         return View(result.Data);
     }
 
+    [HttpGet("{id}/Secrets")]
+    public async Task<IActionResult> Secrets(string id)
+    {
+        ViewData["Title"] = "Client Secrets";
+        ViewData["Breadcrumb"] = "Clients / Secrets";
+
+        var result = await _api.GetClientAsync(id);
+        if (result?.Data == null) return NotFound();
+
+        var vm = new ClientSecretsViewModel
+        {
+            ClientId = result.Data.ClientId,
+            ClientName = result.Data.ClientName ?? result.Data.ClientId,
+            SecretExpiresAt = result.Data.ClientSecretExpiresAt
+        };
+
+        return View(vm);
+    }
+
     [HttpPost("Create")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create([FromBody] ClientsModel client)
@@ -75,6 +94,15 @@ public class ClientsController : Controller
     public async Task<IActionResult> GenerateSecret(string id)
     {
         var result = await _api.GenerateClientSecretAsync(id);
-        return Json(new { success = result.IsSuccess, errors = result.Errors });
+        return Json(new
+        {
+            success = result.IsSuccess,
+            errors = result.Errors,
+            data = new
+            {
+                secret = result.Data?.ClientSecret,
+                secretExpiresAt = result.Data?.ClientSecretExpiresAt
+            }
+        });
     }
 }
