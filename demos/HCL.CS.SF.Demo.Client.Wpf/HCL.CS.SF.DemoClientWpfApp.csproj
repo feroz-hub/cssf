@@ -1,0 +1,104 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup Label="Globals">
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon />
+    <StartupObject />
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Image\2FA.jpeg" />
+    <None Remove="Image\AddIcon.png" />
+    <None Remove="Image\API.jpeg" />
+    <None Remove="Image\Authenticator.png" />
+    <None Remove="Image\changepassword.jpeg" />
+    <None Remove="Image\clientApp.png" />
+    <None Remove="Image\Deleteicon.png" />
+    <None Remove="Image\Edit.png" />
+    <None Remove="Image\email.jpeg" />
+    <None Remove="Image\EndPointCall.png" />
+    <None Remove="Image\HCL.CS.SFLogo.jpg" />
+    <None Remove="Image\home.jpeg" />
+    <None Remove="Image\IdResource.png" />
+    <None Remove="Image\Mobile.png" />
+    <None Remove="Image\none.png" />
+    <None Remove="Image\plusicon.png" />
+    <None Remove="Image\RecoveryCode.png" />
+    <None Remove="Image\refreshIcon.png" />
+    <None Remove="Image\Role.jpeg" />
+    <None Remove="Image\UpdateProfile.png" />
+    <None Remove="Image\User.png" />
+    <None Remove="Image\UserManager.jpeg" />
+    <None Remove="Image\UserRoleIcon.jpg" />
+    <None Remove="Image\Viewicon.png" />
+    <None Remove="Password Change.PNG" />
+    <None Remove="phone.PNG" />
+    <None Remove="Proifle.PNG" />
+    <None Remove="RecoveryCode.png" />
+    <None Remove="tfa.PNG" />
+    <None Remove="twofactorAuthenticate.PNG" />
+    <None Remove="twofactoremail.png" />
+    <None Remove="UserManagment.png" />
+    <None Remove="View\AddIcon.png" />
+    <None Remove="View\APIICONPNG..PNG" />
+    <None Remove="View\ApiResource.PNG" />
+    <None Remove="View\ClientAPI.PNG" />
+    <None Remove="View\Deleteicon.png" />
+    <None Remove="View\Edit.png" />
+    <None Remove="View\Endpoint2.png" />
+    <None Remove="View\IdentityResource.PNG" />
+    <None Remove="View\plusicon.png" />
+    <None Remove="View\Role.PNG" />
+    <None Remove="View\update.png" />
+    <None Remove="View\UpdateIcon.PNG" />
+    <None Remove="View\Viewicon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BarCode" Version="2022.9.8982" />
+    <PackageReference Include="DocumentFormat.OpenXml" Version="2.16.0" />
+    <PackageReference Include="FluentAssertions.Json" Version="6.1.0" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.42" />
+    <PackageReference Include="IdentityModel" Version="6.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.DataProtection.Extensions" Version="8.0.11" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
+    <PackageReference Include="System.Drawing.Common" Version="8.0.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.35.0" />
+    <PackageReference Include="System.IO.Compression" Version="4.3.0" />
+    <PackageReference Include="System.Memory" Version="4.5.4" />
+    <PackageReference Include="System.ObjectModel" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Image\2FA.jpeg" />
+    <Resource Include="Image\AddIcon.png" />
+    <Resource Include="Image\API.jpeg" />
+    <Resource Include="Image\Authenticator.png" />
+    <Resource Include="Image\changepassword.jpeg" />
+    <Resource Include="Image\clientApp.png" />
+    <Resource Include="Image\Deleteicon.png" />
+    <Resource Include="Image\Edit.png" />
+    <Resource Include="Image\email.jpeg" />
+    <Resource Include="Image\EndPointCall.png" />
+    <Resource Include="Image\HCL.CS.SFLogo.jpg" />
+    <Resource Include="Image\home.jpeg" />
+    <Resource Include="Image\IdResource.png" />
+    <Resource Include="Image\Mobile.png" />
+    <Resource Include="Image\none.png" />
+    <Resource Include="Image\plusicon.png" />
+    <Resource Include="Image\RecoveryCode.png" />
+    <Resource Include="Image\refreshIcon.png" />
+    <Resource Include="Image\Role.jpeg" />
+    <Resource Include="Image\UpdateProfile.png" />
+    <Resource Include="Image\User.png" />
+    <Resource Include="Image\UserManager.jpeg" />
+    <Resource Include="Image\UserRoleIcon.jpg" />
+    <Resource Include="Image\Viewicon.png" />
+  </ItemGroup>
+
+</Project>

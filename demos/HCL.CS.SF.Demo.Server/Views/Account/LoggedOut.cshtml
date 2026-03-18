@@ -1,0 +1,41 @@
+﻿@model HCL.CS.SF.DemoServerApp.Models.LoggedOutViewModel
+@using System.Text.Json
+
+@{
+    // set this so the layout rendering sees an anonymous user
+    ViewData["signed-out"] = true;
+}
+
+<div class="logged-out-page">
+    <h1>
+        Logout
+        <small>You are now logged out</small>
+    </h1>
+
+    @if (Model.PostLogoutRedirectUri != null)
+    {
+        <div>
+            Click <a class="PostLogoutPostLogoutRedirectUri" href="@Model.PostLogoutRedirectUri">here</a> to continue.
+        </div>
+    }
+
+    @if (Model.SignOutIframeUrl != null)
+    {
+        <iframe width="0" height="0" class="signout" src="@Model.SignOutIframeUrl"></iframe>
+    }
+</div>
+
+@section scripts
+{
+    @if (Model.AutomaticRedirectAfterSignOut && Model.PostLogoutRedirectUri != null)
+    {
+        <script>
+            const postLogoutRedirectUri = @Html.Raw(JsonSerializer.Serialize(Model.PostLogoutRedirectUri));
+            if (postLogoutRedirectUri) {
+                window.setTimeout(() => {
+                    window.location.assign(postLogoutRedirectUri);
+                }, 1000);
+            }
+        </script>
+    }
+}

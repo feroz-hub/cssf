@@ -1,0 +1,68 @@
+@model HCLCSSFInstallerMVC.ViewModels.ConnectionValidationViewModel
+@{
+    ViewData["Title"] = "Setup / Validate";
+
+    var statusClass = Model.IsSuccessful
+        ? "status-card status-success"
+        : !string.IsNullOrWhiteSpace(Model.ErrorMessage)
+            ? "status-card status-danger"
+            : "status-card status-neutral";
+
+    var statusTitle = Model.IsSuccessful
+        ? "Connection Verified"
+        : !string.IsNullOrWhiteSpace(Model.ErrorMessage)
+            ? "Validation Failed"
+            : "Validation Pending";
+
+    var statusMessage = Model.IsSuccessful
+        ? "The installer can reach your database and proceed with schema operations."
+        : !string.IsNullOrWhiteSpace(Model.ErrorMessage)
+            ? "Review the error details and update the connection string before continuing."
+            : "Run connection validation to verify readiness.";
+    var usesLocalhostForDockerPostgreSql = Model.IsRunningInContainer
+                                           && Model.Provider == HCLCSSFInstallerMVC.Application.DTOs.DatabaseProviderType.PostgreSql
+                                           && Model.ConnectionString.Contains("Host=localhost", StringComparison.OrdinalIgnoreCase);
+}
+
+<section class="surface">
+    <header class="surface-header">
+        <p class="eyebrow">Stage 03</p>
+        <h1>Validate Database Access</h1>
+        <p>Run a connectivity probe to confirm credentials, host reachability, and basic database readiness.</p>
+    </header>
+
+    <div class="@statusClass" role="status">
+        <h2>@statusTitle</h2>
+        <p>@statusMessage</p>
+    </div>
+
+    @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+    {
+        <div class="alert alert-danger">@Model.ErrorMessage</div>
+    }
+
+    @if (usesLocalhostForDockerPostgreSql)
+    {
+        <div class="alert alert-warning">
+            The installer is running inside Docker, so <code>Host=localhost</code> targets the installer container, not PostgreSQL.
+            For the bundled Docker stack use
+            <code>Host=postgres;Port=5432;Database=HCL.CS.SF;Username=HCL.CS.SF;Password=HCL.CS.SF;</code>.
+        </div>
+    }
+
+    <div class="meta-grid">
+        <div class="meta-item">
+            <span class="meta-label">Provider</span>
+            <span class="meta-value">@Model.Provider</span>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">Connection String</span>
+            <code>@Model.ConnectionString</code>
+        </div>
+    </div>
+
+    <form asp-action="ExecuteValidation" method="post" class="action-row mt-4">
+        <a class="btn btn-ghost btn-lg" asp-action="Connection">Back</a>
+        <button type="submit" class="btn btn-accent btn-lg">Test Connection</button>
+    </form>
+</section>

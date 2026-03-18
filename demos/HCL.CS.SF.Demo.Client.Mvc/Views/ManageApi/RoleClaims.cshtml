@@ -1,0 +1,65 @@
+﻿<div>
+    <h5>Role claims for role - <strong>"@ViewData["roleName"]"</strong></h5>
+    <hr/>
+    <div class="form-group">
+        <div id="messageDiv"></div>
+        <table id="RoleClaims" cellpadding="0" cellspacing="0"></table>
+        <div id="RoleClaimsPager"></div>
+    </div>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            var $resources = $('#RoleClaims');
+            $resources.jqGrid({
+                url: '@Url.Action("GetRoleClaimsById", "ManageApi", new { roleId = ViewData["roleId"] })',
+                editurl: '@Url.Action("ManageRoleClaims", "ManageApi", new { roleId = ViewData["roleId"] })',
+                datatype: 'json',
+                mtype: 'POST',
+                colNames: ['ClaimType', 'ClaimValue'],
+                colModel: [
+                    {name: 'ClaimType', sortable: false, editable: true, width: 200},
+                    {name: 'ClaimValue', sortable: false, editable: true, width: 200}],
+                caption: 'Role Claims',
+                footerrow: true,
+                userDataOnFooter: true,
+                jsonReader: {repeatitems: false, id: 'Id'},
+                pager: $('#RoleClaimsPager'),
+                rowNum: 10,
+                viewrecords: true,
+                height: '100%',
+            })
+                .jqGrid('navGrid', '#RoleClaimsPager', {add: false, edit: false, del: true, search: false})
+                .jqGrid('inlineNav', '#RoleClaimsPager', {
+                    edit: false,
+                    addParams: {
+                        useDefValues: true,
+                        addRowParams: {
+                            keys: true,
+                            extraparam: {},
+                            successfunc: function (val) {
+                                if (val.responseText != "") {
+                                    if (val.responseText == '"Success"') {
+                                        $("#messageDiv").append("<div id='divSuccess' class='alert alert-success alert-dismissible fade show' role='alert'><p id='SuccessMessgage'>Role Cliam successfully added.</p> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>");
+                                        $(this).jqGrid('setGridParam', {datatype: 'json'}).trigger('reloadGrid');
+                                    } else {
+                                        $("#messageDiv").append("<div id='divSuccess' class='alert alert-danger alert-dismissible fade show' role='alert'><p id='SuccessMessgage'>" + val.responseText + "</p> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>");
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    editParams: {
+                        keys: false,
+                        oneditfunc: null,
+                        successfunc: function (val) {
+                            if (val.responseText != "") {
+                                $(this).jqGrid('setGridParam', {datatype: 'json'}).trigger('reloadGrid');
+                            }
+                        }
+                    }
+                })
+        });
+    </script>
+}

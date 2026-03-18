@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>HCL.CS.SFDemo-Client</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/css/site.css"/>
+    <link rel="icon" type="image/x-icon" href="~/favicon.ico"/>
+    <link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"/>
+    @if (ViewBag.JqGrid == "free-jqgrid")
+    {
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.15.5/css/ui.jqgrid.min.css"/>
+    }
+    else
+    {
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqgrid/5.5.0/css/ui.jqgrid.min.css"/>
+    }
+</head>
+<body>
+<div class="nav-page">
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
+        <div class="container">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">HCL.CS.SFDemo-Client</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                <partial name="_LoginPartial"/>
+            </div>
+        </div>
+    </nav>
+</div>
+<div class="container body-container">
+    @{
+        if (TempData["Message"] != null)
+        {
+            if (TempData["Title"] != null)
+            {
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    @TempData["Message"]
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    @TempData["Message"]
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            }
+
+            TempData["Message"] = null;
+            TempData["Title"] = null;
+        }
+    }
+
+    @*<div class="modal fade" id="aModal" tabindex="-1" role="dialog" aria-labelledby="aModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            @if (TempData["Title"] != null)
+                            {
+                                <h4 class="modal-title" id="aModalLabel">@TempData["Title"]</h4>
+                            }
+                            else
+                            {
+                                <h4 class="modal-title" id="aModalLabel">Success!</h4>
+                            }
+                        </div>
+                        <div class="modal-body center">
+                            <h5 class="modal-title" id="aModalLabel">@TempData["Message"]</h5>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+    @*@{
+                   @if (TempData["Message"] != null)
+                   {
+                       <script src="~/lib/jquery/dist/jquery.js"></script>
+                       <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+                       <script type="text/javascript">
+                           $(function () {
+                               $("#aModal").modal('show');
+                           });
+                       </script>
+                       TempData["Message"] = null;
+                   }
+            }*@
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+</div>
+<footer class="border-top footer text-muted">
+    <div class="container">
+        &copy; 2022 - HCL.CS.SF.DemoClientMvcApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    </div>
+</footer>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="~/lib/jquery/dist/jquery.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+@if (ViewBag.JqGrid == "free-jqgrid")
+{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.15.5/i18n/grid.locale-en.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.15.5/jquery.jqgrid.min.js"></script>
+}
+else
+{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqgrid/5.5.0/js/i18n/grid.locale-en.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqgrid/5.5.0/js/jquery.jqGrid.min.js"></script>
+}
+@RenderSection("Scripts", false)
+</body>
+</html>

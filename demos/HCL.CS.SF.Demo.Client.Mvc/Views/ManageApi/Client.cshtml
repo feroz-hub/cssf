@@ -1,0 +1,74 @@
+﻿<div>
+    <h5>Clients</h5>
+    <hr/>
+    <div class="form-group">
+        <table id="Client" cellpadding="0" cellspacing="0"></table>
+        <div id="ClientPager"></div>
+    </div>
+    <div class="form-group">
+        <a class="btn btn-primary" asp-area="" asp-controller="ManageApi" asp-action="AddClient">Add new client</a>
+    </div>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            var $resources = $('#Client');
+            $resources.jqGrid({
+                url: '@Url.Action("GetAllClients", "ManageApi")',
+                datatype: 'json',
+                mtype: 'POST',
+                colNames: ['ClientId', 'ClientName', 'ClientUpdate', 'ClientDelete', 'UpdateChild'],
+                colModel: [
+                    {name: 'ClientId', width: 450},
+                    {name: 'ClientName', width: 250},
+                    {name: 'ClientUpdate', formatter: clientUpdateButton, width: 80, align: 'center'},
+                    {name: 'ClientDelete', formatter: clientDeleteButton, width: 80, align: 'center'},
+                    {name: 'UpdateChild', formatter: clientChildButton, width: 150, align: 'center'}],
+                loadComplete: function (data) {
+                    let rowDataArray = data.rows;
+                    for (let i = 0, j = rowDataArray.length; i < j; i++) {
+                        let temp = rowDataArray[i];
+                        var grid = $("#Client");
+                        $("#btn_update_" + temp.Id).click(() => {
+                            var cellVal = grid.jqGrid('getCell', temp.Id, 'ClientId');
+                            var baseUrl = "@Html.Raw(Url.Action("UpdateClient", "ManageApi", new { clientId = -1 }))";
+                            location.href = baseUrl.replace('-1', encodeURIComponent(cellVal));
+                        });
+                        $("#btn_delete_" + temp.Id).click(() => {
+                            var cellVal = grid.jqGrid('getCell', temp.Id, 'ClientId');
+                            var baseUrl = "@Html.Raw(Url.Action("DeleteClient", "ManageApi", new { clientId = -1 }))";
+                            location.href = baseUrl.replace('-1', encodeURIComponent(cellVal));
+                        });
+                        $("#btn_child_" + temp.Id).click(() => {
+                            var clientID = grid.jqGrid('getCell', temp.Id, 'ClientId');
+                            var clientName = grid.jqGrid('getCell', temp.Id, 'ClientName');
+                            var baseUrl = "@Html.Raw(Url.Action("ManageClient", "ManageApi", new { clientId = -1, clientName = -2 }))";
+                            location.href = baseUrl.replace('-1', encodeURIComponent(clientID)).replace('-2', clientName);
+                        });
+                    }
+                },
+                caption: 'Clients',
+                footerrow: true,
+                userDataOnFooter: true,
+                jsonReader: {repeatitems: false, id: 'Id'},
+                pager: $('#ClientPager'),
+                rowNum: 10,
+                viewrecords: true,
+                height: '100%',
+            });
+
+            function clientUpdateButton(cellvalue, options, rowObject) {
+                return "<button id='btn_update_" + rowObject.Id + "' style='background-color: black;color: white;border: 1px solid #e4e4e4;padding: 5px;border-radius: 3px;cursor: pointer;'>Update</button>"
+            }
+
+            function clientDeleteButton(cellvalue, options, rowObject) {
+                return "<button id='btn_delete_" + rowObject.Id + "' style='background-color: black;color: white;border: 1px solid #e4e4e4;padding: 5px;border-radius: 3px;cursor: pointer;'>Delete</button>"
+            }
+
+            function clientChildButton(cellvalue, options, rowObject) {
+                return "<button id='btn_child_" + rowObject.Id + "' style='background-color: black;color: white;border: 1px solid #e4e4e4;padding: 5px;border-radius: 3px;cursor: pointer;'>ManageChildEntries</button>"
+            }
+        });
+    </script>
+}

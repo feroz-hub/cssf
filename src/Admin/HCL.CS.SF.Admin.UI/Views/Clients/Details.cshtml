@@ -1,0 +1,667 @@
+@model HCL.CS.SF.Admin.UI.Models.Api.ClientsModel
+
+@{
+    var allScopes = ViewBag.AllScopes as List<HCL.CS.SF.Admin.UI.Models.Api.ApiScopesModel> ?? new();
+    var appTypeLabel = Model.ApplicationType switch
+    {
+        "1" => "Web Application",
+        "2" => "Single Page Application (SPA)",
+        "3" => "Native / Mobile",
+        "4" => "Machine / Service",
+        _ => Model.ApplicationType ?? "Unknown"
+    };
+}
+
+<!-- Page Header -->
+<div class="hcl-page-header" style="margin-bottom: 2rem;">
+    <div style="display: flex; align-items: center; gap: 1rem;">
+        <div style="width: 56px; height: 56px; border-radius: 0.75rem; background: var(--hcl-bg-tertiary); display: flex; align-items: center; justify-content: center;">
+            @if (!string.IsNullOrEmpty(Model.LogoUri))
+            {
+                <img src="@Model.LogoUri" alt="" style="width: 36px; height: 36px; border-radius: 0.5rem;" />
+            }
+            else
+            {
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28" style="color: var(--hcl-text-tertiary);"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            }
+        </div>
+        <div>
+            <h1 class="hcl-page-title">
+                <span class="hcl-gradient-text">@(Model.ClientName ?? "Unnamed Client")</span>
+            </h1>
+            <p style="color: var(--hcl-text-secondary); font-size: 0.875rem;">
+                <code style="background: var(--hcl-bg-tertiary); padding: 0.125rem 0.375rem; border-radius: 0.25rem; font-size: 0.8rem; cursor: pointer;" onclick="HCL.copyToClipboard('@Model.ClientId')" title="Click to copy">@Model.ClientId</code>
+                &middot; @appTypeLabel
+            </p>
+        </div>
+    </div>
+    <div class="hcl-page-actions">
+        <a href="/Admin/Clients" class="hcl-btn hcl-btn-sm" style="background: var(--hcl-bg-tertiary); color: var(--hcl-text-secondary); border: 1px solid var(--hcl-border);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+            Back to Clients
+        </a>
+    </div>
+</div>
+
+<!-- Tabs -->
+<div class="hcl-tabs" style="margin-bottom: 1.5rem;">
+    <button class="hcl-tab active" onclick="switchTab('general', this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        General
+    </button>
+    <button class="hcl-tab" onclick="switchTab('auth', this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Authentication
+    </button>
+    <button class="hcl-tab" onclick="switchTab('scopes', this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Scopes
+    </button>
+    <button class="hcl-tab" onclick="switchTab('tokens', this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Token Lifetimes
+    </button>
+    <button class="hcl-tab" onclick="switchTab('advanced', this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        Advanced
+    </button>
+</div>
+
+<!-- Tab 1: General -->
+<div class="tab-panel" id="tab-general">
+    <div class="hcl-card hcl-glass">
+        <div style="padding: 1.5rem;">
+            <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 1.25rem; color: var(--hcl-text-primary);">General Settings</h3>
+            <form id="generalForm" onsubmit="return false;">
+                <div class="hcl-grid hcl-grid-2">
+                    <div class="hcl-form-group">
+                        <label class="hcl-label">Client Name <span style="color: #ef4444;">*</span></label>
+                        <input type="text" class="hcl-input" id="gen_clientName" value="@Model.ClientName" />
+                    </div>
+                    <div class="hcl-form-group">
+                        <label class="hcl-label">Application Type</label>
+                        <select class="hcl-input" id="gen_appType">
+                            @{ var appType = Model.ApplicationType ?? "1"; }
+                            <option value="1" selected="@(appType == "1")">Web Application</option>
+                            <option value="2" selected="@(appType == "2")">Single Page Application (SPA)</option>
+                            <option value="3" selected="@(appType == "3")">Native / Mobile</option>
+                            <option value="4" selected="@(appType == "4")">Machine / Service</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="hcl-grid hcl-grid-2">
+                    <div class="hcl-form-group">
+                        <label class="hcl-label">Client URI</label>
+                        <input type="url" class="hcl-input" id="gen_clientUri" value="@Model.ClientUri" placeholder="https://myapp.example.com" />
+                    </div>
+                    <div class="hcl-form-group">
+                        <label class="hcl-label">Logo URI</label>
+                        <input type="url" class="hcl-input" id="gen_logoUri" value="@Model.LogoUri" placeholder="https://myapp.example.com/logo.png" />
+                    </div>
+                </div>
+                <div class="hcl-grid hcl-grid-2">
+                    <div class="hcl-form-group">
+                        <label class="hcl-label">Terms of Service URI</label>
+                        <input type="url" class="hcl-input" id="gen_termsUri" value="@Model.TermsOfServiceUri" placeholder="https://myapp.example.com/terms" />
+                    </div>
+                    <div class="hcl-form-group">
+                        <label class="hcl-label">Policy URI</label>
+                        <input type="url" class="hcl-input" id="gen_policyUri" value="@Model.PolicyUri" placeholder="https://myapp.example.com/privacy" />
+                    </div>
+                </div>
+                <div style="display: flex; justify-content: flex-end; margin-top: 1rem;">
+                    <button class="hcl-btn hcl-btn-primary" onclick="saveGeneral()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                        Save General
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Tab 2: Authentication -->
+<div class="tab-panel" id="tab-auth" style="display: none;">
+    <div class="hcl-grid hcl-grid-2">
+        <!-- Grant Types & PKCE -->
+        <div class="hcl-card hcl-glass">
+            <div style="padding: 1.5rem;">
+                <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 1.25rem; color: var(--hcl-text-primary);">Grant Types &amp; PKCE</h3>
+                <div class="hcl-form-group">
+                    <label class="hcl-label">Supported Grant Types</label>
+                    <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: 0.375rem;">
+                        <label class="hcl-checkbox"><input type="checkbox" id="auth_grant_authcode" value="authorization_code" @(Model.SupportedGrantTypes.Contains("authorization_code") ? "checked" : "") /> Authorization Code</label>
+                        <label class="hcl-checkbox"><input type="checkbox" id="auth_grant_clientcred" value="client_credentials" @(Model.SupportedGrantTypes.Contains("client_credentials") ? "checked" : "") /> Client Credentials</label>
+                        <label class="hcl-checkbox"><input type="checkbox" id="auth_grant_refresh" value="refresh_token" @(Model.SupportedGrantTypes.Contains("refresh_token") ? "checked" : "") /> Refresh Token</label>
+                        <label class="hcl-checkbox"><input type="checkbox" id="auth_grant_password" value="password" @(Model.SupportedGrantTypes.Contains("password") ? "checked" : "") /> Resource Owner Password</label>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: var(--hcl-bg-tertiary); border-radius: 0.5rem; margin-top: 1rem;">
+                    <div>
+                        <div style="font-weight: 500; color: var(--hcl-text-primary);">Require PKCE</div>
+                        <div style="font-size: 0.8rem; color: var(--hcl-text-tertiary);">Proof Key for Code Exchange</div>
+                    </div>
+                    <label class="hcl-checkbox" style="margin: 0;"><input type="checkbox" id="auth_requirePkce" @(Model.RequirePkce ? "checked" : "") /></label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Client Secret -->
+        <div class="hcl-card hcl-glass">
+            <div style="padding: 1.5rem;">
+                <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 1.25rem; color: var(--hcl-text-primary);">Client Secret</h3>
+                <div style="padding: 1rem; background: var(--hcl-bg-tertiary); border-radius: 0.5rem; margin-bottom: 1rem;">
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <code style="flex: 1; font-size: 0.8rem; color: var(--hcl-text-secondary); word-break: break-all;" id="secretDisplay">@(Model.ClientSecret != null ? "************************************" : "No secret configured")</code>
+                        @if (Model.ClientSecret != null)
+                        {
+                            <button class="hcl-btn-icon" onclick="toggleSecretVisibility()" title="Toggle visibility" id="secretToggleBtn" style="flex-shrink: 0;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                            </button>
+                            <button class="hcl-btn-icon" onclick="HCL.copyToClipboard(clientSecret)" title="Copy secret" style="flex-shrink: 0;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                            </button>
+                        }
+                    </div>
+                </div>
+                <button class="hcl-btn hcl-btn-secondary hcl-btn-sm" onclick="rotateSecret()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                    Rotate Secret
+                </button>
+                <div class="hcl-card" id="newSecretAlert" style="display: none; margin-top: 1rem; padding: 1rem; background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3); border-radius: 0.5rem;">
+                    <div style="font-weight: 600; color: #22c55e; margin-bottom: 0.5rem;">New Secret Generated</div>
+                    <p style="font-size: 0.8rem; color: var(--hcl-text-secondary); margin-bottom: 0.5rem;">Copy this secret now. It will not be shown again in full.</p>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <code style="flex: 1; font-size: 0.8rem; color: var(--hcl-text-primary); word-break: break-all; background: var(--hcl-bg-tertiary); padding: 0.5rem; border-radius: 0.25rem;" id="newSecretValue"></code>
+                        <button class="hcl-btn hcl-btn-sm hcl-btn-primary" onclick="HCL.copyToClipboard(document.getElementById('newSecretValue').textContent)">Copy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Redirect URIs -->
+    <div class="hcl-grid hcl-grid-2" style="margin-top: 1rem;">
+        <div class="hcl-card hcl-glass">
+            <div style="padding: 1.5rem;">
+                <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 1.25rem; color: var(--hcl-text-primary);">Redirect URIs</h3>
+                <div id="auth_redirectUris">
+                    @if (Model.RedirectUris.Any())
+                    {
+                        foreach (var uri in Model.RedirectUris)
+                        {
+                            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;" class="uri-row">
+                                <input type="url" class="hcl-input" value="@uri.RedirectUri" style="flex: 1;" />
+                                <button type="button" class="hcl-btn hcl-btn-danger hcl-btn-sm" onclick="this.parentElement.remove()" style="flex-shrink: 0;">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                                </button>
+                            </div>
+                        }
+                    }
+                </div>
+                <button type="button" class="hcl-btn hcl-btn-ghost hcl-btn-sm" onclick="addUriRow('auth_redirectUris', 'https://myapp.example.com/callback')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    Add URI
+                </button>
+            </div>
+        </div>
+
+        <div class="hcl-card hcl-glass">
+            <div style="padding: 1.5rem;">
+                <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 1.25rem; color: var(--hcl-text-primary);">Post-Logout Redirect URIs</h3>
+                <div id="auth_postLogoutUris">
+                    @if (Model.PostLogoutRedirectUris.Any())
+                    {
+                        foreach (var uri in Model.PostLogoutRedirectUris)
+                        {
+                            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;" class="uri-row">
+                                <input type="url" class="hcl-input" value="@uri.PostLogoutRedirectUri" style="flex: 1;" />
+                                <button type="button" class="hcl-btn hcl-btn-danger hcl-btn-sm" onclick="this.parentElement.remove()" style="flex-shrink: 0;">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                                </button>
+                            </div>
+                        }
+                    }
+                </div>
+                <button type="button" class="hcl-btn hcl-btn-ghost hcl-btn-sm" onclick="addUriRow('auth_postLogoutUris', 'https://myapp.example.com/signout')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    Add URI
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div style="display: flex; justify-content: flex-end; margin-top: 1rem;">
+        <button class="hcl-btn hcl-btn-primary" onclick="saveAuth()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+            Save Authentication
+        </button>
+    </div>
+</div>
+
+<!-- Tab 3: Scopes -->
+<div class="tab-panel" id="tab-scopes" style="display: none;">
+    <div class="hcl-card hcl-glass">
+        <div style="padding: 1.5rem;">
+            <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 1.25rem; color: var(--hcl-text-primary);">Allowed Scopes</h3>
+
+            <!-- Current scopes -->
+            <div id="currentScopesList" style="margin-bottom: 1.5rem;">
+                @if (Model.AllowedScopes.Any())
+                {
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                        @foreach (var scope in Model.AllowedScopes)
+                        {
+                            <div class="scope-tag" data-scope="@scope" style="display: inline-flex; align-items: center; gap: 0.375rem; padding: 0.375rem 0.75rem; background: var(--hcl-bg-tertiary); border: 1px solid var(--hcl-border); border-radius: 0.375rem;">
+                                <span style="font-size: 0.8rem; font-weight: 500; color: var(--hcl-text-primary);">@scope</span>
+                                <button class="hcl-btn-icon" onclick="removeScope(this, '@scope')" style="width: 18px; height: 18px; font-size: 0.7rem; color: var(--hcl-text-tertiary);">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                                </button>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <p style="color: var(--hcl-text-tertiary); font-size: 0.875rem;">No scopes configured.</p>
+                }
+            </div>
+
+            <!-- Add scope -->
+            <div style="border-top: 1px solid var(--hcl-border); padding-top: 1.25rem;">
+                <label class="hcl-label" style="margin-bottom: 0.5rem;">Add Scope</label>
+                <div style="display: flex; gap: 0.5rem;">
+                    <select class="hcl-input" id="addScopeSelect" style="flex: 1;">
+                        <option value="">-- Select a scope --</option>
+                        @foreach (var scope in allScopes)
+                        {
+                            if (!Model.AllowedScopes.Contains(scope.Name))
+                            {
+                                <option value="@scope.Name">@(scope.DisplayName ?? scope.Name)</option>
+                            }
+                        }
+                        <option value="openid">openid</option>
+                        <option value="profile">profile</option>
+                        <option value="email">email</option>
+                        <option value="offline_access">offline_access</option>
+                    </select>
+                    <button class="hcl-btn hcl-btn-primary hcl-btn-sm" onclick="addScope()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        Add
+                    </button>
+                </div>
+                <div style="margin-top: 0.75rem;">
+                    <label class="hcl-label" style="margin-bottom: 0.375rem;">Or enter custom scope</label>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <input type="text" class="hcl-input" id="customScopeInput" placeholder="custom.scope.name" style="flex: 1;" />
+                        <button class="hcl-btn hcl-btn-secondary hcl-btn-sm" onclick="addCustomScope()">Add Custom</button>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; margin-top: 1.5rem;">
+                <button class="hcl-btn hcl-btn-primary" onclick="saveScopes()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                    Save Scopes
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Tab 4: Token Lifetimes -->
+<div class="tab-panel" id="tab-tokens" style="display: none;">
+    <div class="hcl-card hcl-glass">
+        <div style="padding: 1.5rem;">
+            <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 1.25rem; color: var(--hcl-text-primary);">Token Lifetimes</h3>
+            <p style="color: var(--hcl-text-tertiary); font-size: 0.8rem; margin-bottom: 1.25rem;">All values are in seconds.</p>
+            <div class="hcl-grid hcl-grid-2">
+                <div class="hcl-form-group">
+                    <label class="hcl-label">Access Token Lifetime</label>
+                    <input type="number" class="hcl-input" id="tok_access" value="@Model.AccessTokenExpiration" min="0" />
+                    <small style="color: var(--hcl-text-tertiary); font-size: 0.75rem;">Default: 3600 (1 hour)</small>
+                </div>
+                <div class="hcl-form-group">
+                    <label class="hcl-label">Refresh Token Lifetime</label>
+                    <input type="number" class="hcl-input" id="tok_refresh" value="@Model.RefreshTokenExpiration" min="0" />
+                    <small style="color: var(--hcl-text-tertiary); font-size: 0.75rem;">Default: 2592000 (30 days)</small>
+                </div>
+                <div class="hcl-form-group">
+                    <label class="hcl-label">Identity Token Lifetime</label>
+                    <input type="number" class="hcl-input" id="tok_identity" value="@Model.IdentityTokenExpiration" min="0" />
+                    <small style="color: var(--hcl-text-tertiary); font-size: 0.75rem;">Default: 300 (5 minutes)</small>
+                </div>
+                <div class="hcl-form-group">
+                    <label class="hcl-label">Logout Token Lifetime</label>
+                    <input type="number" class="hcl-input" id="tok_logout" value="@Model.LogoutTokenExpiration" min="0" />
+                    <small style="color: var(--hcl-text-tertiary); font-size: 0.75rem;">Default: 300 (5 minutes)</small>
+                </div>
+                <div class="hcl-form-group">
+                    <label class="hcl-label">Authorization Code Lifetime</label>
+                    <input type="number" class="hcl-input" id="tok_authcode" value="@Model.AuthorizationCodeExpiration" min="0" />
+                    <small style="color: var(--hcl-text-tertiary); font-size: 0.75rem;">Default: 300 (5 minutes)</small>
+                </div>
+            </div>
+            <div style="display: flex; justify-content: flex-end; margin-top: 1rem;">
+                <button class="hcl-btn hcl-btn-primary" onclick="saveTokens()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                    Save Token Lifetimes
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Tab 5: Advanced -->
+<div class="tab-panel" id="tab-advanced" style="display: none;">
+    <div class="hcl-grid hcl-grid-2">
+        <div class="hcl-card hcl-glass">
+            <div style="padding: 1.5rem;">
+                <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 1.25rem; color: var(--hcl-text-primary);">Access Settings</h3>
+
+                <div style="display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: var(--hcl-bg-tertiary); border-radius: 0.5rem; margin-bottom: 0.75rem;">
+                    <div>
+                        <div style="font-weight: 500; color: var(--hcl-text-primary);">Allow Offline Access</div>
+                        <div style="font-size: 0.8rem; color: var(--hcl-text-tertiary);">Enable refresh token support</div>
+                    </div>
+                    <label class="hcl-checkbox" style="margin: 0;"><input type="checkbox" id="adv_offlineAccess" @(Model.AllowOfflineAccess ? "checked" : "") /></label>
+                </div>
+
+                <div style="display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: var(--hcl-bg-tertiary); border-radius: 0.5rem; margin-bottom: 0.75rem;">
+                    <div>
+                        <div style="font-weight: 500; color: var(--hcl-text-primary);">Allow Access Tokens via Browser</div>
+                        <div style="font-size: 0.8rem; color: var(--hcl-text-tertiary);">Transmit tokens in browser responses</div>
+                    </div>
+                    <label class="hcl-checkbox" style="margin: 0;"><input type="checkbox" id="adv_browserTokens" @(Model.AllowAccessTokensViaBrowser ? "checked" : "") /></label>
+                </div>
+
+                <div style="display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: var(--hcl-bg-tertiary); border-radius: 0.5rem;">
+                    <div>
+                        <div style="font-weight: 500; color: var(--hcl-text-primary);">First Party Application</div>
+                        <div style="font-size: 0.8rem; color: var(--hcl-text-tertiary);">Skip consent screen for trusted apps</div>
+                    </div>
+                    <label class="hcl-checkbox" style="margin: 0;"><input type="checkbox" id="adv_firstParty" @(Model.IsFirstPartyApp ? "checked" : "") /></label>
+                </div>
+            </div>
+        </div>
+
+        <div class="hcl-card hcl-glass">
+            <div style="padding: 1.5rem;">
+                <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 1.25rem; color: var(--hcl-text-primary);">Logout Settings</h3>
+
+                <div class="hcl-form-group">
+                    <label class="hcl-label">Front-Channel Logout URI</label>
+                    <input type="url" class="hcl-input" id="adv_frontLogoutUri" value="@Model.FrontChannelLogoutUri" placeholder="https://myapp.example.com/signout-oidc" />
+                </div>
+                <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem; background: var(--hcl-bg-tertiary); border-radius: 0.5rem; margin-bottom: 1rem;">
+                    <span style="font-size: 0.8rem; color: var(--hcl-text-secondary);">Session Required</span>
+                    <label class="hcl-checkbox" style="margin: 0;"><input type="checkbox" id="adv_frontSessionReq" @(Model.FrontChannelLogoutSessionRequired ? "checked" : "") /></label>
+                </div>
+
+                <div class="hcl-form-group">
+                    <label class="hcl-label">Back-Channel Logout URI</label>
+                    <input type="url" class="hcl-input" id="adv_backLogoutUri" value="@Model.BackChannelLogoutUri" placeholder="https://myapp.example.com/backchannel-logout" />
+                </div>
+                <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem; background: var(--hcl-bg-tertiary); border-radius: 0.5rem;">
+                    <span style="font-size: 0.8rem; color: var(--hcl-text-secondary);">Session Required</span>
+                    <label class="hcl-checkbox" style="margin: 0;"><input type="checkbox" id="adv_backSessionReq" @(Model.BackChannelLogoutSessionRequired ? "checked" : "") /></label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="display: flex; justify-content: flex-end; margin-top: 1rem;">
+        <button class="hcl-btn hcl-btn-primary" onclick="saveAdvanced()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+            Save Advanced
+        </button>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+    var clientId = '@Model.Id';
+    var clientSecret = '@(Model.ClientSecret ?? "")';
+    var secretVisible = false;
+
+    function switchTab(tabId, btn) {
+        document.querySelectorAll('.tab-panel').forEach(function(p) { p.style.display = 'none'; });
+        document.querySelectorAll('.hcl-tab').forEach(function(t) { t.classList.remove('active'); });
+        document.getElementById('tab-' + tabId).style.display = 'block';
+        btn.classList.add('active');
+    }
+
+    function toggleSecretVisibility() {
+        secretVisible = !secretVisible;
+        var display = document.getElementById('secretDisplay');
+        display.textContent = secretVisible ? clientSecret : '************************************';
+    }
+
+    function addUriRow(containerId, placeholder) {
+        var container = document.getElementById(containerId);
+        var row = document.createElement('div');
+        row.style.cssText = 'display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;';
+        row.className = 'uri-row';
+        row.innerHTML = '<input type="url" class="hcl-input" placeholder="' + placeholder + '" style="flex: 1;" />' +
+            '<button type="button" class="hcl-btn hcl-btn-danger hcl-btn-sm" onclick="this.parentElement.remove()" style="flex-shrink: 0;">' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>';
+        container.appendChild(row);
+    }
+
+    function getUriValues(containerId) {
+        var vals = [];
+        document.querySelectorAll('#' + containerId + ' .uri-row input').forEach(function(input) {
+            var v = input.value.trim();
+            if (v) vals.push(v);
+        });
+        return vals;
+    }
+
+    function collectBasePayload() {
+        return { id: clientId };
+    }
+
+    function handleResult(result, successMsg) {
+        if (result.success) {
+            HCL.toastSuccess(successMsg);
+        } else {
+            var msg = result.errors && result.errors.length > 0
+                ? result.errors.map(function(e) { return e.description || e.code; }).join(', ')
+                : 'Operation failed.';
+            HCL.toastError(msg);
+        }
+    }
+
+    async function saveGeneral() {
+        var name = document.getElementById('gen_clientName').value.trim();
+        if (!name) {
+            HCL.toastError('Client name is required.');
+            return;
+        }
+        var payload = {
+            id: clientId,
+            clientId: '@Model.ClientId',
+            clientName: name,
+            applicationType: document.getElementById('gen_appType').value,
+            clientUri: document.getElementById('gen_clientUri').value.trim() || null,
+            logoUri: document.getElementById('gen_logoUri').value.trim() || null,
+            termsOfServiceUri: document.getElementById('gen_termsUri').value.trim() || null,
+            policyUri: document.getElementById('gen_policyUri').value.trim() || null
+        };
+        try {
+            var result = await HCL.apiRequest('/Admin/Clients/Update', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            handleResult(result, 'General settings saved successfully.');
+        } catch (err) {
+            HCL.toastError('An error occurred while saving.');
+        }
+    }
+
+    async function saveAuth() {
+        var grantTypes = [];
+        if (document.getElementById('auth_grant_authcode').checked) grantTypes.push('authorization_code');
+        if (document.getElementById('auth_grant_clientcred').checked) grantTypes.push('client_credentials');
+        if (document.getElementById('auth_grant_refresh').checked) grantTypes.push('refresh_token');
+        if (document.getElementById('auth_grant_password').checked) grantTypes.push('password');
+
+        var redirectUris = getUriValues('auth_redirectUris').map(function(u) { return { redirectUri: u }; });
+        var postLogoutUris = getUriValues('auth_postLogoutUris').map(function(u) { return { postLogoutRedirectUri: u }; });
+
+        var payload = {
+            id: clientId,
+            clientId: '@Model.ClientId',
+            supportedGrantTypes: grantTypes,
+            requirePkce: document.getElementById('auth_requirePkce').checked,
+            redirectUris: redirectUris,
+            postLogoutRedirectUris: postLogoutUris
+        };
+        try {
+            var result = await HCL.apiRequest('/Admin/Clients/Update', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            handleResult(result, 'Authentication settings saved successfully.');
+        } catch (err) {
+            HCL.toastError('An error occurred while saving.');
+        }
+    }
+
+    function removeScope(btn, scopeName) {
+        var tag = btn.closest('.scope-tag');
+        if (tag) tag.remove();
+    }
+
+    function addScope() {
+        var select = document.getElementById('addScopeSelect');
+        var val = select.value;
+        if (!val) {
+            HCL.toastError('Please select a scope.');
+            return;
+        }
+        appendScopeTag(val);
+        // Remove from select
+        select.querySelector('option[value="' + val + '"]').remove();
+        select.value = '';
+    }
+
+    function addCustomScope() {
+        var input = document.getElementById('customScopeInput');
+        var val = input.value.trim();
+        if (!val) {
+            HCL.toastError('Please enter a scope name.');
+            return;
+        }
+        appendScopeTag(val);
+        input.value = '';
+    }
+
+    function appendScopeTag(scopeName) {
+        var list = document.getElementById('currentScopesList');
+        // Ensure wrapper div exists
+        var wrapper = list.querySelector('div');
+        if (!wrapper) {
+            list.innerHTML = '<div style="display: flex; flex-wrap: wrap; gap: 0.5rem;"></div>';
+            wrapper = list.querySelector('div');
+        }
+        var tag = document.createElement('div');
+        tag.className = 'scope-tag';
+        tag.setAttribute('data-scope', scopeName);
+        tag.style.cssText = 'display: inline-flex; align-items: center; gap: 0.375rem; padding: 0.375rem 0.75rem; background: var(--hcl-bg-tertiary); border: 1px solid var(--hcl-border); border-radius: 0.375rem;';
+        tag.innerHTML = '<span style="font-size: 0.8rem; font-weight: 500; color: var(--hcl-text-primary);">' + scopeName + '</span>' +
+            '<button class="hcl-btn-icon" onclick="removeScope(this, \'' + scopeName + '\')" style="width: 18px; height: 18px; font-size: 0.7rem; color: var(--hcl-text-tertiary);">' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>';
+        wrapper.appendChild(tag);
+    }
+
+    async function saveScopes() {
+        var scopes = [];
+        document.querySelectorAll('#currentScopesList .scope-tag').forEach(function(tag) {
+            scopes.push(tag.getAttribute('data-scope'));
+        });
+        var payload = {
+            id: clientId,
+            clientId: '@Model.ClientId',
+            allowedScopes: scopes
+        };
+        try {
+            var result = await HCL.apiRequest('/Admin/Clients/Update', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            handleResult(result, 'Scopes saved successfully.');
+        } catch (err) {
+            HCL.toastError('An error occurred while saving.');
+        }
+    }
+
+    async function saveTokens() {
+        var payload = {
+            id: clientId,
+            clientId: '@Model.ClientId',
+            accessTokenExpiration: parseInt(document.getElementById('tok_access').value) || 0,
+            refreshTokenExpiration: parseInt(document.getElementById('tok_refresh').value) || 0,
+            identityTokenExpiration: parseInt(document.getElementById('tok_identity').value) || 0,
+            logoutTokenExpiration: parseInt(document.getElementById('tok_logout').value) || 0,
+            authorizationCodeExpiration: parseInt(document.getElementById('tok_authcode').value) || 0
+        };
+        try {
+            var result = await HCL.apiRequest('/Admin/Clients/Update', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            handleResult(result, 'Token lifetimes saved successfully.');
+        } catch (err) {
+            HCL.toastError('An error occurred while saving.');
+        }
+    }
+
+    async function saveAdvanced() {
+        var payload = {
+            id: clientId,
+            clientId: '@Model.ClientId',
+            allowOfflineAccess: document.getElementById('adv_offlineAccess').checked,
+            allowAccessTokensViaBrowser: document.getElementById('adv_browserTokens').checked,
+            isFirstPartyApp: document.getElementById('adv_firstParty').checked,
+            frontChannelLogoutUri: document.getElementById('adv_frontLogoutUri').value.trim() || null,
+            frontChannelLogoutSessionRequired: document.getElementById('adv_frontSessionReq').checked,
+            backChannelLogoutUri: document.getElementById('adv_backLogoutUri').value.trim() || null,
+            backChannelLogoutSessionRequired: document.getElementById('adv_backSessionReq').checked
+        };
+        try {
+            var result = await HCL.apiRequest('/Admin/Clients/Update', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            handleResult(result, 'Advanced settings saved successfully.');
+        } catch (err) {
+            HCL.toastError('An error occurred while saving.');
+        }
+    }
+
+    async function rotateSecret() {
+        var ok = await HCL.confirm('Rotate Client Secret', 'This will invalidate the current client secret and generate a new one. All applications using the current secret will need to be updated. Continue?');
+        if (!ok) return;
+        try {
+            var result = await HCL.apiRequest('/Admin/Clients/GenerateSecret/' + clientId, { method: 'POST' });
+            if (result.success) {
+                HCL.toastSuccess('Client secret rotated successfully.');
+                // Reload to get new masked secret
+                setTimeout(function() { location.reload(); }, 1500);
+            } else {
+                var msg = result.errors && result.errors.length > 0
+                    ? result.errors.map(function(e) { return e.description || e.code; }).join(', ')
+                    : 'Failed to rotate secret.';
+                HCL.toastError(msg);
+            }
+        } catch (err) {
+            HCL.toastError('An error occurred while rotating the secret.');
+        }
+    }
+</script>
+}

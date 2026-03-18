@@ -1,0 +1,94 @@
+﻿<ul class="navbar-nav align-items-sm-center">
+    @if (User?.Identity?.IsAuthenticated == true)
+    {
+        <li class="nav-item">
+            <span class="nav-link">Hello @User.Identity.Name</span>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Profile" asp-action="Index">Profile</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Token" asp-action="Index">Tokens</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Api" asp-action="Index">API Test</a>
+        </li>
+        @if (User.IsInRole("HCL.CS.SFAdmin") || User.IsInRole("HCL.CS.SFUser"))
+        {
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Manage Account</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" asp-controller="ManageAccount" asp-action="UpdateProfile">Update
+                        Profile</a>
+                    <hr class="dropdown-divider"/>
+                    <a class="dropdown-item" asp-controller="ManageAccount" asp-action="TwoFactorAuthentication">Two
+                        Factor Authentication</a>
+                    <hr class="dropdown-divider"/>
+                    <a class="dropdown-item" asp-controller="ManageAccount" asp-action="ChangePassword">Change
+                        Password</a>
+                </div>
+            </li>
+        }
+
+        @if (User.IsInRole("HCL.CS.SFAdmin"))
+        {
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Manage API</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" asp-controller="ManageApi" asp-action="Client">Client</a>
+                    <hr class="dropdown-divider"/>
+                    <a class="dropdown-item" asp-controller="ManageApi" asp-action="ApiResource">API Resource</a>
+                    <hr class="dropdown-divider"/>
+                    <a class="dropdown-item" asp-controller="ManageApi" asp-action="IdentityResource">Identity
+                        Resource</a>
+                    <hr class="dropdown-divider"/>
+                    <a class="dropdown-item" asp-controller="ManageApi" asp-action="Roles">Roles</a>
+                    <hr class="dropdown-divider"/>
+                    <a class="dropdown-item" asp-controller="ManageApi" asp-action="UserRole">User Role</a>
+                </div>
+            </li>
+        }
+
+        <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Endpoint</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" asp-controller="Endpoint" asp-action="AuthorizeEndpoint">Authorize Flow</a>
+                <hr class="dropdown-divider"/>
+                <a class="dropdown-item" asp-controller="Endpoint" asp-action="ResourceOwnerPassword">ROP Flow</a>
+                <hr class="dropdown-divider"/>
+                <a class="dropdown-item" asp-controller="Endpoint" asp-action="ClientCredentailsEndpoint">Client
+                    Credentials Flow</a>
+            </div>
+        </li>
+
+        <li class="nav-item">
+            <form asp-controller="Account" asp-action="Logout" method="post" class="mb-0">
+                <button type="submit" class="nav-link btn btn-link border-0">Logout</button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Account" asp-action="Register">Register</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Account" asp-action="ManuallyVerifyAccount">Verify Account</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Account" asp-action="ResetPassword">Reset Password</a>
+        </li>
+    }
+</ul>

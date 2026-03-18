@@ -1,0 +1,228 @@
+:root {
+    --hcl-blue: #006bb6;
+    --hcl-blue-strong: #0578c3;
+    --hcl-blue-soft: #5fbef0;
+    --hcl-text: #1b1b1b;
+    --hcl-muted: #5e6a77;
+    --hcl-surface: #ffffff;
+    --hcl-surface-alt: #f5f8fb;
+    --hcl-border: #d8e4ef;
+    --hcl-footer: #08345e;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    color: var(--hcl-text);
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background:
+        radial-gradient(circle at top left, rgba(95, 190, 240, 0.18), transparent 24%),
+        linear-gradient(180deg, #f7fbff 0%, #ffffff 58%, #f3f7fb 100%);
+}
+
+a {
+    color: var(--hcl-blue);
+}
+
+a:hover {
+    color: var(--hcl-blue-strong);
+}
+
+.enterprise-navbar {
+    background: rgba(255, 255, 255, 0.97);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--hcl-border);
+    box-shadow: 0 16px 38px rgba(13, 45, 79, 0.08);
+}
+
+.enterprise-navbar .container {
+    min-height: 78px;
+}
+
+.hclsf-navbar-brand {
+    white-space: normal;
+    text-align: left;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
+    line-height: 1.15;
+}
+
+.hclsf-navbar-logo {
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: var(--hcl-blue);
+}
+
+.hclsf-navbar-tagline {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--hcl-muted);
+}
+
+.enterprise-main {
+    flex: 1 0 auto;
+    padding-top: 1.25rem;
+    padding-bottom: 2rem;
+}
+
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.05);
+}
+
+button.accept-policy {
+    font-size: 1rem;
+    line-height: inherit;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: var(--hcl-blue);
+    border-color: var(--hcl-blue);
+}
+
+.btn-primary:hover {
+    background-color: var(--hcl-blue-strong);
+    border-color: var(--hcl-blue-strong);
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: var(--hcl-blue);
+    border-color: var(--hcl-blue);
+}
+
+.hclsf-footer {
+    position: relative;
+    margin-top: auto;
+    padding: 1.35rem 0;
+    background: linear-gradient(135deg, var(--hcl-footer) 0%, #0f4f88 45%, #1266a3 100%);
+    border-top: 1px solid rgba(95, 190, 240, 0.45);
+    box-shadow: 0 -18px 42px rgba(8, 38, 70, 0.18);
+    overflow: hidden;
+}
+
+.hclsf-footer__glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, rgba(95, 190, 240, 0.95), transparent);
+}
+
+.hclsf-footer__inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 1rem 1.5rem;
+}
+
+.hclsf-footer__brand {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+}
+
+.hclsf-footer__logo {
+    font-size: 1.1rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    color: #fff;
+}
+
+.hclsf-footer__tagline {
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.86);
+}
+
+.hclsf-footer__secure {
+    display: inline-flex;
+    align-items: center;
+    justify-self: center;
+    gap: 0.5rem;
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.84);
+}
+
+.hclsf-footer__secure-icon {
+    color: #b9e6fa;
+    display: inline-flex;
+}
+
+.hclsf-footer__links {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    justify-self: end;
+    font-size: 0.82rem;
+    white-space: nowrap;
+}
+
+.hclsf-footer__links a,
+.hclsf-footer__copy {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+}
+
+.hclsf-footer__links a:hover {
+    color: #ffffff;
+}
+
+@media (max-width: 991px) {
+    .hclsf-footer__inner {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        text-align: center;
+    }
+
+    .hclsf-footer__links,
+    .hclsf-footer__secure {
+        justify-self: center;
+    }
+}
+
+@media (max-width: 767px) {
+    .enterprise-main {
+        padding-top: 0.75rem;
+    }
+
+    .enterprise-navbar .container {
+        min-height: 68px;
+    }
+
+    .hclsf-navbar-logo {
+        font-size: 1.15rem;
+    }
+}

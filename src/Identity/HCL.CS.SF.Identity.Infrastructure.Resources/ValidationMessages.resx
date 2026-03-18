@@ -1,0 +1,1163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <!--
+      Microsoft ResX Schema
+
+      Version 2.0
+
+      The primary goals of this format is to allow a simple XML format
+      that is mostly human readable. The generation and parsing of the
+      various data types are done through the TypeConverter classes
+      associated with the data types.
+
+      Example:
+
+      ... ado.net/XML headers & schema ...
+      <resheader name="resmimetype">text/microsoft-resx</resheader>
+      <resheader name="version">2.0</resheader>
+      <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+      <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+      <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+      <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+      <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+          <value>[base64 mime encoded serialized .NET Framework object]</value>
+      </data>
+      <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+          <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+          <comment>This is a comment</comment>
+      </data>
+
+      There are any number of "resheader" rows that contain simple
+      name/value pairs.
+
+      Each data row contains a name, and value. The row also contains a
+      type or mimetype. Type corresponds to a .NET class that support
+      text/value conversion through the TypeConverter architecture.
+      Classes that don't support this are serialized and stored with the
+      mimetype set.
+
+      The mimetype is used for serialized objects, and tells the
+      ResXResourceReader how to depersist the object. This is currently not
+      extensible. For a given mimetype the value must be set accordingly:
+
+      Note - application/x-microsoft.net.object.binary.base64 is the format
+      that the ResXResourceWriter will generate, however the reader can
+      read any of the formats listed below.
+
+      mimetype: application/x-microsoft.net.object.binary.base64
+      value   : The object must be serialized with
+              : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+              : and then encoded with base64 encoding.
+
+      mimetype: application/x-microsoft.net.object.soap.base64
+      value   : The object must be serialized with
+              : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+              : and then encoded with base64 encoding.
+
+      mimetype: application/x-microsoft.net.object.bytearray.base64
+      value   : The object must be serialized into a byte array
+              : using a System.ComponentModel.TypeConverter
+              : and then encoded with base64 encoding.
+      -->
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root"
+                xmlns="">
+        <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+        <xsd:element name="root" msdata:IsDataSet="true">
+            <xsd:complexType>
+                <xsd:choice maxOccurs="unbounded">
+                    <xsd:element name="metadata">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" use="required" type="xsd:string"/>
+                            <xsd:attribute name="type" type="xsd:string"/>
+                            <xsd:attribute name="mimetype" type="xsd:string"/>
+                            <xsd:attribute ref="xml:space"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="assembly">
+                        <xsd:complexType>
+                            <xsd:attribute name="alias" type="xsd:string"/>
+                            <xsd:attribute name="name" type="xsd:string"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="data">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+                            <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+                            <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+                            <xsd:attribute ref="xml:space"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="resheader">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+            </xsd:complexType>
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>2.0</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <data name="ARGUMENT_NULL_ERROR" xml:space="preserve">
+    <value>Parameter is null or invalid.</value>
+  </data>
+    <data name="INVALID_OR_NULL_OBJECT" xml:space="preserve">
+    <value>Notification Object is null or invalid.</value>
+  </data>
+    <data name="EMAIL_REQUIRED" xml:space="preserve">
+    <value>Email is required.</value>
+  </data>
+    <data name="PASSWORD_REQUIRED" xml:space="preserve">
+    <value>Password is required.</value>
+  </data>
+    <data name="INVALID_USERID" xml:space="preserve">
+    <value>User Identifier is invalid.</value>
+  </data>
+    <data name="AUDIT_MODEL_IS_NULL" xml:space="preserve">
+    <value>Audit Model is null.</value>
+  </data>
+    <data name="USER_ACCOUNT_LOCKED" xml:space="preserve">
+    <value>User account is currently locked.</value>
+  </data>
+    <data name="LOGIN_RESTRICTED_TIME" xml:space="preserve">
+    <value>Not permitted to logon at this time.</value>
+  </data>
+    <data name="LOGIN_RESTRICTED_WORKSTATION" xml:space="preserve">
+    <value>Not permitted to logon at this workstation.</value>
+  </data>
+    <data name="PASSWORD_EXPIRED" xml:space="preserve">
+    <value>Password expired. Please change your password.</value>
+  </data>
+    <data name="FROMDATE_GREATER_TODATE" xml:space="preserve">
+    <value>From date cannot be greater than To date.</value>
+  </data>
+    <data name="INVALID_FROM_ADDRESS" xml:space="preserve">
+    <value>From(email) address is null or invalid.</value>
+  </data>
+    <data name="INVALID_TO_ADDRESS" xml:space="preserve">
+    <value>To(email) address is null or invalid.</value>
+  </data>
+    <data name="NO_CONTENT_FOR_EMAIL" xml:space="preserve">
+    <value>Email has no Content.</value>
+  </data>
+    <data name="SMTPSERVER_NOT_CONFIGURED" xml:space="preserve">
+    <value>SMTP server is required in configuration for email notification.</value>
+  </data>
+    <data name="PORT_NOT_CONFIGURED" xml:space="preserve">
+    <value>Port is not configured for email notification.</value>
+  </data>
+    <data name="USERNAME_MISSING_FOR_EMAIL" xml:space="preserve">
+    <value>User name(From) is not configured for Email.</value>
+  </data>
+    <data name="PASSWORD_MISSING_FOR_EMAIL" xml:space="preserve">
+    <value>Password is not configured for Email.</value>
+  </data>
+    <data name="TONUMBER_MISSING_FOR_SMS" xml:space="preserve">
+    <value>To (Phone Number) is required in the configuration for SMS</value>
+  </data>
+    <data name="NO_CONTENT_FOR_SMS" xml:space="preserve">
+    <value>SMS has no Content.</value>
+  </data>
+    <data name="USERNAME_MISSING_FOR_SMS" xml:space="preserve">
+    <value>User name(From) is not configured for SMS.</value>
+  </data>
+    <data name="PASSWORD_MISSING_FOR_SMS" xml:space="preserve">
+    <value>Password is not configured for SMS.</value>
+  </data>
+    <data name="FROMNUMBER_MISSING_FOR_SMS" xml:space="preserve">
+    <value>From (Phone Number) is not configured for SMS.</value>
+  </data>
+    <data name="USER_EXISTS" xml:space="preserve">
+    <value>User already exists</value>
+  </data>
+    <data name="INVALID_TWOFACTOR_TOKEN_PROVIDED" xml:space="preserve">
+    <value>Two Factor Token is null or invalid.</value>
+  </data>
+    <data name="TEMPLATE_NOT_EXISTS" xml:space="preserve">
+    <value>Template does not exists.</value>
+  </data>
+    <data name="SECURITYQUESTION_EXISTS" xml:space="preserve">
+    <value>Security question already exists.</value>
+  </data>
+    <data name="SECURITYQUESTION_ANSWER_MISMATCH" xml:space="preserve">
+    <value>Answer does not match the security question.</value>
+  </data>
+    <data name="USER_SECURITYQUESTION_EXISTS" xml:space="preserve">
+    <value>Security question already exists</value>
+  </data>
+    <data name="INVALID_PURPOSE" xml:space="preserve">
+    <value>Purpose for Token is null or invalid.</value>
+  </data>
+    <data name="INVALID_TWOFACTOR_TYPE" xml:space="preserve">
+    <value>Two Factor Type cannot be none when TwoFactorEnabled is true.</value>
+  </data>
+    <data name="TWOFACTOR_NOT_ENABLED" xml:space="preserve">
+    <value>Two factor is not enabled for user.</value>
+  </data>
+    <data name="INVALID_LDAP_USERNAME_OR_PASSWORD" xml:space="preserve">
+    <value>LDAP username or password is invalid.</value>
+  </data>
+    <data name="INVALID_LDAP_HOSTNAME" xml:space="preserve">
+    <value>LDAP Hostname is null or invalid.</value>
+  </data>
+    <data name="INVALID_LDAP_PORT" xml:space="preserve">
+    <value>LDAP Port is null or invalid.</value>
+  </data>
+    <data name="ROLE_ALREADY_EXISTS" xml:space="preserve">
+    <value>Role already exists</value>
+  </data>
+    <data name="ROLE_HAS_USERS" xml:space="preserve">
+    <value>Role is assigned to users.</value>
+  </data>
+    <data name="PASSWORD_PATTERN_NOT_MATCHED" xml:space="preserve">
+    <value>Password specified does not match with required pattern.</value>
+  </data>
+    <data name="PASSWORD_REQUIRED_LOWERCASE" xml:space="preserve">
+    <value>Password should contain at least one lower case letter.</value>
+  </data>
+    <data name="PASSWORD_REQUIRED_UPPERCASE" xml:space="preserve">
+    <value>Password should contain at least one upper case letter.</value>
+  </data>
+    <data name="INVALID_PASSWORD_LENGTH" xml:space="preserve">
+    <value>Length of password is invalid.</value>
+  </data>
+    <data name="PASSWORD_REQUIRED_NUMERIC" xml:space="preserve">
+    <value>Password should contain at least one numeric value.</value>
+  </data>
+    <data name="PASSWORD_REQUIRED_SPECIALCHAR" xml:space="preserve">
+    <value>Password should contain at least one special case character.</value>
+  </data>
+    <data name="INVALID_CURRENTPASSWORD" xml:space="preserve">
+    <value>Current Password is invalid or null.</value>
+  </data>
+    <data name="INVALID_NEWPASSWORD" xml:space="preserve">
+    <value>New Password is null or invalid.</value>
+  </data>
+    <data name="PASSWORD_MISMATCH" xml:space="preserve">
+    <value>Password mismatched.</value>
+  </data>
+    <data name="PASSWORD_SAME" xml:space="preserve">
+    <value>Current password and new password should not be same.</value>
+  </data>
+    <data name="PASSWORD_ALREADY_USED" xml:space="preserve">
+    <value>Password should not be from previously used list.</value>
+  </data>
+    <data name="PASSWORD_ABOUT_TO_EXPIRE" xml:space="preserve">
+    <value>Password about to expire in {0} day(s).</value>
+  </data>
+    <data name="INVALID_USERNAME" xml:space="preserve">
+    <value>Username is null or invalid.</value>
+  </data>
+    <data name="INVALID_USERNAME_LENGTH" xml:space="preserve">
+    <value>Length of Username exceeded maximum character limit.</value>
+  </data>
+    <data name="FIRSTNAME_REQUIRED" xml:space="preserve">
+    <value>First name is required.</value>
+  </data>
+    <data name="INVALID_FIRST_NAME_LENGTH" xml:space="preserve">
+    <value>Length of first name is invalid.</value>
+  </data>
+    <data name="INVALID_EMAIL_FORMAT" xml:space="preserve">
+    <value>User Email Format is invalid.</value>
+  </data>
+    <data name="INVALID_PHONENUMBER_LENGTH" xml:space="preserve">
+    <value>Length of Phonenumber is invalid.</value>
+  </data>
+    <data name="LASTNAME_REQUIRED" xml:space="preserve">
+    <value>Last Name is required.</value>
+  </data>
+    <data name="PHONENUMBER_REQUIRED" xml:space="preserve">
+    <value>PhoneNumber is a required field.</value>
+  </data>
+    <data name="DOB_REQUIRED" xml:space="preserve">
+    <value>The date of birth is required.</value>
+  </data>
+    <data name="INVALID_DOB" xml:space="preserve">
+    <value>Date of Birth is invalid.</value>
+  </data>
+    <data name="INVALID_SECURITYQUESTION_COUNT" xml:space="preserve">
+    <value>User should select atleast {0} security questions.</value>
+  </data>
+    <data name="UNIQUE_SECURITYQUESTION" xml:space="preserve">
+    <value>Security question already exists.</value>
+  </data>
+    <data name="CLIENT_NAME_REQUIRED" xml:space="preserve">
+    <value>Client name is required.</value>
+  </data>
+    <data name="INVALID_LOGO_URI" xml:space="preserve">
+    <value>Logo URI is null or invalid.</value>
+  </data>
+    <data name="INVALID_CLIENT_URI" xml:space="preserve">
+    <value>Client URI is invalid.</value>
+  </data>
+    <data name="INVALID_POLICY_URI" xml:space="preserve">
+    <value>Policy URI is null or invalid.</value>
+  </data>
+    <data name="INVALID_REDIRECT_URI" xml:space="preserve">
+    <value>Redirect URI value is null or invalid.</value>
+  </data>
+    <data name="INVALID_POSTLOGOUT_REDIRECT_URI" xml:space="preserve">
+    <value>Post Redirect URI is null or invalid.</value>
+  </data>
+    <data name="CLIENT_DOES_NOT_EXIST" xml:space="preserve">
+    <value>Client does not exist.</value>
+  </data>
+    <data name="USER_CLAIMS_EXISTS" xml:space="preserve">
+    <value>User claims already exists.</value>
+  </data>
+    <data name="LOGIN_REMAINING_ATTEMPTS" xml:space="preserve">
+    <value>Login failed. {0} login attempt(s) left.</value>
+  </data>
+    <data name="LOGIN_NOT_ALLOWED" xml:space="preserve">
+    <value>Login not allowed, Please verify Email, Phone number, Account are verified.</value>
+  </data>
+    <data name="APIRESOURCE_ALREADY_EXISTS" xml:space="preserve">
+    <value>Api Resource  already exists.</value>
+  </data>
+    <data name="CLIENT_ID_TOO_LONG" xml:space="preserve">
+    <value>Length of Client Identifier exceeded maximum character limit.</value>
+  </data>
+    <data name="CLIENT_NOT_CONFIGURED_FOR_ACCESSTOKEN" xml:space="preserve">
+    <value>Client not configured to receive access tokens via browser.</value>
+  </data>
+    <data name="INVALID_CODE_CHALLENGE" xml:space="preserve">
+    <value>Authorize Code Challenge is invalid.</value>
+  </data>
+    <data name="INVALID_GRANTTYPE_FOR_CLIENT" xml:space="preserve">
+    <value>Given Grant Type is not allowed for the Client.</value>
+  </data>
+    <data name="INVALID_MAX_AGE" xml:space="preserve">
+    <value>Authorize Request Max Age is null or invalid.</value>
+  </data>
+    <data name="INVALID_NONCE" xml:space="preserve">
+    <value>Nonce is null or invalid.</value>
+  </data>
+    <data name="INVALID_PROMPT" xml:space="preserve">
+    <value>Authorize Prompt is null or invalid.</value>
+  </data>
+    <data name="INVALID_RESPONSE_MODE" xml:space="preserve">
+    <value>Response mode is invalid or unsupported for grant type.</value>
+  </data>
+    <data name="JWT_REQUEST_URI_NOT_SUPPORTED" xml:space="preserve">
+    <value>JWT_Request and JWT_Request_URI is not supported.</value>
+  </data>
+    <data name="MUST_INCLUDE_IDENTITY_SCOPES" xml:space="preserve">
+    <value>Requests for id_token response type must include identity scopes.</value>
+  </data>
+    <data name="MUST_INCLUDE_RESOURCE_SCOPES" xml:space="preserve">
+    <value>Requests for token response type must include resource scopes and not identity scopes.</value>
+  </data>
+    <data name="MUST_NOT_INCLUDE_RESOURCE_SCOPES" xml:space="preserve">
+    <value>Requests for id_token response type must not include resource scopes.</value>
+  </data>
+    <data name="NO_ACTIVE_USER_SESSION" xml:space="preserve">
+    <value>No Active User Session.</value>
+  </data>
+    <data name="OPEN_ID_SCOPE_MISSING" xml:space="preserve">
+    <value>Identity scopes requested, but openid scope is missing.</value>
+  </data>
+    <data name="REDIRECT_URI_TOO_LONG" xml:space="preserve">
+    <value>Length of redirect uri exceeded the maximum character limit.</value>
+  </data>
+    <data name="REQUEST_SCOPE_NOT_ALLOWED" xml:space="preserve">
+    <value>One or more requested scope(s) are not allowed for the client.</value>
+  </data>
+    <data name="REQUIRES_OPEN_ID_SCOPE" xml:space="preserve">
+    <value>Response type requires openid scope.</value>
+  </data>
+    <data name="RESPONSE_TYPE_MISSING" xml:space="preserve">
+    <value>Response type is missing or not supported.</value>
+  </data>
+    <data name="INVALID_GRANTTYPE_FOR_ENDPOINT" xml:space="preserve">
+    <value>Given Grant Type is not allowed for Authorize Endpoint.</value>
+  </data>
+    <data name="SCOPE_MISSING" xml:space="preserve">
+    <value>Scope is null.</value>
+  </data>
+    <data name="SCOPE_TOO_LONG" xml:space="preserve">
+    <value>Length of scope exceeded the maximum character limit.</value>
+  </data>
+    <data name="URI_LENGTH_TOO_LONG" xml:space="preserve">
+    <value>Length of URI exceeded maximum character limit.</value>
+  </data>
+    <data name="INVALID_TOKEN_IN_INTROSPECTION" xml:space="preserve">
+    <value>Token in Introspection is null or invalid.</value>
+  </data>
+    <data name="INVALID_TOKEN_HINT_TYPE" xml:space="preserve">
+    <value>Token Hint Type is null or invalid.</value>
+  </data>
+    <data name="TOKEN_EXPIRED" xml:space="preserve">
+    <value>Token has expired.</value>
+  </data>
+    <data name="AUTH_CODE_EXPIRED" xml:space="preserve">
+    <value>Authorization code has expired.</value>
+  </data>
+    <data name="AUTH_CODE_MISSING" xml:space="preserve">
+    <value>Authorization code is missing in the request.</value>
+  </data>
+    <data name="AUTH_CODE_SCOPE_ERROR" xml:space="preserve">
+    <value>Authorization code has no associated scopes.</value>
+  </data>
+    <data name="AUTH_CODE_TOO_LONG" xml:space="preserve">
+    <value>Length of Authorization code exceeded maximum character limit.</value>
+  </data>
+    <data name="CLIENT_MISSING_CODE_CHALLENGE" xml:space="preserve">
+    <value>Code Challenge for the client is required.</value>
+  </data>
+    <data name="CLIENT_MISSING_CODE_CHALLENGE_METHOD" xml:space="preserve">
+    <value>Code Challenge method for the client is required.</value>
+  </data>
+    <data name="CLIENT_NOTAUTHORIZED_GRANT_TYPE" xml:space="preserve">
+    <value>Client not authorized. Please check the supported grant types for client.</value>
+  </data>
+    <data name="CODE_VERIFIER_MISSING" xml:space="preserve">
+    <value>Code verifier is missing in the token request.</value>
+  </data>
+    <data name="CODE_VERIFIER_TOO_LONG" xml:space="preserve">
+    <value>Length of Code verifier exceeded maximum character limit.</value>
+  </data>
+    <data name="CODE_VERIFIER_TOO_SHORT" xml:space="preserve">
+    <value>Length of Code verifier is below minimum character limit.</value>
+  </data>
+    <data name="GRANT_TYPE_MISSING" xml:space="preserve">
+    <value>Grant type is missing in the request.</value>
+  </data>
+    <data name="GRANT_TYPE_TOO_LONG" xml:space="preserve">
+    <value>Length of Grant Type exceeded maximum character limit.</value>
+  </data>
+    <data name="INVALID_AUTH_CODE" xml:space="preserve">
+    <value>Authorization code is invalid.</value>
+  </data>
+    <data name="INVALID_CLIENT_BINDING" xml:space="preserve">
+    <value>Client not authorized to use this authorization code.</value>
+  </data>
+    <data name="OPEN_ID_SCOPE_NOT_ALLOWED" xml:space="preserve">
+    <value>Client cannot request openid scopes in client credentials flow.</value>
+  </data>
+    <data name="PASSWORD_TOO_LONG" xml:space="preserve">
+    <value>Length of Password exceeded maximum character limit.</value>
+  </data>
+    <data name="REDIRECT_URI_MISSING" xml:space="preserve">
+    <value>The redirect uri is null or invalid.</value>
+  </data>
+    <data name="REFRESH_TOKEN_MISSING" xml:space="preserve">
+    <value>Refresh token is null or invalid.</value>
+  </data>
+    <data name="REFRESH_TOKEN_REQUEST_NOT_ALLOWED" xml:space="preserve">
+    <value>Refresh token request not allowed in client credentials flow.</value>
+  </data>
+    <data name="REFRESH_TOKEN_TOO_LONG" xml:space="preserve">
+    <value>Length of refresh token exceeded the maximum character limit.</value>
+  </data>
+    <data name="REFRESH_TOKEN_VALIDATION_FAILED" xml:space="preserve">
+    <value>Refresh token validation failed.</value>
+  </data>
+    <data name="INVALID_CODE_VERIFIER" xml:space="preserve">
+    <value>Code Verifier is null or invalid.</value>
+  </data>
+    <data name="UNSUPPORTED_CODE_CHALLENGE_METHOD" xml:space="preserve">
+    <value>Code challenge method is not supported.</value>
+  </data>
+    <data name="USERNAME_MISSING" xml:space="preserve">
+    <value>User name is null or invalid</value>
+  </data>
+    <data name="USERNAME_TOO_LONG" xml:space="preserve">
+    <value>Length of username exceeded maximum character limit.</value>
+  </data>
+    <data name="USER_AUTHENTICATION_FAILED" xml:space="preserve">
+    <value>User authentication failed.</value>
+  </data>
+    <data name="INVALID_TOKEN_FORMAT" xml:space="preserve">
+    <value>Token Format is invalid.</value>
+  </data>
+    <data name="INVALID_SUBJECT_ID" xml:space="preserve">
+    <value>Subject identifier is null or invalid.</value>
+  </data>
+    <data name="NO_AUTHENTICATION_HANDLER_CONFIGURED" xml:space="preserve">
+    <value>No authentication handler is configured to authenticate for the scheme.</value>
+  </data>
+    <data name="NO_AUTHENTICATION_SCHEME_FOUND" xml:space="preserve">
+    <value>Default authenication Scheme not found and Cookie Authentication Scheme not configured.</value>
+  </data>
+    <data name="SESSION_MISSING_ENDPOINT_ENABLED" xml:space="preserve">
+    <value>Check session endpoint is enabled, but session identifier is missing.</value>
+  </data>
+    <data name="USER_DELETED" xml:space="preserve">
+    <value>User is inactive.</value>
+  </data>
+    <data name="SMS_CALLBACK_URL_MISSING" xml:space="preserve">
+    <value>SMS callback url is required in configuration.</value>
+  </data>
+    <data name="CONNECTION_STRING_INVALID" xml:space="preserve">
+    <value>Database connection string is invalid.</value>
+  </data>
+    <data name="LDAP_CONNECTION_FAILED" xml:space="preserve">
+    <value>Unable to establish LDAP connection, please verify the hostname and port.</value>
+  </data>
+    <data name="INVALID_SUBJECT" xml:space="preserve">
+    <value>Email Subject is null or invalid.</value>
+  </data>
+    <data name="NO_RECORDS_FOUND" xml:space="preserve">
+    <value>No record(s) found in database.</value>
+  </data>
+    <data name="SECURITY_QUESTION_USER_ASSOCIATED" xml:space="preserve">
+    <value>Security question cannot be deleted as users are associated.</value>
+  </data>
+    <data name="APIRESOURCE_ID_INVALID" xml:space="preserve">
+    <value>Api Resource Identifier is invalid.</value>
+  </data>
+    <data name="APIRESOURCE_IS_NULL" xml:space="preserve">
+    <value>Api Resource is null.</value>
+  </data>
+    <data name="APIRESOURCE_NAME_INVALID" xml:space="preserve">
+    <value>Api Resource name is invalid.</value>
+  </data>
+    <data name="APISCOPE_IS_NULL" xml:space="preserve">
+    <value>Api Scope is null.</value>
+  </data>
+    <data name="APISCOPE_ID_INVALID" xml:space="preserve">
+    <value>Api Scope Identifier is invalid.</value>
+  </data>
+    <data name="INVALID_FILEPATH_LOG" xml:space="preserve">
+    <value>File Path in logger configuration is null or invalid.</value>
+  </data>
+    <data name="LOGGER_CONFIGURATION_IS_NULL" xml:space="preserve">
+    <value>Logger configuration is null.</value>
+  </data>
+    <data name="LOGIN_SUCCESS" xml:space="preserve">
+    <value>User logged in successfully.</value>
+  </data>
+    <data name="NO_CHANGES_WRITTEN" xml:space="preserve">
+    <value>No changes have been written to the database.</value>
+  </data>
+    <data name="AUTHENTICATOR_APP_RESET_FAILED" xml:space="preserve">
+    <value>Failed to reset authenticator app.</value>
+  </data>
+    <data name="AUTHENTICATOR_APP_VERIFICATION_FAILED" xml:space="preserve">
+    <value>Authenticator app token verification failed.</value>
+  </data>
+    <data name="FETCHING_AUTHENTICATION_USER_FAILED" xml:space="preserve">
+    <value>Unable to retrieve details for the user.</value>
+  </data>
+    <data name="INVALID_ROP_VALIDATION_MODEL" xml:space="preserve">
+    <value>Resource Owner Password is null or invalid.</value>
+  </data>
+    <data name="INVALID_ROLE_CLAIM" xml:space="preserve">
+    <value>RoleClaim is null or invalid.</value>
+  </data>
+    <data name="ROLE_ID_REQUIRED" xml:space="preserve">
+    <value>Role identifier is required.</value>
+  </data>
+    <data name="ROLE_IS_NULL" xml:space="preserve">
+    <value>Input role model is null.</value>
+  </data>
+    <data name="ROLE_NAME_REQUIRED" xml:space="preserve">
+    <value>role name is required.</value>
+  </data>
+    <data name="USERROLE_IS_NULL" xml:space="preserve">
+    <value>User Role(s) is/are null.</value>
+  </data>
+    <data name="USER_ID_REQUIRED" xml:space="preserve">
+    <value>User Identifier is required.</value>
+  </data>
+    <data name="INVALID_SECURITYQUESTION_MODEL" xml:space="preserve">
+    <value>Security Question Model is null or invalid.</value>
+  </data>
+    <data name="INVALID_TWOFACTOR_TYPE_ID" xml:space="preserve">
+    <value>Two Factor Type Identifier is null or invalid.</value>
+  </data>
+    <data name="INVALID_USER_SECURITYQUESTION_MODEL" xml:space="preserve">
+    <value>User Security Model is null or invalid.</value>
+  </data>
+    <data name="SECURITYQUESTION_NOT_EXISTS" xml:space="preserve">
+    <value>Security question does not exist.</value>
+  </data>
+    <data name="USER_SECURITYQUESTION_NOT_EXISTS" xml:space="preserve">
+    <value>Security questions does not exists.</value>
+  </data>
+    <data name="IDENTITYCLAIM_IS_NULL" xml:space="preserve">
+    <value>Identity Claim is null.</value>
+  </data>
+    <data name="IDENTITYRESOURCE_ID_INVALID" xml:space="preserve">
+    <value>Identity Resource identifier is invalid.</value>
+  </data>
+    <data name="IDENTITYRESOURCE_IS_NULL" xml:space="preserve">
+    <value>Identity Resource is null</value>
+  </data>
+    <data name="IDENTITYRESOURCE_NAME_INVALID" xml:space="preserve">
+    <value>Identity Resource Name is invalid.</value>
+  </data>
+    <data name="NO_TOKEN_FOUND" xml:space="preserve">
+    <value>No token found in the request.</value>
+  </data>
+    <data name="UNAUTHENTICATED_USER" xml:space="preserve">
+    <value>User is not authenticated.</value>
+  </data>
+    <data name="CLIENTSECRET_EXPIRES_AT_REQUIRED" xml:space="preserve">
+    <value>Client Secret expiration time is required.</value>
+  </data>
+    <data name="INACTIVE_CLIENT" xml:space="preserve">
+    <value>Client is inactive</value>
+  </data>
+    <data name="INVALID_STATE_IN_SESSION" xml:space="preserve">
+    <value>State is invalid.</value>
+  </data>
+    <data name="INVALID_STATE" xml:space="preserve">
+    <value>State is invalid.</value>
+  </data>
+    <data name="INVALID_TOKEN_LENGTH" xml:space="preserve">
+    <value>Length of Token exceeded maximum character limit.</value>
+  </data>
+    <data name="TOKEN_MISSING" xml:space="preserve">
+    <value>Token is required.</value>
+  </data>
+    <data name="INVALID_CLIENT_OBJECT" xml:space="preserve">
+    <value>Client Object is null or invalid.</value>
+  </data>
+    <data name="CLIENT_SECRET_NOTAVAILABLE" xml:space="preserve">
+    <value>Client secret is not available.</value>
+  </data>
+    <data name="HEADER_CONTENT_NOTPROPER" xml:space="preserve">
+    <value>Header content is not proper.</value>
+  </data>
+    <data name="INVALID_SECURITY_TOKEN_ID" xml:space="preserve">
+    <value>Security Token Identifier is invalid.</value>
+  </data>
+    <data name="INVALID_CLIENT_SECRET" xml:space="preserve">
+    <value>Client Secret is invalid.</value>
+  </data>
+    <data name="INVALID_OPERATION" xml:space="preserve">
+    <value>Current Authentication Operation is invalid as principal  object is null.</value>
+  </data>
+    <data name="INVALID_REQUEST" xml:space="preserve">
+    <value>Request is invalid.</value>
+  </data>
+    <data name="INVALID_REVOCATIONREQUEST" xml:space="preserve">
+    <value>Revocation request is invalid.</value>
+  </data>
+    <data name="CLIENTID_MAX_LENGTH_EXCEEDED" xml:space="preserve">
+    <value>Length of Client Identifier exceeded maximum character limit.</value>
+  </data>
+    <data name="REFRESHTOKEN_DOESNOT_EXIST" xml:space="preserve">
+    <value>Refresh token does not exists.</value>
+  </data>
+    <data name="TOKEN_NULL_OR_INVALID" xml:space="preserve">
+    <value>Token is null or invalid.</value>
+  </data>
+    <data name="INVALID_EMAIL_CONFIGURATION" xml:space="preserve">
+    <value>Email Configuration for notification is invalid.</value>
+  </data>
+    <data name="INVALID_SMS_CONFIGURATION" xml:space="preserve">
+    <value>SMS configuration for notification is null or invalid.</value>
+  </data>
+    <data name="ROLECLAIM_ALREADY_EXISTS" xml:space="preserve">
+    <value>Role claim already exists.</value>
+  </data>
+    <data name="ROLECLAIM_NOT_EXISTS" xml:space="preserve">
+    <value>Roleclaim does not exists.</value>
+  </data>
+    <data name="CLIENT_SECRET_EXPIRED" xml:space="preserve">
+    <value>Client secret has expired. Please regenerate the client secret.</value>
+  </data>
+    <data name="CLIENT_SECRET_INVALID" xml:space="preserve">
+    <value>Client Secret is invalid.</value>
+  </data>
+    <data name="CLIENTID_MISSING_IN_REQUEST" xml:space="preserve">
+    <value>Client Identifier in request is required.</value>
+  </data>
+    <data name="CLIENTID_MISSING_IN_SECRET" xml:space="preserve">
+    <value>Client Identifier in Client Assertion is required.</value>
+  </data>
+    <data name="NO_CLIENT_RECORDS_FOUND" xml:space="preserve">
+    <value>No client records found in the system.</value>
+  </data>
+    <data name="FAILED_TO_STORE_REFRESHTOKEN" xml:space="preserve">
+    <value>Failed to store refresh token.</value>
+  </data>
+    <data name="IDENTITYRESOURCE_ALREADY_EXISTS" xml:space="preserve">
+    <value>Identity Resource already exists.</value>
+  </data>
+    <data name="INVALIDSCOPE_OR_NOT_ALLOWED" xml:space="preserve">
+    <value>Scope is null or invalid or not allowed for client.</value>
+  </data>
+    <data name="INVALID_SCOPE_CLAIMS" xml:space="preserve">
+    <value>Scope does not exist/active in Api resource or scope master.</value>
+  </data>
+    <data name="CLIENTSECRET_MAX_LENGTH_EXCEEDED" xml:space="preserve">
+    <value>Length of Client Secret exceeded maximum character limit.</value>
+  </data>
+    <data name="INVALID_USER_CLAIMS" xml:space="preserve">
+    <value>UserClaims is null or invalid.</value>
+  </data>
+    <data name="LOGINREQUIRED_AND_PROMPT_NONE" xml:space="preserve">
+    <value>User login is required but prompt mode specified contains none.</value>
+  </data>
+    <data name="TOKEN_MAX_LENGTH_EXCEEDED" xml:space="preserve">
+    <value>Length of token exceeded the maximum character limit.</value>
+  </data>
+    <data name="APIRESOURCE_CLAIM_TYPE_REQUIRED" xml:space="preserve">
+    <value>One or more api resource claim type(s) are required.</value>
+  </data>
+    <data name="APIRESOURCE_NAME_REQUIRED" xml:space="preserve">
+    <value>Api Resource name is required.</value>
+  </data>
+    <data name="APISCOPE_CLAIM_TYPE_REQUIRED" xml:space="preserve">
+    <value>One or more api scope claim type(s) are required.</value>
+  </data>
+    <data name="APISCOPE_NAME_REQUIRED" xml:space="preserve">
+    <value>One or more api scope name(s) are required.</value>
+  </data>
+    <data name="IDENTITYRESOURCE_CLAIM_TYPE_REQUIRED" xml:space="preserve">
+    <value>One or more identity resource claim type(s) are required.</value>
+  </data>
+    <data name="IDENTITYRESOURCE_NAME_REQUIRED" xml:space="preserve">
+    <value>Identity Resource Name is required.</value>
+  </data>
+    <data name="SUBJECT_CLAIM_VALUE_MISMATCH" xml:space="preserve">
+    <value>Subject Claim Value mismatches with current user.</value>
+  </data>
+    <data name="CLIENT_ALREADY_EXISTS" xml:space="preserve">
+    <value>Client name already exists.</value>
+  </data>
+    <data name="DEFAULT_PASSWORD_NEEDS_TO_CHANGE" xml:space="preserve">
+    <value>Please change the default password.</value>
+  </data>
+    <data name="INVALID_SECURITYQUESTION_ID" xml:space="preserve">
+    <value>Security Question Identifier is invalid.</value>
+  </data>
+    <data name="ALLOWED_SCOPES_REQUIRED" xml:space="preserve">
+    <value>Allowed scopes is required.</value>
+  </data>
+    <data name="INVALID_TERMSOFSERVICE_URI" xml:space="preserve">
+    <value>Terms of Service URI is null or invalid.</value>
+  </data>
+    <data name="SUPPORTED_GRANT_TYPES_REQUIRED" xml:space="preserve">
+    <value>Supported grant types is required.</value>
+  </data>
+    <data name="SUPPORTED_RESPONSE_TYPES_REQUIRED" xml:space="preserve">
+    <value>Supported response types is required.</value>
+  </data>
+    <data name="REDIRECT_URI_IS_MANDATORY" xml:space="preserve">
+    <value>Redirect URI is mandatory for redirect-based flows.</value>
+  </data>
+    <data name="INVALID_RESET_TOKEN_PROVIDED" xml:space="preserve">
+    <value>Password Reset Token provided is invalid.</value>
+  </data>
+    <data name="INVALID_USER_TOKEN" xml:space="preserve">
+    <value>User Token provided is null or invalid.</value>
+  </data>
+    <data name="INVALID_LOCKOUT_ENDDATE" xml:space="preserve">
+    <value>User Lockout End date is invalid.</value>
+  </data>
+    <data name="INVALID_USERID_FOR_SECURITYQUESTION" xml:space="preserve">
+    <value>User Security Question does not belong to the given user.</value>
+  </data>
+    <data name="INVALID_ROLEID" xml:space="preserve">
+    <value>Role Identifier is null or invalid.</value>
+  </data>
+    <data name="USER_MODEL_IS_NULL" xml:space="preserve">
+    <value>Input user model is null.</value>
+  </data>
+    <data name="USER_ROLE_ALREADY_EXISTS" xml:space="preserve">
+    <value>User Role already exists.</value>
+  </data>
+    <data name="USER_ROLE_NOT_EXISTS" xml:space="preserve">
+    <value>User Role does not exist.</value>
+  </data>
+    <data name="INVALID_CLAIMS_PRINCIPAL" xml:space="preserve">
+    <value>Claims Principal is invalid</value>
+  </data>
+    <data name="INVALID_EMAILCONFIRMATION_TOKEN_GENERATED" xml:space="preserve">
+    <value>Generated email token is null or invalid.</value>
+  </data>
+    <data name="INVALID_RESET_TOKEN_GENERATED" xml:space="preserve">
+    <value>Password Reset Token generated is invalid.</value>
+  </data>
+    <data name="INVALID_EMAILCONFIRMATION_TOKEN_PROVIDED" xml:space="preserve">
+    <value>Email confirmation token is null or invalid.</value>
+  </data>
+    <data name="INVALID_PHONECONFIRMATION_TOKEN_GENERATED" xml:space="preserve">
+    <value>User Phonenumber token generated is null or invalid.</value>
+  </data>
+    <data name="INVALID_PHONECONFIRMATION_TOKEN_PROVIDED" xml:space="preserve">
+    <value>User Phonenumber token is null or invalid.</value>
+  </data>
+    <data name="INVALID_TWOFACTOR_TOKEN_GENERATED" xml:space="preserve">
+    <value>Generated twofactor token is null or invalid.</value>
+  </data>
+    <data name="ROLECLAIM_CLAIMTYPE_REQUIRED" xml:space="preserve">
+    <value>Roleclaim type is required.</value>
+  </data>
+    <data name="ROLECLAIM_CLAIMVALUE_REQUIRED" xml:space="preserve">
+    <value>Roleclaim value is required.</value>
+  </data>
+    <data name="ROLE_NAME_INVALID" xml:space="preserve">
+    <value>Role name is invalid.</value>
+  </data>
+    <data name="INVALID_SECURITYQUESTION" xml:space="preserve">
+    <value>Security Question is null or invalid.</value>
+  </data>
+    <data name="APIRESOURCE_CLAIM_ALREADY_EXISTS" xml:space="preserve">
+    <value>Api Resource Claim already exists.</value>
+  </data>
+    <data name="APIRESOURCE_CLAIM_IS_NULL" xml:space="preserve">
+    <value>Api Resource Claim is null.</value>
+  </data>
+    <data name="APISCOPE_ALREADY_EXISTS" xml:space="preserve">
+    <value>Api Scope already exists.</value>
+  </data>
+    <data name="APISCOPE_CLAIMS_ALREADY_EXISTS" xml:space="preserve">
+    <value>Api Scope Claims already exists.</value>
+  </data>
+    <data name="APISCOPE_CLAIM_IS_NULL" xml:space="preserve">
+    <value>Api Scope Claim is null.</value>
+  </data>
+    <data name="APISCOPE_CLAIM_NOT_FOUND_FOR_TYPE" xml:space="preserve">
+    <value>Api scope claim not found for the resource id and claim type.</value>
+  </data>
+    <data name="APISCOPE_NAME_INVALID" xml:space="preserve">
+    <value>Api Scope name is invalid.</value>
+  </data>
+    <data name="INVALID_APIRESOURCE_CLAIM_TYPE_OR_RESOURCEID" xml:space="preserve">
+    <value>Api Resource Identifier or Api Resource ClaimType is invalid.</value>
+  </data>
+    <data name="INVALID_APISCOPE_CLAIM_TYPE_OR_SCOPEID" xml:space="preserve">
+    <value>Api Scope Identifier or Api Scope ClaimType is invalid.</value>
+  </data>
+    <data name="INVALID_APISCOPE_NAME_OR_RESOURCEID" xml:space="preserve">
+    <value>Api Scope Name or Api Resource Identifier is invalid.</value>
+  </data>
+    <data name="IDENTITYRESOURCE_CLAIM_ALREADY_EXISTS" xml:space="preserve">
+    <value>Identity Resource Claim already exists.</value>
+  </data>
+    <data name="INVALID_IDENTITYRESOURCE_CLAIM_TYPE_OR_RESOURCEID" xml:space="preserve">
+    <value>Identity Resource Identifier or IdentityClaims Type for Identity Resource Claims is null or invalid.</value>
+  </data>
+    <data name="USERCLAIM_CLAIMTYPE_REQUIRED" xml:space="preserve">
+    <value>User Claim Type is required.</value>
+  </data>
+    <data name="USERCLAIM_CLAIMVALUE_REQUIRED" xml:space="preserve">
+    <value>User Claim Value is required.</value>
+  </data>
+    <data name="INVALID_USER_SECURITYANSWER_LENGTH" xml:space="preserve">
+    <value>Length of User Security Answer is invalid.</value>
+  </data>
+    <data name="USER_SECURITYANSWER_REQUIRED" xml:space="preserve">
+    <value>Security answer is required.</value>
+  </data>
+    <data name="USER_DOESNOT_EXIST" xml:space="preserve">
+    <value>User does not exist.</value>
+  </data>
+    <data name="CONCURRENCY_FAILURE" xml:space="preserve">
+    <value>Optimistic concurrency failure, object has been modified.</value>
+  </data>
+    <data name="FAILED_TO_STORE_RETURNURL" xml:space="preserve">
+    <value>Failed to store return url.</value>
+  </data>
+    <data name="INVALID_ROLE_CLAIMVALUE_OR_CLAIMTYPE" xml:space="preserve">
+    <value>Role claim type or claim values is null or invalid.</value>
+  </data>
+    <data name="CLIENT_ID_REQUIRED" xml:space="preserve">
+    <value>Client Identifier is required.</value>
+  </data>
+    <data name="CLIENT_SECRET_REQUIRED" xml:space="preserve">
+    <value>Client secret is required.</value>
+  </data>
+    <data name="INVALID_USER_OR_PASSWORD" xml:space="preserve">
+    <value>Username or Password is null or invalid.</value>
+  </data>
+    <data name="INVALID_LAST_NAME_LENGTH" xml:space="preserve">
+    <value>Length of last name is invalid.</value>
+  </data>
+    <data name="USERNAME_REQUIRED" xml:space="preserve">
+    <value>User name is required.</value>
+  </data>
+    <data name="APIRESOURCE_CLAIM_TYPE_TOO_LONG" xml:space="preserve">
+    <value>Length of Api Resource Claim Type exceeded maximum character limit. </value>
+  </data>
+    <data name="APIRESOURCE_DISPLAY_NAME_TOO_LONG" xml:space="preserve">
+    <value>Length of Api Resource Display name exceeded maximum character limit.</value>
+  </data>
+    <data name="APIRESOURCE_NAME_TOO_LONG" xml:space="preserve">
+    <value>Length of Api Resource Name exceeded maximum character limit.</value>
+  </data>
+    <data name="APISCOPE_CLAIMTYPE_CREATEDBY_TOO_LONG" xml:space="preserve">
+    <value>Length of Api Scope Claim Type exceeded maximum character limit.</value>
+  </data>
+    <data name="APISCOPE_NAME_OR_DISPLAYNAME_OR_CREATEDBY_TOO_LONG" xml:space="preserve">
+    <value>Length of Name or DisplayName or CreatedBy for Api Scopes exceeded maximum character limit.</value>
+  </data>
+    <data name="INVALID_SECURITYANSWER_LENGTH" xml:space="preserve">
+    <value>Security answer shall be atleast {0} characters.</value>
+  </data>
+    <data name="INVALID_SECURITY_ANSWER" xml:space="preserve">
+    <value>Answer for User Security Question is null or invalid.</value>
+  </data>
+    <data name="NO_USERROLE_MAPPED" xml:space="preserve">
+    <value>No UserRoles mapped for User.</value>
+  </data>
+    <data name="DUPLICATE_LDAP_USER_FOUND" xml:space="preserve">
+    <value>Multiple user account found for the Ldap credentials.</value>
+  </data>
+    <data name="INVALID_LDAP_USERNAME" xml:space="preserve">
+    <value>LDAP Username is null or invalid.</value>
+  </data>
+    <data name="INVALID_USER" xml:space="preserve">
+    <value>Invalid User.</value>
+  </data>
+    <data name="TWO_FACTOR_ENABLED" xml:space="preserve">
+    <value>Two Factor authentication should be disabled for resource owner password flow.</value>
+  </data>
+    <data name="MUST_NOT_INCLUDE_OFFLINE_ACCESS_SCOPE" xml:space="preserve">
+    <value>Requests for code id_token type in hybrid flow must not include offline access scope.</value>
+  </data>
+    <data name="PASSWORD_CONTAINS_SPACE" xml:space="preserve">
+    <value>Password should not contain spaces.</value>
+  </data>
+    <data name="INVALID_CLAIM_TYPE" xml:space="preserve">
+    <value>Claim Type is null or invaild</value>
+  </data>
+    <data name="INVALID_CLAIM_VALUE" xml:space="preserve">
+    <value>Claim Value is null or invalid.</value>
+  </data>
+    <data name="INVALID_TEMPLATENAME" xml:space="preserve">
+    <value>Template name is null or invalid.</value>
+  </data>
+    <data name="LOGIN_FAILED" xml:space="preserve">
+    <value>Login failed.</value>
+  </data>
+    <data name="REDIRECT_URI_NOT_REGISTERED" xml:space="preserve">
+    <value>Redirect Uri is not registered for the client.</value>
+  </data>
+    <data name="UNSUPPORTED_TOKEN_TYPE" xml:space="preserve">
+    <value>Token type is unsupported.</value>
+  </data>
+    <data name="APIRESOURCE_CLAIM_CREATEDBY_MODIFIEDBY_TOO_LONG" xml:space="preserve">
+    <value>Length of CreatedBy/ModifiedBy for Api Resource Claim exceeded maximum character limit.</value>
+  </data>
+    <data name="APIRESOURCE_CLAIM_CREATEDBY_TOO_LONG" xml:space="preserve">
+    <value>Length of CreatedBy for Api Resource Claim exceeded maximum character limit.</value>
+  </data>
+    <data name="APISCOPE_CLAIM_MODIFIEDBY_TOO_LONG" xml:space="preserve">
+    <value>Length of ModifiedBy for Api Scope Claim exceeded maximum character limit.</value>
+  </data>
+    <data name="APISCOPE_CLAIM_TYPE_TOO_LONG" xml:space="preserve">
+    <value>Length of Api Scope Claim Type exceeded maximum character limit.</value>
+  </data>
+    <data name="APISCOPE_DISPLAYNAME_TOO_LONG" xml:space="preserve">
+    <value>Length of Api Scope Display Name exceeded maximum character limit.</value>
+  </data>
+    <data name="APISCOPE_MODIFIEDBY_TOO_LONG" xml:space="preserve">
+    <value>Length of ModifiedBy for Api Scope exceeded maximum character limit.</value>
+  </data>
+    <data name="APISCOPE_NAME_TOO_LONG" xml:space="preserve">
+    <value>Length of Api Scope Name exceeded maximum character limit.</value>
+  </data>
+    <data name="CREATEDBY_TOO_LONG" xml:space="preserve">
+    <value>Length of CreatedBy Username exceeded maximum character limit.</value>
+  </data>
+    <data name="IDENTITYRESOURCE_CLAIM_CREATEDBY_MODIFIEDBY_TOO_LONG" xml:space="preserve">
+    <value>Length of CreatedBy/ModifiedBy for the identity resource claim exceeded maximum character limit.</value>
+  </data>
+    <data name="IDENTITYRESOURCE_CLAIM_CREATEDBY_TOO_LONG" xml:space="preserve">
+    <value>Length of CreatedBy for the identity resource claim exceeded maximum character limit. </value>
+  </data>
+    <data name="IDENTITYRESOURCE_CLAIM_TYPE_TOO_LONG" xml:space="preserve">
+    <value>Length of Identity Resource Claim Type exceeded maximum character limit.</value>
+  </data>
+    <data name="IDENTITYRESOURCE_DISPLAY_NAME_TOO_LONG" xml:space="preserve">
+    <value>Length of Identity Resource Display name exceeded maximum character limit.</value>
+  </data>
+    <data name="IDENTITYRESOURCE_NAME_TOO_LONG" xml:space="preserve">
+    <value>Length of Identity Resource Name exceeded maximum character limit.</value>
+  </data>
+    <data name="INVALID_ROLECLAIM_ROLEID" xml:space="preserve">
+    <value>Role Identifier for Role Claim is null or invalid.</value>
+  </data>
+    <data name="MODIFIEDBY_TOO_LONG" xml:space="preserve">
+    <value>The specified length of modified by exceeds maximum limit.</value>
+  </data>
+    <data name="ROLE_CLAIM_CREATEDBY_TOO_LONG" xml:space="preserve">
+    <value>Length of createdby for role claim exceeded the maximum character limit.</value>
+  </data>
+    <data name="ROLE_CLAIM_MODIFIEDBY_TOO_LONG" xml:space="preserve">
+    <value>Length of modifiedby for role claim exceeded the maximum character limit.</value>
+  </data>
+    <data name="ROLE_NAME_TOO_LONG" xml:space="preserve">
+    <value>Length of role name exceeded the maximum character limit.</value>
+  </data>
+    <data name="AUDIT_TABLENAME_TOO_LONG" xml:space="preserve">
+    <value>Length of Audit Table Name exceeded maximum character limit.</value>
+  </data>
+    <data name="INVALID_AUDIT_ACTION_TYPE" xml:space="preserve">
+    <value>Audit action type is invalid.</value>
+  </data>
+    <data name="INVALID_POST_REDIRECTURI_CLIENTID" xml:space="preserve">
+    <value>Client Identifier in Post Redirect URIs is null or invalid.</value>
+  </data>
+    <data name="INVALID_REDIRECTURI_CLIENTID" xml:space="preserve">
+    <value>Client Identifier for Redirect URI is null or invalid.</value>
+  </data>
+    <data name="POSTREDIRECTURI_CREATEDBY_TOO_LONG" xml:space="preserve">
+    <value>Length of CreatedBy for Post Redirect URI exceeded maximum character limit.</value>
+  </data>
+    <data name="POSTREDIRECTURI_MODIFIEDBY_TOO_LONG" xml:space="preserve">
+    <value>Length of ModifiedBy for Post Redirect URI exceeded maximum character limit.</value>
+  </data>
+    <data name="POST_REDIRECT_URI_TOO_LONG" xml:space="preserve">
+    <value>Length of Post Redirect URI exceeded maximum character limit.</value>
+  </data>
+    <data name="REDIRECTURI_CREATEDBY_TOO_LONG" xml:space="preserve">
+    <value>Length of createdby for redirect uri exceeded maximum character limit.</value>
+  </data>
+    <data name="REDIRECTURI_MODIFIEDBY_TOO_LONG" xml:space="preserve">
+    <value>Length of modifiedby for redirect uri exceeded maximum character limit.</value>
+  </data>
+    <data name="ACTIVITY_TOO_LONG" xml:space="preserve">
+    <value>Length of Activity exceeded maximum character limit.</value>
+  </data>
+    <data name="EMAIL_LENGTH_TOO_LONG" xml:space="preserve">
+    <value>Length of Email exceeded maximum character limit.</value>
+  </data>
+    <data name="INVALID_USER_TOKEN_GENERATED" xml:space="preserve">
+    <value>User Token generated is null or invalid.</value>
+  </data>
+    <data name="SECURITYQUESTION_ANSWER_TOO_LONG" xml:space="preserve">
+    <value>Length of user security question answer exceeded the maximum character limit.</value>
+  </data>
+    <data name="SECURITYQUESTION_CREATEDBY_TOO_LONG" xml:space="preserve">
+    <value>Length of created by for user security question exceeded the maximum character limit.</value>
+  </data>
+    <data name="SECURITYQUESTION_MODIFIEDBY_TOO_LONG" xml:space="preserve">
+    <value>Length of modified by for user security question exceeded the maximum character limit.</value>
+  </data>
+    <data name="SECURITYQUESTION_REQUIRED" xml:space="preserve">
+    <value>Security questions for user is required.</value>
+  </data>
+    <data name="SECURITYQUESTION_TOO_LONG" xml:space="preserve">
+    <value>Length of security question exceeded the maximum character limit.</value>
+  </data>
+    <data name="USERCLAIM_CREATEDBY_TOO_LONG" xml:space="preserve">
+    <value>Length of createdby for the user claim exceeded the maximum character limit.</value>
+  </data>
+    <data name="USERCLAIM_MODIFIEDBY_TOO_LONG" xml:space="preserve">
+    <value>Length of modifiedby for the user claim exceeded the maximum character limit.</value>
+  </data>
+    <data name="USERCLAIM_USERID_REQUIRED" xml:space="preserve">
+    <value>User identifier in user claim is required</value>
+  </data>
+    <data name="USER_SECURITYQUESTION_SECURITY_ID_REQUIRED" xml:space="preserve">
+    <value>User Security Identifier is required.</value>
+  </data>
+    <data name="USER_SECURITYQUESTION_USERID_REQUIRED" xml:space="preserve">
+    <value>User identifier in user security question is required.</value>
+  </data>
+    <data name="NO_USERROLE_CLAIM_MAPPED" xml:space="preserve">
+    <value>No user role claim(s) mapped.</value>
+  </data>
+    <data name="RESTRICTED_API_FOR_LDAP_USER" xml:space="preserve">
+    <value>Api is restricted for Ldap user.</value>
+  </data>
+    <data name="INVALID_ACCESS_TOKEN_EXPIRE_RANGE" xml:space="preserve">
+    <value>Access token expiration value not within configured range.</value>
+  </data>
+    <data name="INVALID_AUTHORIZATION_CODE_EXPIRE_RANGE" xml:space="preserve">
+    <value>Value not in the Authorization Code Expiration Range.</value>
+  </data>
+    <data name="INVALID_IDENTITY_TOKEN_EXPIRE_RANGE" xml:space="preserve">
+    <value>The value provided is not in the identity token expiration range.</value>
+  </data>
+    <data name="INVALID_REFRESH_TOKEN_EXPIRE_RANGE" xml:space="preserve">
+    <value>Value not in the Refresh Token Expiration Range.</value>
+  </data>
+    <data name="BACK_CHANNEL_REQUIRED_SESSIONID" xml:space="preserve">
+    <value>Session Identifier for BackChannel Client logout is required.</value>
+  </data>
+    <data name="INVALID_LOGOUT_TOKEN_EXPIRE_RANGE" xml:space="preserve">
+    <value>Value not in the Logout Token Expiration Range.</value>
+  </data>
+    <data name="UNAUTHORIZED_ACCESS" xml:space="preserve">
+    <value>Unauthorized access.</value>
+  </data>
+    <data name="SIGNING_ALGORITHM_IS_INVALID" xml:space="preserve">
+    <value>Signing algorithm is invalid.</value>
+  </data>
+    <data name="APIRESOURCE_CLAIM_VALUE_REQUIRED" xml:space="preserve">
+    <value>One or more api resource claim value(s) are required.</value>
+  </data>
+    <data name="APIRESOURCE_CLAIM_VALUE_TOO_LONG" xml:space="preserve">
+    <value>Length of Api Resource Claim Value exceeded maximum character limit.</value>
+  </data>
+    <data name="APISCOPE_CLAIM_VALUE_REQUIRED" xml:space="preserve">
+    <value>One or more api scope claim value(s) are required.</value>
+  </data>
+    <data name="APISCOPE_CLAIM_VALUE_TOO_LONG" xml:space="preserve">
+    <value>Length of Api Scope Claim Value exceeded maximum character limit.</value>
+  </data>
+    <data name="DUPLICATE_USER_ROLE_INPUT" xml:space="preserve">
+    <value>Input model contains duplicate user and role mapping.</value>
+  </data>
+    <data name="ACCESS_DENIED" xml:space="preserve">
+    <value>Access denied.</value>
+  </data>
+    <data name="NOT_FOUND" xml:space="preserve">
+    <value>Not found.</value>
+  </data>
+    <data name="INVALID_PHONE_NUMBER" xml:space="preserve">
+    <value>User Phonenumber Format is invalid.</value>
+  </data>
+    <data name="CLIENT_NAME_TOO_LONG" xml:space="preserve">
+    <value>Length of Client name exceeded maximimum character limit.</value>
+  </data>
+    <data name="INVALID_IDENTITY_TOKEN" xml:space="preserve">
+    <value>Identity Token is invalid.</value>
+  </data>
+    <data name="APIRESOURCE_CLAIM_ID_INVALID" xml:space="preserve">
+    <value>Api Resource Claim Identifier is invalid.</value>
+  </data>
+    <data name="APISCOPE_CLAIM_ID_INVALID" xml:space="preserve">
+    <value>Api Scope Claim Identifier is invalid.</value>
+  </data>
+    <data name="IDENTITYRESOURCE_CLAIM_ID_INVALID" xml:space="preserve">
+    <value>Identity Resource Claim Identifier is invalid.</value>
+  </data>
+    <data name="INVALID_ROLECLAIM_ID" xml:space="preserve">
+    <value>Role Claim Identifier is null or invalid.</value>
+  </data>
+    <data name="INACTIVE_CLIENT_POSTLOGOUTREDIRECTURI" xml:space="preserve">
+    <value>Client post redirect uri is inactive.</value>
+  </data>
+    <data name="INACTIVE_CLIENT_REDIRECTURI" xml:space="preserve">
+    <value>Client redirect uri is inactive.</value>
+  </data>
+    <data name="TOKEN_REVOKED" xml:space="preserve">
+    <value>Token has revoked.</value>
+  </data>
+    <data name="INVALID_LDAP_CONFIGURATION" xml:space="preserve">
+    <value>Ldap configuration invalid.</value>
+  </data>
+</root>

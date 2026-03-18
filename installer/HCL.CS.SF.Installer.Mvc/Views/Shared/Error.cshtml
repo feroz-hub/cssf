@@ -1,0 +1,30 @@
+@model HCLCSSFInstallerMVC.Models.ErrorViewModel
+@{
+    ViewData["Title"] = "Installer Error";
+}
+
+<section class="surface">
+    <header class="surface-header">
+        <p class="eyebrow">Installer Fault</p>
+        <h1>Unexpected Error</h1>
+        <p>The installer encountered an unhandled condition while processing your request.</p>
+    </header>
+
+    <div class="status-card status-danger">
+        <h2>Action Required</h2>
+        <p>Review logs and retry the previous step. If the issue persists, capture diagnostics and contact the platform
+            team.</p>
+    </div>
+
+    @if (Model.ShowRequestId)
+    {
+        <div class="meta-item mt-3">
+            <span class="meta-label">Trace Id</span>
+            <code>@Model.RequestId</code>
+        </div>
+    }
+
+    <div class="action-row mt-4">
+        <a class="btn btn-accent btn-lg" asp-controller="Setup" asp-action="Root">Return to Setup</a>
+    </div>
+</section>

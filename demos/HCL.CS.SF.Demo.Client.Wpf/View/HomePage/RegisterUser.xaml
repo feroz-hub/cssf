@@ -1,0 +1,30 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:intr="http://schemas.microsoft.com/xaml/behaviors" 
+    xmlns:UserManagement="clr-namespace:HCL.CS.SF.DemoClientWpfApp.View.UserManagement" 
+    xmlns:viewmodel="clr-namespace:HCL.CS.SF.DemoClientWpfApp.ViewModel" 
+    x:Class="HCL.CS.SF.DemoClientWpfApp.View.RegisterUser">
+
+    
+    <intr:Interaction.Triggers>
+        <intr:EventTrigger EventName="Loaded">
+            <intr:InvokeCommandAction Command="{Binding RegisterOnload}"/>
+        </intr:EventTrigger>
+    </intr:Interaction.Triggers>
+
+        <StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+            <Border Grid.Row="0" Grid.Column="1" CornerRadius="2" BorderThickness="2" Margin="5 0 0 0" DockPanel.Dock="Top" BorderBrush="Transparent" >
+                    <StackPanel>
+                        <ContentControl Name="FrameworkNavigation"></ContentControl>
+                     <UserManagement:UserReg Width="500" Height="530" HorizontalAlignment="Center" />
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </StackPanel>
+</UserControl>

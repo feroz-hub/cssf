@@ -1,0 +1,32 @@
+@model int
+@{
+    var steps = new[]
+    {
+        (Title: "Provider", Subtitle: "Data plane"),
+        (Title: "Connection", Subtitle: "Connectivity"),
+        (Title: "Validate", Subtitle: "Verification"),
+        (Title: "Migrate", Subtitle: "Schema"),
+        (Title: "Seed", Subtitle: "Bootstrap"),
+        (Title: "Complete", Subtitle: "Operational")
+    };
+}
+
+<nav class="wizard-shell mb-4" aria-label="Setup progress">
+    <ol class="wizard-track list-unstyled mb-0">
+        @for (var i = 0; i < steps.Length; i++)
+        {
+            var stepNumber = i + 1;
+            var cssClass = stepNumber < Model ? "is-complete" : stepNumber == Model ? "is-active" : "is-upcoming";
+            var stateLabel = stepNumber < Model ? "Done" : stepNumber == Model ? "Current" : "Queued";
+
+            <li class="wizard-node @cssClass">
+                <span class="wizard-index">@stepNumber</span>
+                <div class="wizard-text">
+                    <span class="wizard-title">@steps[i].Title</span>
+                    <span class="wizard-subtitle">@steps[i].Subtitle</span>
+                </div>
+                <span class="wizard-state">@stateLabel</span>
+            </li>
+        }
+    </ol>
+</nav>

@@ -1,0 +1,390 @@
+@{
+    var users = ViewBag.Users as List<HCL.CS.SF.Admin.UI.Models.Api.UserDisplayModel> ?? new();
+    var roles = ViewBag.Roles as List<HCL.CS.SF.Admin.UI.Models.Api.RoleModel> ?? new();
+    var clients = ViewBag.Clients as List<HCL.CS.SF.Admin.UI.Models.Api.ClientsModel> ?? new();
+    var apiResources = ViewBag.ApiResources as List<HCL.CS.SF.Admin.UI.Models.Api.ApiResourcesModel> ?? new();
+    var identityResources = ViewBag.IdentityResources as List<HCL.CS.SF.Admin.UI.Models.Api.IdentityResourcesModel> ?? new();
+
+    var activeUsers = users.Count(u => u.LockoutEnd == null || u.LockoutEnd <= DateTimeOffset.UtcNow);
+    var lockedUsers = users.Count - activeUsers;
+    var activePercent = users.Count > 0 ? (int)Math.Round((double)activeUsers / users.Count * 100) : 0;
+    var lockedPercent = 100 - activePercent;
+}
+
+<!-- Page Header -->
+<div class="hcl-page-header" style="margin-bottom: 2rem;">
+    <div>
+        <h1 class="hcl-page-title">
+            <span class="hcl-gradient-text" style="font-size: 2rem; font-weight: 700;">Command Center</span>
+        </h1>
+        <p style="color: var(--hcl-text-secondary); margin-top: 0.25rem; font-size: 0.875rem;" id="dashboardSubtitle">
+            Security Framework Administration
+        </p>
+    </div>
+    <div class="hcl-page-actions">
+        <a href="/Admin/Users" class="hcl-btn hcl-btn-primary hcl-btn-sm">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+            New User
+        </a>
+        <a href="/Admin/Roles" class="hcl-btn hcl-btn-sm" style="background: var(--hcl-bg-tertiary); color: var(--hcl-text-primary); border: 1px solid var(--hcl-border);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Manage Roles
+        </a>
+    </div>
+</div>
+
+<!-- Stat Cards Row -->
+<div class="hcl-grid hcl-grid-4" style="margin-bottom: 2rem;">
+    <!-- Total Users -->
+    <div class="hcl-stat-card hcl-glow-border hcl-hover-lift">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div>
+                <div class="hcl-stat-value" style="font-size: 2.5rem;">
+                    <span class="hcl-gradient-text">@users.Count</span>
+                </div>
+                <div class="hcl-stat-label">Total Users</div>
+            </div>
+            <div class="hcl-stat-icon" style="background: rgba(59,130,246,0.15); color: #3b82f6;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+        </div>
+        <div style="margin-top: 0.75rem; display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem;">
+            <span class="hcl-pulse-dot" style="--dot-color: #22c55e;"></span>
+            <span style="color: #22c55e;">@activeUsers active</span>
+            <span style="color: var(--hcl-text-tertiary);">&middot;</span>
+            <span style="color: var(--hcl-text-tertiary);">@lockedUsers locked</span>
+        </div>
+    </div>
+
+    <!-- Active Roles -->
+    <div class="hcl-stat-card hcl-glow-border hcl-hover-lift">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div>
+                <div class="hcl-stat-value" style="font-size: 2.5rem;">
+                    <span class="hcl-gradient-text" style="--grad-from: #a855f7; --grad-to: #ec4899;">@roles.Count</span>
+                </div>
+                <div class="hcl-stat-label">Active Roles</div>
+            </div>
+            <div class="hcl-stat-icon" style="background: rgba(168,85,247,0.15); color: #a855f7;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+            </div>
+        </div>
+        <div style="margin-top: 0.75rem; font-size: 0.8rem; color: var(--hcl-text-tertiary);">
+            @roles.Sum(r => r.RoleClaims.Count) total claims assigned
+        </div>
+    </div>
+
+    <!-- OAuth Clients -->
+    <div class="hcl-stat-card hcl-glow-border hcl-hover-lift">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div>
+                <div class="hcl-stat-value" style="font-size: 2.5rem;">
+                    <span class="hcl-gradient-text" style="--grad-from: #06b6d4; --grad-to: #3b82f6;">@clients.Count</span>
+                </div>
+                <div class="hcl-stat-label">OAuth Clients</div>
+            </div>
+            <div class="hcl-stat-icon" style="background: rgba(6,182,212,0.15); color: #06b6d4;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28"><path d="m15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4"/><path d="m21 2-9.6 9.6"/><circle cx="7.5" cy="15.5" r="5.5"/></svg>
+            </div>
+        </div>
+        <div style="margin-top: 0.75rem; font-size: 0.8rem; color: var(--hcl-text-tertiary);">
+            @clients.Count(c => c.RequirePkce) PKCE-enabled
+        </div>
+    </div>
+
+    <!-- API Resources -->
+    <div class="hcl-stat-card hcl-glow-border hcl-hover-lift">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div>
+                <div class="hcl-stat-value" style="font-size: 2.5rem;">
+                    <span class="hcl-gradient-text" style="--grad-from: #10b981; --grad-to: #06b6d4;">@apiResources.Count</span>
+                </div>
+                <div class="hcl-stat-label">API Resources</div>
+            </div>
+            <div class="hcl-stat-icon" style="background: rgba(16,185,129,0.15); color: #10b981;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.84Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg>
+            </div>
+        </div>
+        <div style="margin-top: 0.75rem; font-size: 0.8rem; color: var(--hcl-text-tertiary);">
+            + @identityResources.Count identity resources
+        </div>
+    </div>
+</div>
+
+<!-- Security Overview Section -->
+<div class="hcl-grid hcl-grid-2" style="margin-bottom: 2rem;">
+    <!-- User Distribution -->
+    <div class="hcl-card hcl-glass">
+        <div style="padding: 1.5rem;">
+            <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 1.25rem; color: var(--hcl-text-primary);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" style="display: inline; vertical-align: text-bottom; margin-right: 0.5rem; color: #3b82f6;"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                User Distribution
+            </h3>
+
+            <!-- Active Users Bar -->
+            <div style="margin-bottom: 1rem;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.4rem; font-size: 0.8rem;">
+                    <span style="color: var(--hcl-text-secondary);">Active Users</span>
+                    <span style="color: #22c55e; font-weight: 600;">@activeUsers (@activePercent%)</span>
+                </div>
+                <div style="background: var(--hcl-bg-tertiary); border-radius: 9999px; height: 8px; overflow: hidden;">
+                    <div style="background: linear-gradient(90deg, #22c55e, #10b981); height: 100%; border-radius: 9999px; width: @(activePercent)%; transition: width 1s ease;"></div>
+                </div>
+            </div>
+
+            <!-- Locked Users Bar -->
+            <div style="margin-bottom: 1rem;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.4rem; font-size: 0.8rem;">
+                    <span style="color: var(--hcl-text-secondary);">Locked Users</span>
+                    <span style="color: #ef4444; font-weight: 600;">@lockedUsers (@lockedPercent%)</span>
+                </div>
+                <div style="background: var(--hcl-bg-tertiary); border-radius: 9999px; height: 8px; overflow: hidden;">
+                    <div style="background: linear-gradient(90deg, #ef4444, #f97316); height: 100%; border-radius: 9999px; width: @(lockedPercent)%; transition: width 1s ease;"></div>
+                </div>
+            </div>
+
+            <!-- Email Confirmed Bar -->
+            @{
+                var confirmedCount = 0; // UserDisplayModel does not have EmailConfirmed, show total
+            }
+            <div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.4rem; font-size: 0.8rem;">
+                    <span style="color: var(--hcl-text-secondary);">Total Registered</span>
+                    <span style="color: #3b82f6; font-weight: 600;">@users.Count</span>
+                </div>
+                <div style="background: var(--hcl-bg-tertiary); border-radius: 9999px; height: 8px; overflow: hidden;">
+                    <div style="background: linear-gradient(90deg, #3b82f6, #06b6d4); height: 100%; border-radius: 9999px; width: 100%; transition: width 1s ease;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Role Summary -->
+    <div class="hcl-card hcl-glass">
+        <div style="padding: 1.5rem;">
+            <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 1.25rem; color: var(--hcl-text-primary);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" style="display: inline; vertical-align: text-bottom; margin-right: 0.5rem; color: #a855f7;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                Role Summary
+            </h3>
+
+            @if (roles.Any())
+            {
+                <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                    @foreach (var role in roles.Take(6))
+                    {
+                        <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.5rem 0.75rem; background: var(--hcl-bg-tertiary); border-radius: 0.5rem;">
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <div style="width: 8px; height: 8px; border-radius: 50%; background: linear-gradient(135deg, #a855f7, #ec4899);"></div>
+                                <span style="font-size: 0.875rem; font-weight: 500; color: var(--hcl-text-primary);">@role.Name</span>
+                            </div>
+                            <span class="hcl-badge" style="font-size: 0.75rem;">@role.RoleClaims.Count claims</span>
+                        </div>
+                    }
+                    @if (roles.Count > 6)
+                    {
+                        <a href="/Admin/Roles" style="font-size: 0.8rem; color: var(--hcl-accent); text-align: center;">
+                            View all @roles.Count roles
+                        </a>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="hcl-empty-state" style="padding: 2rem 0;">
+                    <p style="color: var(--hcl-text-tertiary); font-size: 0.875rem;">No roles configured yet.</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<!-- Recent Users Section -->
+<div class="hcl-card hcl-glass" style="margin-bottom: 2rem;">
+    <div style="padding: 1.5rem;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem;">
+            <h3 style="font-size: 1rem; font-weight: 600; color: var(--hcl-text-primary);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" style="display: inline; vertical-align: text-bottom; margin-right: 0.5rem; color: #06b6d4;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                Recent Users
+            </h3>
+            <a href="/Admin/Users" class="hcl-btn hcl-btn-sm" style="background: var(--hcl-bg-tertiary); color: var(--hcl-text-secondary); border: 1px solid var(--hcl-border);">
+                View All
+            </a>
+        </div>
+
+        @if (users.Any())
+        {
+            <div class="hcl-table-wrapper">
+                <table class="hcl-table">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in users.Take(8))
+                        {
+                            var isLocked = user.LockoutEnd != null && user.LockoutEnd > DateTimeOffset.UtcNow;
+                            <tr>
+                                <td data-label="User">
+                                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                        <div class="hcl-avatar hcl-avatar-sm">
+                                            <span>@(user.UserName?.Substring(0, 1).ToUpper() ?? "?")</span>
+                                        </div>
+                                        <div>
+                                            <div style="font-weight: 500; color: var(--hcl-text-primary);">@user.UserName</div>
+                                            <div style="font-size: 0.75rem; color: var(--hcl-text-tertiary);">
+                                                @(user.FirstName ?? "") @(user.LastName ?? "")
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td data-label="Email" style="color: var(--hcl-text-secondary); font-size: 0.875rem;">
+                                    @(user.Email ?? "N/A")
+                                </td>
+                                <td data-label="Status">
+                                    @if (isLocked)
+                                    {
+                                        <span class="hcl-badge" style="background: rgba(239,68,68,0.15); color: #ef4444;">
+                                            <span class="hcl-pulse-dot" style="--dot-color: #ef4444;"></span> Locked
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="hcl-badge" style="background: rgba(34,197,94,0.15); color: #22c55e;">
+                                            <span class="hcl-pulse-dot" style="--dot-color: #22c55e;"></span> Active
+                                        </span>
+                                    }
+                                </td>
+                                <td data-label="Actions">
+                                    <div style="display: flex; gap: 0.5rem;">
+                                        <a href="/Admin/Users/@user.Id" class="hcl-btn hcl-btn-sm" style="background: var(--hcl-bg-tertiary); color: var(--hcl-text-secondary); border: 1px solid var(--hcl-border);">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                                            View
+                                        </a>
+                                        @if (isLocked)
+                                        {
+                                            <button class="hcl-btn hcl-btn-sm" style="background: rgba(34,197,94,0.15); color: #22c55e; border: 1px solid rgba(34,197,94,0.3);"
+                                                    onclick="dashboardUnlockUser('@user.UserName')">
+                                                Unlock
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <button class="hcl-btn hcl-btn-sm" style="background: rgba(239,68,68,0.15); color: #ef4444; border: 1px solid rgba(239,68,68,0.3);"
+                                                    onclick="dashboardLockUser('@user.Id')">
+                                                Lock
+                                            </button>
+                                        }
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="hcl-empty-state" style="padding: 3rem 0;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="48" height="48" style="color: var(--hcl-text-tertiary); margin-bottom: 1rem;"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+                <p style="color: var(--hcl-text-tertiary);">No users registered yet.</p>
+                <a href="/Admin/Users" class="hcl-btn hcl-btn-primary hcl-btn-sm" style="margin-top: 1rem;">Register First User</a>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- Quick Actions Section -->
+<div style="margin-bottom: 2rem;">
+    <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 1rem; color: var(--hcl-text-primary);">
+        Quick Actions
+    </h3>
+    <div class="hcl-grid hcl-grid-4">
+        <a href="/Admin/Users" class="hcl-card hcl-glass hcl-hover-lift" style="text-decoration: none; cursor: pointer;" onclick="document.dispatchEvent(new CustomEvent('open-register-user'))">
+            <div style="padding: 1.5rem; text-align: center;">
+                <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(59,130,246,0.15); display: flex; align-items: center; justify-content: center; margin: 0 auto 0.75rem;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" width="24" height="24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+                </div>
+                <div style="font-weight: 600; color: var(--hcl-text-primary); font-size: 0.875rem;">Register New User</div>
+                <div style="font-size: 0.75rem; color: var(--hcl-text-tertiary); margin-top: 0.25rem;">Add a new identity</div>
+            </div>
+        </a>
+
+        <a href="/Admin/Roles" class="hcl-card hcl-glass hcl-hover-lift" style="text-decoration: none; cursor: pointer;">
+            <div style="padding: 1.5rem; text-align: center;">
+                <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(168,85,247,0.15); display: flex; align-items: center; justify-content: center; margin: 0 auto 0.75rem;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2" width="24" height="24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="8" x2="12" y2="14"/><line x1="15" y1="11" x2="9" y2="11"/></svg>
+                </div>
+                <div style="font-weight: 600; color: var(--hcl-text-primary); font-size: 0.875rem;">Create Role</div>
+                <div style="font-size: 0.75rem; color: var(--hcl-text-tertiary); margin-top: 0.25rem;">Define access policies</div>
+            </div>
+        </a>
+
+        <a href="/Admin/Clients" class="hcl-card hcl-glass hcl-hover-lift" style="text-decoration: none; cursor: pointer;">
+            <div style="padding: 1.5rem; text-align: center;">
+                <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(6,182,212,0.15); display: flex; align-items: center; justify-content: center; margin: 0 auto 0.75rem;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2" width="24" height="24"><path d="m15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4"/><path d="m21 2-9.6 9.6"/><circle cx="7.5" cy="15.5" r="5.5"/></svg>
+                </div>
+                <div style="font-weight: 600; color: var(--hcl-text-primary); font-size: 0.875rem;">Register Client</div>
+                <div style="font-size: 0.75rem; color: var(--hcl-text-tertiary); margin-top: 0.25rem;">OAuth 2.0 application</div>
+            </div>
+        </a>
+
+        <a href="/Admin/Resources" class="hcl-card hcl-glass hcl-hover-lift" style="text-decoration: none; cursor: pointer;">
+            <div style="padding: 1.5rem; text-align: center;">
+                <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(16,185,129,0.15); display: flex; align-items: center; justify-content: center; margin: 0 auto 0.75rem;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" width="24" height="24"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.84Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg>
+                </div>
+                <div style="font-weight: 600; color: var(--hcl-text-primary); font-size: 0.875rem;">Add Resource</div>
+                <div style="font-size: 0.75rem; color: var(--hcl-text-tertiary); margin-top: 0.25rem;">API or Identity resource</div>
+            </div>
+        </a>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+    // Update subtitle with current date/time
+    (function() {
+        function updateTime() {
+            var el = document.getElementById('dashboardSubtitle');
+            if (el) {
+                el.textContent = 'Security Framework Administration \u2022 ' + HCL.formatDateTime(new Date().toISOString());
+            }
+        }
+        updateTime();
+        setInterval(updateTime, 60000);
+    })();
+
+    async function dashboardLockUser(userId) {
+        var ok = await HCL.confirm('Lock User', 'Are you sure you want to lock this user account? They will be unable to sign in.');
+        if (!ok) return;
+        var result = await HCL.apiRequest('/Admin/Users/Lock/' + userId, { method: 'POST' });
+        if (result.success) {
+            HCL.toastSuccess('User locked successfully.');
+            setTimeout(function() { location.reload(); }, 800);
+        } else {
+            HCL.toastError('Failed to lock user.');
+        }
+    }
+
+    async function dashboardUnlockUser(userName) {
+        var ok = await HCL.confirm('Unlock User', 'Are you sure you want to unlock this user account?');
+        if (!ok) return;
+        var result = await HCL.apiRequest('/Admin/Users/Unlock', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(userName)
+        });
+        if (result.success) {
+            HCL.toastSuccess('User unlocked successfully.');
+            setTimeout(function() { location.reload(); }, 800);
+        } else {
+            HCL.toastError('Failed to unlock user.');
+        }
+    }
+</script>
+}

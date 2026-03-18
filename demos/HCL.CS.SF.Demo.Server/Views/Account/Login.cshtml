@@ -1,0 +1,639 @@
+@model HCL.CS.SF.DemoServerApp.Models.LoginViewModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Sign In";
+}
+
+<style>
+    .login-page {
+        min-height: calc(100vh - 210px);
+        margin-left: calc(-50vw + 50%);
+        margin-right: calc(-50vw + 50%);
+        width: 100vw;
+        padding: 2.5rem 1.5rem 3rem;
+        position: relative;
+        overflow-x: hidden;
+        background:
+            radial-gradient(circle at top left, rgba(95, 190, 240, 0.28), transparent 26%),
+            radial-gradient(circle at bottom right, rgba(0, 107, 182, 0.12), transparent 32%),
+            linear-gradient(180deg, #eef6fc 0%, #ffffff 46%, #f5f8fb 100%);
+        box-sizing: border-box;
+    }
+
+    .login-shell {
+        max-width: 1240px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: minmax(0, 1.15fr) minmax(380px, 460px);
+        gap: 2rem;
+        align-items: stretch;
+    }
+
+    .login-page::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+            linear-gradient(90deg, rgba(0, 107, 182, 0.04) 1px, transparent 1px),
+            linear-gradient(rgba(0, 107, 182, 0.04) 1px, transparent 1px);
+        background-size: 48px 48px;
+        pointer-events: none;
+    }
+
+    .login-page::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 140px;
+        background: linear-gradient(to top, rgba(255, 255, 255, 0.98), transparent);
+        pointer-events: none;
+    }
+
+    .login-story {
+        position: relative;
+        overflow: hidden;
+        padding: 3rem;
+        border-radius: 30px;
+        background: linear-gradient(135deg, #0a3e70 0%, #006bb6 55%, #2790d8 100%);
+        color: #fff;
+        box-shadow: 0 28px 70px rgba(8, 52, 94, 0.22);
+    }
+
+    .login-story::before {
+        content: "";
+        position: absolute;
+        right: -10%;
+        bottom: -35%;
+        width: 360px;
+        height: 360px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .login-story::after {
+        content: "";
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        width: 220px;
+        height: 220px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 28px;
+        transform: rotate(12deg);
+    }
+
+    .login-story__content {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        height: 100%;
+    }
+
+    .login-story__eyebrow {
+        display: inline-flex;
+        align-self: flex-start;
+        padding: 0.5rem 0.9rem;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        font-size: 0.76rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    .login-story__title {
+        margin: 0;
+        max-width: 11ch;
+        font-size: clamp(2rem, 4vw, 3rem);
+        line-height: 1.05;
+        font-weight: 800;
+    }
+
+    .login-story__lead {
+        margin: 0;
+        max-width: 38rem;
+        font-size: 1.02rem;
+        line-height: 1.75;
+        color: rgba(255, 255, 255, 0.86);
+    }
+
+    .login-story__band {
+        display: grid;
+        gap: 0.35rem;
+        padding: 1rem 1.15rem;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.14);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    .login-story__band-label {
+        font-size: 0.75rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.74);
+        font-weight: 700;
+    }
+
+    .login-story__band strong {
+        font-size: 1.08rem;
+        font-weight: 700;
+        line-height: 1.45;
+    }
+
+    .login-story__grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+        margin-top: auto;
+    }
+
+    .login-story__feature {
+        padding: 1.1rem;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+    }
+
+    .login-story__feature-title {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-size: 0.88rem;
+        font-weight: 700;
+    }
+
+    .login-story__feature p {
+        margin: 0;
+        font-size: 0.85rem;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.82);
+    }
+
+    .login-card {
+        width: 100%;
+        position: relative;
+        z-index: 1;
+        background: #ffffff;
+        border-radius: 28px;
+        border: 1px solid #d6e4f0;
+        box-shadow: 0 32px 70px rgba(13, 45, 79, 0.16);
+        overflow: hidden;
+    }
+
+    .login-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 6px;
+        background: linear-gradient(180deg, #5fbeF0 0%, #006bb6 100%);
+    }
+
+    .login-card__header {
+        padding: 2.5rem 2.25rem 1.35rem;
+        border-bottom: 1px solid #e6eef5;
+        position: relative;
+        background: linear-gradient(180deg, #ffffff 0%, #f7fbff 100%);
+    }
+
+    .login-card__secure-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.45rem 0.85rem;
+        background: #eaf5fe;
+        border: 1px solid #cde5f7;
+        color: #006bb6;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        border-radius: 9999px;
+        margin-bottom: 1rem;
+    }
+
+    .login-card__secure-badge svg {
+        width: 14px;
+        height: 14px;
+        flex-shrink: 0;
+    }
+
+    .login-card__title {
+        font-size: 2rem;
+        font-weight: 800;
+        color: #1b1b1b;
+        margin: 0 0 0.5rem;
+        letter-spacing: -0.03em;
+    }
+
+    .login-card__subtitle {
+        font-size: 0.96rem;
+        color: #53606f;
+        margin: 0;
+        line-height: 1.7;
+    }
+
+    .login-card__subtitle strong {
+        color: #006bb6;
+        font-weight: 700;
+    }
+
+    .login-card__body {
+        padding: 1.75rem 2.25rem 2.25rem;
+    }
+
+    .login-card .form-group {
+        margin-bottom: 1.2rem;
+    }
+
+    .login-card label {
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: #324150;
+        margin-bottom: 0.5rem;
+        display: block;
+        letter-spacing: 0.02em;
+    }
+
+    .login-card .form-control {
+        height: 3.25rem;
+        border-radius: 14px;
+        border: 1px solid #c9d8e6;
+        background: #fbfdff;
+        color: #1b1b1b;
+        padding: 0 1rem;
+        font-size: 0.95rem;
+        box-shadow: none;
+        transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    }
+
+    .login-card .form-control::placeholder {
+        color: #8694a3;
+    }
+
+    .login-card .form-control:focus {
+        border-color: #006bb6;
+        background: #ffffff;
+        box-shadow: 0 0 0 4px rgba(0, 107, 182, 0.12);
+        outline: none;
+    }
+
+    .login-password-field {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+    .login-password-input {
+        padding-right: 3.5rem;
+    }
+    .login-password-toggle {
+        position: absolute;
+        right: 0.75rem;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 2.2rem;
+        height: 2.2rem;
+        border: none;
+        border-radius: 9999px;
+        background: #eef5fb;
+        color: #5e6a77;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        cursor: pointer;
+        transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    }
+
+    .login-password-toggle:hover {
+        background: #dcecf9;
+        color: #1b1b1b;
+    }
+
+    .login-password-toggle:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(0, 107, 182, 0.14);
+    }
+
+    .login-password-toggle svg {
+        width: 18px;
+        height: 18px;
+    }
+    .login-password-toggle__icon--hide {
+        display: none;
+    }
+    .login-password-toggle[aria-pressed="true"] .login-password-toggle__icon--show {
+        display: none;
+    }
+    .login-password-toggle[aria-pressed="true"] .login-password-toggle__icon--hide {
+        display: inline-flex;
+    }
+    .login-sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+
+    .login-card .btn-primary {
+        width: 100%;
+        height: 3.25rem;
+        font-weight: 700;
+        font-size: 0.94rem;
+        letter-spacing: 0.04em;
+        border-radius: 14px;
+        background: linear-gradient(135deg, #006bb6 0%, #0578c3 100%);
+        border: none;
+        color: #ffffff;
+        transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
+    }
+
+    .login-card .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 16px 30px rgba(0, 107, 182, 0.22);
+        filter: brightness(1.03);
+    }
+
+    .login-card .btn-outline-dark {
+        width: 100%;
+        height: 3.25rem;
+        font-weight: 600;
+        font-size: 0.875rem;
+        border-radius: 14px;
+        border: 1px solid #c9d8e6;
+        background: #ffffff;
+        color: #1b1b1b;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.6rem;
+        transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+
+    .login-card .btn-outline-dark:hover {
+        background: #f4f9fd;
+        border-color: #8dc8ea;
+        color: #0a3e70;
+    }
+
+    .login-divider {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin: 1.5rem 0;
+        color: #798696;
+        font-size: 0.75rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+    }
+    .login-divider::before,
+    .login-divider::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #d4e1ec, transparent);
+    }
+
+    .login-card .text-danger {
+        font-size: 0.8125rem;
+        margin-top: 0.35rem;
+        color: #c43d4b;
+    }
+
+    .login-card .alert-danger {
+        border-radius: 14px;
+        font-size: 0.875rem;
+        background: #fff3f4;
+        border: 1px solid #f0c5cb;
+        color: #8b2430;
+    }
+
+    .login-forgot {
+        text-align: center;
+        margin-top: 1rem;
+    }
+
+    .login-forgot a {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #006bb6;
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+
+    .login-forgot a:hover {
+        color: #0a3e70;
+    }
+
+    .login-trust {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.55rem;
+        margin-top: 1.5rem;
+        padding-top: 1.25rem;
+        border-top: 1px solid #e5edf4;
+        font-size: 0.72rem;
+        color: #718090;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+    }
+
+    .login-trust svg {
+        width: 12px;
+        height: 12px;
+        color: #006bb6;
+        flex-shrink: 0;
+    }
+
+    @@media (max-width: 991px) {
+        .login-shell {
+            grid-template-columns: 1fr;
+        }
+
+        .login-story {
+            padding: 2.25rem;
+        }
+
+        .login-story__title {
+            max-width: none;
+        }
+
+        .login-story__grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @@media (max-width: 767px) {
+        .login-page {
+            min-height: auto;
+            padding: 1.25rem 1rem 2.25rem;
+        }
+
+        .login-story,
+        .login-card__header,
+        .login-card__body {
+            padding-left: 1.35rem;
+            padding-right: 1.35rem;
+        }
+
+        .login-story {
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+
+        .login-card__header {
+            padding-top: 2rem;
+        }
+
+        .login-card__title {
+            font-size: 1.65rem;
+        }
+
+        .login-trust {
+            align-items: flex-start;
+            text-align: center;
+        }
+    }
+</style>
+
+<div class="login-page">
+    <div class="login-shell">
+        <section class="login-story" aria-label="HCL.CS.SF enterprise overview">
+            <div class="login-story__content">
+                <span class="login-story__eyebrow">Official HCL Tech product</span>
+                <h1 class="login-story__title">Enterprise identity access for HCL.CS.SF.</h1>
+                <p class="login-story__lead">Built for secure workforce and partner access, HCL.CS.SF delivers governed authentication, encrypted session handling and a polished enterprise experience aligned with HCLTech-inspired design language.</p>
+                <div class="login-story__band">
+                    <span class="login-story__band-label">Enterprise-ready experience</span>
+                    <strong>Trusted sign-in for modern identity operations, policy-driven controls and secure administrative workflows.</strong>
+                </div>
+                <div class="login-story__grid">
+                    <article class="login-story__feature">
+                        <span class="login-story__feature-title">Governed authentication</span>
+                        <p>Strong credential handling, controlled redirect flows and enterprise sign-in patterns from the first interaction.</p>
+                    </article>
+                    <article class="login-story__feature">
+                        <span class="login-story__feature-title">Encrypted sessions</span>
+                        <p>Secure transport, protected account access and clear trust signals for high-assurance identity journeys.</p>
+                    </article>
+                    <article class="login-story__feature">
+                        <span class="login-story__feature-title">Operational clarity</span>
+                        <p>Clean HCL-style presentation that feels ready for enterprise users, administrators and regulated environments.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <div class="login-card">
+            <div class="login-card__header">
+                <div class="login-card__secure-badge" aria-label="Official HCL Tech product">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3l8 4v5c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V7l8-4z" />
+                    </svg>
+                    Official HCL Tech product
+                </div>
+                <h1 class="login-card__title">Sign in to HCL.CS.SF</h1>
+                <p class="login-card__subtitle">Use your enterprise credentials to access secure identity services. Every session is <strong>encrypted</strong> and protected by enterprise-grade access controls.</p>
+            </div>
+
+            <div class="login-card__body">
+                @if (TempData["ExternalAuthError"] != null)
+                {
+                    <div class="alert alert-danger" role="alert">@TempData["ExternalAuthError"]</div>
+                }
+
+                <form asp-action="Login" asp-controller="Account" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <input type="hidden" asp-for="ReturnUrl" />
+
+                    <div class="form-group">
+                        <label asp-for="UserName">Email or username</label>
+                        <input asp-for="UserName" class="form-control" placeholder="Enter your email or username" autocomplete="username" />
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Password">Password</label>
+                        <div class="login-password-field">
+                            <input asp-for="Password" class="form-control login-password-input" placeholder="Enter your password" autocomplete="current-password" />
+                            <button type="button"
+                                    class="login-password-toggle"
+                                    data-password-toggle
+                                    aria-label="Show password"
+                                    aria-controls="Password"
+                                    aria-pressed="false">
+                                <span class="login-password-toggle__icon--show" aria-hidden="true">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7zm9.542 3a3 3 0 100-6 3 3 0 000 6z" />
+                                    </svg>
+                                </span>
+                                <span class="login-password-toggle__icon--hide" aria-hidden="true">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 3l18 18M10.584 10.587a2 2 0 002.828 2.828M9.88 5.09A10.94 10.94 0 0112 5c4.478 0 8.268 2.943 9.542 7a10.523 10.523 0 01-4.043 5.252M6.228 6.228A10.45 10.45 0 002.458 12c1.274 4.057 5.064 7 9.542 7a10.94 10.94 0 005.09-1.228" />
+                                    </svg>
+                                </span>
+                                <span class="login-sr-only">Toggle password visibility</span>
+                            </button>
+                        </div>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" name="button" value="login">Sign in to workspace</button>
+                    </div>
+                    <div class="login-forgot">
+                        <a asp-controller="Account" asp-action="ForgetPassword" asp-route-returnurl="@ViewData["ReturnUrl"]">Forgot password?</a>
+                    </div>
+                </form>
+
+                <div class="login-divider">or continue with</div>
+
+                <form method="get" action="/auth/external/google/start">
+                    <input type="hidden" name="returnUrl" value="@ViewData["ReturnUrl"]" />
+                    <input type="hidden" name="tenantId" value="@Context.Request.Query["tenantId"]" />
+                    <button class="btn btn-outline-dark" type="submit">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                        Continue with Google
+                    </button>
+                </form>
+
+                <div class="login-trust">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    Protected connection · enterprise encrypted session
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var input = document.getElementById("Password");
+            var toggle = document.querySelector("[data-password-toggle]");
+            if (!input || !toggle) {
+                return;
+            }
+
+            toggle.addEventListener("click", function () {
+                var showPassword = input.type === "password";
+                input.type = showPassword ? "text" : "password";
+                toggle.setAttribute("aria-pressed", String(showPassword));
+                toggle.setAttribute("aria-label", showPassword ? "Hide password" : "Show password");
+            });
+        });
+    </script>
+}

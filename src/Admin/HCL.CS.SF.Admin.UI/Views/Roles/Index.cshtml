@@ -1,0 +1,184 @@
+@model List<HCL.CS.SF.Admin.UI.Models.Api.RoleModel>
+
+@{
+    var roles = Model ?? new List<HCL.CS.SF.Admin.UI.Models.Api.RoleModel>();
+}
+
+<!-- Page Header -->
+<div class="hcl-page-header">
+    <div>
+        <h1 class="hcl-page-title">
+            <span class="hcl-gradient-text">Roles &amp; Claims</span>
+        </h1>
+        <p style="color: var(--hcl-text-secondary); margin-top: 0.25rem; font-size: 0.875rem;">
+            @roles.Count role definitions
+        </p>
+    </div>
+    <div class="hcl-page-actions">
+        <button class="hcl-btn hcl-btn-primary" onclick="HCL.openModal('createRoleModal')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Create Role
+        </button>
+    </div>
+</div>
+
+<!-- Search Bar -->
+<div class="hcl-search-bar" style="margin-bottom: 1.5rem;">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" style="position: absolute; left: 0.875rem; top: 50%; transform: translateY(-50%); color: var(--hcl-text-tertiary);"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="text" class="hcl-search-input" id="roleSearchInput" placeholder="Search roles by name or description..." oninput="filterRoles(this.value)" />
+</div>
+
+<!-- Roles Grid -->
+@if (!roles.Any())
+{
+    <div class="hcl-card hcl-glass">
+        <div class="hcl-empty-state" style="padding: 3rem;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="48" height="48" style="color: var(--hcl-text-tertiary); margin-bottom: 1rem;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <p style="color: var(--hcl-text-tertiary);">No roles found. Create your first role to get started.</p>
+            <button class="hcl-btn hcl-btn-primary hcl-btn-sm" style="margin-top: 1rem;" onclick="HCL.openModal('createRoleModal')">Create Role</button>
+        </div>
+    </div>
+}
+else
+{
+    <div class="hcl-grid hcl-grid-3" id="rolesGrid">
+        @foreach (var role in roles)
+        {
+            var claimCount = role.RoleClaims?.Count ?? 0;
+            <div class="hcl-card hcl-glass hcl-hover-lift role-card"
+                 data-name="@role.Name.ToLower()"
+                 data-description="@((role.Description ?? "").ToLower())"
+                 style="padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
+                <div style="display: flex; align-items: flex-start; justify-content: space-between;">
+                    <div>
+                        <h3 style="font-size: 1.125rem; font-weight: 600; color: var(--hcl-text-primary); margin: 0;">
+                            @role.Name
+                        </h3>
+                        <p style="font-size: 0.8rem; color: var(--hcl-text-tertiary); margin-top: 0.375rem; line-height: 1.4;">
+                            @(role.Description ?? "No description provided")
+                        </p>
+                    </div>
+                    <div style="width: 40px; height: 40px; border-radius: 0.5rem; background: linear-gradient(135deg, rgba(168,85,247,0.2), rgba(236,72,153,0.2)); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20" style="color: #a855f7;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    </div>
+                </div>
+                <div>
+                    <span class="hcl-badge hcl-badge-purple">
+                        @claimCount @(claimCount == 1 ? "claim" : "claims")
+                    </span>
+                </div>
+                <div style="display: flex; gap: 0.5rem; margin-top: auto; padding-top: 0.5rem; border-top: 1px solid var(--hcl-border);">
+                    <a href="/Admin/Roles/@role.Id" class="hcl-btn hcl-btn-sm" style="flex: 1; justify-content: center; background: var(--hcl-bg-tertiary); color: var(--hcl-text-secondary); border: 1px solid var(--hcl-border);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                        View Details
+                    </a>
+                    <button class="hcl-btn hcl-btn-danger hcl-btn-sm" onclick="deleteRole('@role.Id', '@role.Name')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                        Delete
+                    </button>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+<!-- Create Role Modal -->
+<div class="hcl-modal-backdrop" id="createRoleModal">
+    <div class="hcl-modal">
+        <div class="hcl-modal-header">
+            <h3 class="hcl-modal-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20" style="display: inline; vertical-align: text-bottom; margin-right: 0.5rem;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                Create New Role
+            </h3>
+            <button class="hcl-btn-icon" onclick="HCL.closeModal('createRoleModal')">&times;</button>
+        </div>
+        <div class="hcl-modal-body">
+            <form id="createRoleForm" onsubmit="return false;">
+                <div class="hcl-form-group">
+                    <label class="hcl-label">Role Name <span style="color: #ef4444;">*</span></label>
+                    <input type="text" class="hcl-input" id="create_roleName" required placeholder="e.g. Administrator, Editor, Viewer" />
+                </div>
+                <div class="hcl-form-group">
+                    <label class="hcl-label">Description</label>
+                    <input type="text" class="hcl-input" id="create_roleDescription" placeholder="Brief description of this role's purpose" />
+                </div>
+            </form>
+        </div>
+        <div class="hcl-modal-footer">
+            <button class="hcl-btn hcl-btn-ghost" onclick="HCL.closeModal('createRoleModal')">Cancel</button>
+            <button class="hcl-btn hcl-btn-primary" id="createRoleBtn" onclick="createRole()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                Create Role
+            </button>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+    function filterRoles(query) {
+        var q = query.toLowerCase().trim();
+        var cards = document.querySelectorAll('.role-card');
+        cards.forEach(function(card) {
+            var name = card.getAttribute('data-name') || '';
+            var desc = card.getAttribute('data-description') || '';
+            var match = !q || name.indexOf(q) !== -1 || desc.indexOf(q) !== -1;
+            card.style.display = match ? '' : 'none';
+        });
+    }
+
+    async function createRole() {
+        var name = document.getElementById('create_roleName').value.trim();
+        if (!name) {
+            HCL.toastError('Role name is required.');
+            return;
+        }
+
+        var btn = document.getElementById('createRoleBtn');
+        btn.disabled = true;
+        btn.textContent = 'Creating...';
+
+        try {
+            var result = await HCL.apiRequest('/Admin/Roles/Create', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: name,
+                    description: document.getElementById('create_roleDescription').value.trim() || null
+                })
+            });
+
+            if (result.success) {
+                HCL.toastSuccess('Role created successfully.');
+                HCL.closeModal('createRoleModal');
+                setTimeout(function() { location.reload(); }, 800);
+            } else {
+                var msg = result.errors && result.errors.length > 0
+                    ? result.errors.map(function(e) { return e.description || e.code; }).join(', ')
+                    : 'Failed to create role.';
+                HCL.toastError(msg);
+            }
+        } catch (err) {
+            HCL.toastError('An error occurred while creating the role.');
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Create Role';
+        }
+    }
+
+    async function deleteRole(roleId, roleName) {
+        var ok = await HCL.confirm('Delete Role', 'Are you sure you want to permanently delete role "' + roleName + '"? All associated claims will also be removed. This action cannot be undone.');
+        if (!ok) return;
+        var result = await HCL.apiRequest('/Admin/Roles/Delete/' + roleId, { method: 'POST' });
+        if (result.success) {
+            HCL.toastSuccess('Role deleted successfully.');
+            setTimeout(function() { location.reload(); }, 800);
+        } else {
+            var msg = result.errors && result.errors.length > 0
+                ? result.errors.map(function(e) { return e.description || e.code; }).join(', ')
+                : 'Failed to delete role.';
+            HCL.toastError(msg);
+        }
+    }
+</script>
+}

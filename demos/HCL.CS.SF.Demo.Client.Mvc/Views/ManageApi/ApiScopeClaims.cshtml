@@ -1,0 +1,67 @@
+﻿<div>
+    <h5>Api scope claims for scope - <strong>"@ViewData["scopename"]"</strong></h5>
+    <hr/>
+    <div class="form-group">
+        <div id="messageDiv"></div>
+        <table id="ApiScopeClaims" cellpadding="0" cellspacing="0"></table>
+        <div id="ApiScopeClaimsPager"></div>
+    </div>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            var $resources = $('#ApiScopeClaims');
+            $resources.jqGrid({
+                url: '@Url.Action("GetApiScopeClaimsByScopeId", "ManageApi", new { apiScopeId = ViewData["scopeid"] })',
+                editurl: '@Url.Action("ManageApiScopeClaims", "ManageApi", new { apiScopeId = ViewData["scopeid"] })',
+                datatype: 'json',
+                mtype: 'POST',
+                colNames: ['Id', 'Type'],
+                colModel: [
+                    {name: 'Id', sortable: false, editable: false, width: 300},
+                    {name: 'Type', sortable: false, editable: true, width: 200}],
+                caption: 'Api Scope Claims',
+                footerrow: true,
+                userDataOnFooter: true,
+                jsonReader: {repeatitems: false, id: 'Id'},
+                pager: $('#ApiScopeClaimsPager'),
+                rowNum: 10,
+                viewrecords: true,
+                height: '100%',
+            })
+                .jqGrid('navGrid', '#ApiScopeClaimsPager', {add: false, edit: false, del: true, search: false})
+                .jqGrid('inlineNav', '#ApiScopeClaimsPager', {
+                    edit: false,
+                    addParams: {
+                        useDefValues: true,
+                        addRowParams: {
+                            keys: true,
+                            extraparam: {},
+                            successfunc: function (val) {
+                                if (val.responseText != "") {
+                                    if (val.responseText == '"Success"') {
+                                        $("#messageDiv").append("<div id='divSuccess' class='alert alert-success alert-dismissible fade show' role='alert'><p id='SuccessMessgage'>ApiScope claim successfully added.</p> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>");
+                                        $(this).jqGrid('setGridParam', {datatype: 'json'}).trigger('reloadGrid');
+                                    } else {
+                                        $("#messageDiv").append("<div id='divSuccess' class='alert alert-danger alert-dismissible fade show' role='alert'><p id='SuccessMessgage'>" + val.responseText + "</p> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>");
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    editParams: {
+                        keys: false,
+                        oneditfunc: null,
+                        successfunc: function (val) {
+                            if (val.responseText != "") {
+                                $(this).jqGrid('setGridParam', {datatype: 'json'}).trigger('reloadGrid');
+                            }
+                        }
+                    }
+                },)
+            //.bind('jqGridInlineSuccessSaveRow', demo.jqGrid.onJqGridInlineSuccessSaveRow)
+            //.bind('jqGridInlineAfterSaveRow', demo.jqGrid.onJqGridInlineAfterSaveRow);
+        });
+    </script>
+}

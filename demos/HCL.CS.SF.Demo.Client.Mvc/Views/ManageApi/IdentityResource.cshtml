@@ -1,0 +1,95 @@
+﻿<div>
+    <h4>Identity Resources</h4>
+    <hr/>
+    <div class="form-group">
+        <div id="messageDiv"></div>
+        <table id="IdentityResource" cellpadding="0" cellspacing="0"></table>
+        <div id="IdentityResourcePager"></div>
+    </div>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            var $resources = $('#IdentityResource');
+            $resources.jqGrid({
+                url: '@Url.Action("GetAllIdentityResources", "ManageApi")',
+                editurl: '@Url.Action("UpdateIdentityResources", "ManageApi")',
+                datatype: 'json',
+                mtype: 'POST',
+                colNames: ['', 'Id', 'Name', 'DisplayName', 'Description', 'Claims'],
+                colModel: [
+                    {formatter: 'actions',
+                        formatoptions: {
+                            keys: true,
+                            delOptions: {url: '@Url.Action("DeleteIdentityResources", "ManageApi")'}
+                        },
+                        resizable: false,
+                        width: 60,
+                        name: 'actions'
+                    },
+                    {name: 'Id', sortable: false, editable: false, width: 300},
+                    {name: 'Name', sortable: false, editable: true, editrules: {required: true}, width: 200},
+                    {name: 'DisplayName', sortable: false, editable: true, width: 200},
+                    {name: 'Description', sortable: false, editable: true, width: 350},
+                    {name: 'Claims', formatter: claimButton, width: 80, align: 'center'}],
+                loadComplete: function (data) {
+                    let rowDataArray = data.rows;
+                    for (let i = 0, j = rowDataArray.length; i < j; i++) {
+                        let temp = rowDataArray[i];
+                        $("#btn_claims_" + temp.id).click(() => {
+                            var grid = $("#IdentityResource");
+                            var celValue = grid.jqGrid('getCell', temp.id, 'Name');
+                            var baseUrl = "@Html.Raw(Url.Action("IdentityResourceClaims", "ManageApi", new { identityResourceId = -1, identityResourceName = -2 }))";
+                            location.href = baseUrl.replace('-1', temp.id).replace('-2', celValue);
+                        });
+                    }
+                },
+                caption: 'Identity Resources',
+                footerrow: true,
+                userDataOnFooter: true,
+                jsonReader: {repeatitems: false, id: 'Id'},
+                pager: $('#IdentityResourcePager'),
+                rowNum: 10,
+                viewrecords: true,
+                height: '100%'
+            })
+                .jqGrid('navGrid', '#IdentityResourcePager', {add: false, edit: false, del: false, search: false})
+                .jqGrid('inlineNav', '#IdentityResourcePager', {
+                    edit: false,
+                    addParams: {
+                        useDefValues: true,
+                        addRowParams: {
+                            keys: true,
+                            extraparam: {},
+                            successfunc: function (val) {
+                                if (val.responseText != "") {
+                                    if (val.responseText == '"Success"') {
+                                        $("#messageDiv").append("<div id='divSuccess' class='alert alert-success alert-dismissible fade show' role='alert'><p id='SuccessMessgage'>Identity resource successfully added.</p> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>");
+                                        $(this).jqGrid('setGridParam', {datatype: 'json'}).trigger('reloadGrid');
+                                    } else {
+                                        $("#messageDiv").append("<div id='divSuccess' class='alert alert-danger alert-dismissible fade show' role='alert'><p id='SuccessMessgage'>" + val.responseText + "</p> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>");
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    editParams: {
+                        keys: false,
+                        oneditfunc: null,
+                        successfunc: function (val) {
+                            if (val.responseText != "") {
+                                $(this).jqGrid('setGridParam', {datatype: 'json'}).trigger('reloadGrid');
+                            }
+                        }
+                    }
+                },)
+            //.bind('jqGridInlineSuccessSaveRow', demo.jqGrid.onJqGridInlineSuccessSaveRow)
+            //.bind('jqGridInlineAfterSaveRow', demo.jqGrid.onJqGridInlineAfterSaveRow);
+
+            function claimButton(cellvalue, options, rowObject) {
+                return "<button id='btn_claims_" + rowObject.id + "' style='background-color: black;color: white;border: 1px solid #e4e4e4;padding: 5px;border-radius: 3px;cursor: pointer;'>Claims</button>"
+            }
+        });
+    </script>
+}

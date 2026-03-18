@@ -1,0 +1,6 @@
+<Project>
+  <PropertyGroup>
+    <!-- Keep disabled until package versions are fully centralized. -->
+    <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+</Project>

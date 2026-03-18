@@ -1,0 +1,145 @@
+﻿<UserControl x:Class="HCL.CS.SF.DemoClientWpfApp.View.IdentityResourceGrid"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HCL.CS.SF.DemoClientWpfApp.View" xmlns:intr="http://schemas.microsoft.com/xaml/behaviors" xmlns:viewmodel="clr-namespace:HCL.CS.SF.DemoClientWpfApp.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:IdentityResourceGridViewModel}"
+             mc:Ignorable="d" HorizontalAlignment="Center">
+    <intr:Interaction.Triggers>
+        <intr:EventTrigger EventName="Loaded">
+            <intr:InvokeCommandAction Command="{Binding OnLoadCommand}"/>
+        </intr:EventTrigger>
+    </intr:Interaction.Triggers>
+    <StackPanel>
+        <Grid x:Name="LayoutRoot">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackPanel Margin="20,2,20,5" Background="Transparent">
+                <Grid Background="WhiteSmoke" Margin="10,10,10,5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                    </Grid.ColumnDefinitions>
+                    <Label HorizontalAlignment="Left" HorizontalContentAlignment="Left"    FontSize="15" Foreground="Black" FontWeight="Bold" Content="IDENTITY RESOURCE"/>
+                    <DataGrid   VerticalScrollBarVisibility="Visible" AutoGenerateColumns="False" MaxHeight="525" Height="400" ItemsSource="{Binding IdentityResource}"   HeadersVisibility="Column"  HorizontalAlignment="Left"    Name="grdKitsGroupingParent" VerticalAlignment="Center"  CanUserAddRows="True" Width="1100"  Grid.Row="2" RowDetailsVisibilityMode="Visible" SelectedItem="{Binding Path=SelectedItem , Mode=TwoWay}" >
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Width="SizeToCells">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Expander Width="50"  Expanded="Expander_Expanded" Collapsed="Expander_Collapsed" IsExpanded="False" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTextColumn CanUserReorder="True"   CanUserResize="True" CanUserSort="True" IsReadOnly="False" Width="250" Binding="{Binding Path= Name}" Header="IDENTITY RESOURCE NAME"  Foreground="Black">
+                            </DataGridTextColumn>
+                            <DataGridTextColumn CanUserReorder="True" CanUserResize="True" CanUserSort="True" IsReadOnly="False" Width="250" Binding="{Binding DisplayName}" Header="IDENTITY RESOURCE DISPLAY NAME"  Foreground="Black">
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn CanUserReorder="True" CanUserResize="True" CanUserSort="True" IsReadOnly="False" Width="270" Binding="{Binding Description}" Header="IDENTITY RESOURCE DESCRIPTION"  Foreground="Black">
+                            </DataGridTextColumn>
+                            <DataGridTemplateColumn  Header="ADD"  IsReadOnly="False">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button x:Name="btnAdd"  ToolTip="Expand" Foreground="Black" Background="Transparent" BorderBrush="Transparent" Tag="{Binding Name}" Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.AddResourceCommand}" CommandParameter="{Binding ElementName=grdKitsGroupingParent,Path=SelectedItem}"  >
+                                            <Image Height="15" Stretch="Fill" Width="15" Source="/Image/AddIcon.png" />
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn  Header="UPDATE"   IsReadOnly="False">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button x:Name="btnUpdate"  ToolTip="Expand" Foreground="Black" Background="Transparent" BorderBrush="Transparent" Tag="{Binding Name}" Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.UpdateResourceCommand}" CommandParameter="{Binding ElementName=grdKitsGroupingParent,Path=SelectedItem}"  >
+                                            <Image Height="15" Stretch="Fill" Width="15" Source="/Image/Edit.png" />
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn  Header="DELETE" IsReadOnly="False">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button x:Name="btndelete" Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.DeleteResourceCommand}" CommandParameter="{Binding ElementName=grdKitsGroupingParent,Path=SelectedItem}"  ToolTip="Expand" Foreground="Black" Background="Transparent" BorderBrush="Transparent" Tag="{Binding Name}" >
+                                            <Image Height="15" Width="15" Source="/Image/Deleteicon.png" />
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="REFRESH" IsReadOnly="False">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button x:Name="btnRefresh" ToolTip="Refresh" Foreground="Black" Background="Transparent" BorderBrush="Transparent" Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.RefreshCommand}" CommandParameter="{Binding ElementName=grdKitsGroupingParent,Path=SelectedItem}" >
+                                            <Image Height="15" Stretch="Fill" Width="15" Source="/Image/refreshIcon.png" />
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                        <DataGrid.RowDetailsTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Vertical" HorizontalAlignment="Right">
+                                    <Label HorizontalAlignment="Left" HorizontalContentAlignment="Left" Width="200"   FontSize="15" Foreground="Black" FontWeight="Bold" Content="IDENTITY CLAIMS"/>
+                                    <DataGrid Name="NestedClaimDG" ItemsSource="{Binding IdentityClaims}" CanUserAddRows="False"   Width="1060"  HeadersVisibility="Column" Grid.Column="2" AutoGenerateColumns="False" RowDetailsVisibilityMode="VisibleWhenSelected">
+                                        <DataGrid.Columns>
+                                            <DataGridTemplateColumn Width="Auto">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Width="50"></TextBlock>
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+
+                                            <DataGridTextColumn CanUserReorder="True"  CanUserResize="True" CanUserSort="True" Width="250" Binding="{Binding Path= Id}" Header="IDENTITY RESOURCE CLAIM ID"  Foreground="Black">
+                                            </DataGridTextColumn>
+
+                                            <DataGridTextColumn CanUserReorder="True" CanUserResize="True" CanUserSort="True" Width="250" Binding="{Binding IdentityResourceId}" Header="IDENTITY RESOURCE ID"  Foreground="Black">
+                                            </DataGridTextColumn>
+
+                                            <DataGridTextColumn CanUserReorder="True" CanUserResize="True" CanUserSort="True" Width="250" Binding="{Binding Type}" Header="IDENTITY CLAIM TYPE"  Foreground="Black">
+                                            </DataGridTextColumn>
+
+                                            <DataGridTemplateColumn Header="ADD"   IsReadOnly="False">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <Button x:Name="btnAddClaim"  ToolTip="Expand" Foreground="Black" Background="Transparent" BorderBrush="Transparent" Tag="{Binding Name}" Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=DataContext.AddResourceClaimCommand}" CommandParameter="{Binding ElementName=NestedClaimDG,Path=SelectedItem}"  >
+                                                            <Image Height="15" Stretch="Fill" Width="15" Source="/Image/AddIcon.png" />
+                                                        </Button>
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+
+
+                                            <DataGridTemplateColumn  Header="DELETE" IsReadOnly="False">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <Button x:Name="btndeleteClaim" Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=DataContext.DeleteResourceClaimCommand}" CommandParameter="{Binding ElementName=NestedClaimDG,Path=SelectedItem}"  ToolTip="Expand" Foreground="Black" Background="Transparent" BorderBrush="Transparent" Tag="{Binding Name}" >
+                                                            <Image Height="15" Width="15" Source="/Image/Deleteicon.png" />
+                                                        </Button>
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGrid.RowDetailsTemplate>
+                    </DataGrid>
+                </Grid>
+            </StackPanel>
+        </Grid>
+    </StackPanel>
+</UserControl>

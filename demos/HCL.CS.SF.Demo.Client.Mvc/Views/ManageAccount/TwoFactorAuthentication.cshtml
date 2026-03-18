@@ -1,0 +1,32 @@
+﻿<h2>@ViewData["Title"]</h2>
+<div class="row">
+    <div class="col-md-6">
+        <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+            <h4>Setup user two factor authentication</h4>
+            <hr/>
+            <div class="form-group">
+                <button type="submit" name="action" value="EmailAuthentication" class="btn btn-primary btn-block">Email
+                    Authentication
+                </button>
+            </div>
+            <div class="form-group">
+                <button type="submit" name="action" value="PhonenumberAuthentication" class="btn btn-primary btn-block">
+                    Phonenumber Authentication
+                </button>
+            </div>
+            <div class="form-group">
+                <button type="submit" name="action" value="SetupAuthenticatorApp" class="btn btn-primary btn-block">
+                    Setup Authenticator App
+                </button>
+            </div>
+            <div class="form-group">
+                <button type="submit" name="action" value="ResetAuthenticatorApp" class="btn btn-primary btn-block">
+                    Reset Authenticator app
+                </button>
+            </div>
+            <div class="form-group">
+                <button type="submit" name="action" value="None" class="btn btn-primary btn-block">None</button>
+            </div>
+        </form>
+    </div>
+</div>

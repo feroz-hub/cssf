@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@ViewData["Title"] | HCL.CS.SF Installer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet"/>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+</head>
+<body class="installer-body">
+<div class="bg-orb bg-orb-a" aria-hidden="true"></div>
+<div class="bg-orb bg-orb-b" aria-hidden="true"></div>
+<div class="noise-layer" aria-hidden="true"></div>
+
+<header class="installer-topbar">
+    <nav class="container topbar-inner" aria-label="Primary">
+        <a class="brand-lockup" asp-controller="Setup" asp-action="Root">
+            <span class="brand-mark" aria-hidden="true">Z</span>
+            <span class="brand-copy">
+                    <span class="brand-title">HCL.CS.SF</span>
+                    <span class="brand-subtitle">Official Installer Console</span>
+                </span>
+        </a>
+        <div class="topbar-meta">
+            <span class="meta-pill">Enterprise Provisioning</span>
+            <a class="meta-pill meta-pill-link" href="/health" target="_blank" rel="noopener">/health</a>
+        </div>
+    </nav>
+</header>
+
+<main class="installer-main">
+    <div class="container installer-container">
+        @if (ViewData["CurrentStep"] is int step)
+        {
+            @await Html.PartialAsync("_WizardProgress", step)
+        }
+
+        @if (TempData["StatusMessage"] is string statusMessage)
+        {
+            <div class="status-banner" role="status">@statusMessage</div>
+        }
+
+        @RenderBody()
+    </div>
+</main>
+
+<footer class="installer-footer">
+    <div class="container footer-inner">
+        <span>HCL.CS.SF Installer on .NET 8</span>
+        <span>Security-first onboarding workflow</span>
+    </div>
+</footer>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", false)
+</body>
+</html>

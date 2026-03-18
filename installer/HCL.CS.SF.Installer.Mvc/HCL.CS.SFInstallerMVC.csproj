@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateMvcApplicationPartsAssemblyAttributes>false</GenerateMvcApplicationPartsAssemblyAttributes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Infrastructure/Persistence/Migrations/Sqlite/20220802110433_HCL.CS.SFSqliteV1.cs"/>
+    <Compile Remove="Infrastructure/Persistence/Migrations/Sqlite/20220802110433_HCL.CS.SFSqliteV1.Designer.cs"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Identity\HCL.CS.SF.Identity.Domain\HCL.CS.SF.Domain.csproj"/>
+    <ProjectReference Include="..\..\src\Identity\HCL.CS.SF.Identity.Persistence\HCL.CS.SF.Infrastructure.Data.csproj"/>
+    <ProjectReference Include="..\..\src\Identity\HCL.CS.SF.Identity.Application\HCL.CS.SF.Service.csproj"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0"/>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.11"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.11"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.11"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.11"/>
+    <PackageReference Include="MySql.Data" Version="8.0.29"/>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4"/>
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.2"/>
+    <PackageReference Include="Serilog.AspNetCore" Version="8.0.3"/>
+    <PackageReference Include="Serilog.Settings.Configuration" Version="8.0.4"/>
+    <PackageReference Include="Serilog.Sinks.Console" Version="5.0.1"/>
+    <PackageReference Include="System.Text.Json" Version="8.0.6"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="App_Data\installer.lock.json"/>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,49 @@
+@{
+    Layout = null;
+    var errorCode = ViewBag.ErrorCode as string ?? "Unknown";
+    var errorMessage = ViewBag.ErrorMessage as string ?? "An authentication error occurred.";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Authentication Error - HCL Security Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/hcl-admin.css" />
+</head>
+<body>
+    <div class="hcl-auth-page">
+        <div class="hcl-auth-card" style="max-width: 560px;">
+            <div style="text-align: center; margin-bottom: 24px;">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <line x1="15" y1="9" x2="9" y2="15"/>
+                    <line x1="9" y1="9" x2="15" y2="15"/>
+                </svg>
+                <h1 style="font-size: 1.5rem; color: #f1f5f9; margin-top: 16px;">Authentication Failed</h1>
+            </div>
+
+            <div class="hcl-alert hcl-alert-danger" style="margin-bottom: 20px;">
+                <strong>Error Code:</strong> @errorCode
+            </div>
+
+            <div class="hcl-card" style="margin-bottom: 24px;">
+                <div class="hcl-card-body">
+                    <p style="color: #94a3b8; margin: 0; word-break: break-word;">@errorMessage</p>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 12px; justify-content: center;">
+                <a href="/Account/Login" class="hcl-btn hcl-btn-primary">Try Again</a>
+                <a href="/" class="hcl-btn hcl-btn-secondary">Home</a>
+            </div>
+
+            <p style="text-align: center; color: #64748b; font-size: 0.8rem; margin-top: 20px;">
+                If this error persists, try clearing your browser cookies for this site.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

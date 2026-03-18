@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/bdadmin/FBT/RentFlow_Execution/fbt-platform-zentra/Zentra-admin/**)",
+      "Bash(find /Users/bdadmin/SecurityFramework/src/Admin/HCL.CS.SF.Admin.UI -name *.csproj -o -name *.cs -o -name *.cshtml)",
+      "Bash(find /Users/bdadmin/SecurityFramework/src/Admin/HCL.CS.SF.Admin.API -name *.csproj)",
+      "Bash(find /Users/bdadmin/SecurityFramework/installer/HCL.CS.SF.Installer.Mvc -name *.cshtml -o -name *.css -o -name *.js)",
+      "Bash(find /Users/bdadmin/SecurityFramework/demos/HCL.CS.SF.Demo.Client.Mvc -name *.cs -type f)",
+      "Bash(find /Users/bdadmin/SecurityFramework/src/Admin/HCL.CS.SF.Admin.UI/Views -name *.cshtml -type f)",
+      "Bash(dotnet restore:*)",
+      "Bash(ls /Users/bdadmin/SecurityFramework/src/Admin/HCL.CS.SF.Admin.UI/Views/_View*)",
+      "Bash(dotnet sln:*)",
+      "Bash(sqlite3 /Users/bdadmin/SecurityFramework/.data/HCL.CS.SF_identity.db \"SELECT PostLogoutRedirectUri FROM \"\"HCL.CS.SF_ClientPostLogoutRedirectUris\"\" WHERE ClientId = ''E0182416-4B9C-4D8C-8419-223287B393DC'';\")",
+      "Bash(lsof -ti:3001)",
+      "Bash(curl -sk https://localhost:5001/.well-known/openid-configuration/jwks)",
+      "Bash(python3 -m json.tool)",
+      "Bash(curl -sk https://localhost:5001/.well-known/openid-configuration)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(''''jwks_uri:'''', d.get\\(''''jwks_uri''''\\)\\); print\\(''''id_token_signing_alg:'''', d.get\\(''''id_token_signing_alg_values_supported''''\\)\\)\")",
+      "Bash(python3 -c \":*)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(''''token_endpoint:'''', d.get\\(''''token_endpoint''''\\)\\); print\\(''''userinfo_endpoint:'''', d.get\\(''''userinfo_endpoint''''\\)\\)\")",
+      "Bash(sqlite3 /Users/bdadmin/SecurityFramework/.data/HCL.CS.SF_identity.db \":*)",
+      "Bash(sqlite3 /Users/bdadmin/SecurityFramework/.data/HCL.CS.SF_identity.db \"SELECT Name FROM \"\"HCL.CS.SF_Roles\"\" WHERE IsDeleted = 0;\")",
+      "Bash(dotnet clean:*)"
+    ]
+  }
+}

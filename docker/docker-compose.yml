@@ -1,0 +1,107 @@
+name: HCL.CS.SF-dev
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: HCL.CS.SF-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${HCL.CS.SF_DB_NAME:-HCL.CS.SF}
+      POSTGRES_USER: ${HCL.CS.SF_DB_USER:-HCL.CS.SF}
+      POSTGRES_PASSWORD: ${HCL.CS.SF_DB_PASSWORD:-HCL.CS.SF}
+    ports:
+      - "${HCL.CS.SF_DB_PORT:-55433}:5432"
+    volumes:
+      - HCL.CS.SF-postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${HCL.CS.SF_DB_USER:-HCL.CS.SF} -d ${HCL.CS.SF_DB_NAME:-HCL.CS.SF}"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 5s
+
+  redis:
+    image: redis:7-alpine
+    container_name: HCL.CS.SF-redis
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "${HCL.CS.SF_REDIS_PORT:-56380}:6379"
+    volumes:
+      - HCL.CS.SF-redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 5s
+
+  HCL.CS.SF:
+    build:
+      context: ..
+      dockerfile: docker/identity-api.Dockerfile
+    image: HCL.CS.SF/identity-api:local
+    container_name: HCL.CS.SF-identity
+    restart: unless-stopped
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: "https://+:8443"
+      ASPNETCORE_Kestrel__Certificates__Default__Path: "/app/https/HCL.CS.SF-devcert.pfx"
+      ASPNETCORE_Kestrel__Certificates__Default__Password: "${HCL.CS.SF_HTTPS_CERT_PASSWORD:-HCL.CS.SF-dev-cert}"
+      HCL.CS.SF_DB_CONNECTION_STRING: "Host=postgres;Port=5432;Database=${HCL.CS.SF_DB_NAME:-HCL.CS.SF};Username=${HCL.CS.SF_DB_USER:-HCL.CS.SF};Password=${HCL.CS.SF_DB_PASSWORD:-HCL.CS.SF}"
+      SystemSettings__DBConfig__Database: PostgreSQL
+      TokenSettings__TokenConfig__IssuerUri: "${HCL.CS.SF_ISSUER_URI:-https://localhost:5180}"
+      HCL.CS.SF_REDIS_CONNECTION_STRING: "redis:6379"
+      HCL.CS.SF_REDIS_INSTANCE_NAME: "HCL.CS.SF:"
+    ports:
+      - "${HCL.CS.SF_PORT:-5180}:8443"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-fk", "https://127.0.0.1:8443/health/ready"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    volumes:
+      - HCL.CS.SF-data:/app/.data
+      - HCL.CS.SF-keys:/app/DataProtection-Keys
+      - HCL.CS.SF-https:/app/https
+
+  installer:
+    profiles: ["extras"]
+    build:
+      context: ..
+      dockerfile: docker/installer.Dockerfile
+    image: HCL.CS.SF/installer:local
+    container_name: HCL.CS.SF-installer
+    restart: unless-stopped
+    ports:
+      - "${HCL.CS.SF_INSTALLER_PORT:-7039}:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8080/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  gateway:
+    profiles: ["extras"]
+    build:
+      context: ..
+      dockerfile: docker/gateway.Dockerfile
+    image: HCL.CS.SF/gateway:local
+    container_name: HCL.CS.SF-gateway
+    command: ["dotnet", "--info"]
+
+volumes:
+  HCL.CS.SF-postgres-data:
+  HCL.CS.SF-redis-data:
+  HCL.CS.SF-data:
+  HCL.CS.SF-keys:
+  HCL.CS.SF-https:

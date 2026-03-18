@@ -1,0 +1,40 @@
+﻿@model HCL.CS.SF.DemoClientMvc.ViewModels.Api.ApiTestViewModel
+
+<div class="row g-3">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="h4">API Test</h2>
+                <p class="text-muted">Calls are sent through the shared API client service with bearer token injection
+                    and one-time retry after refresh.</p>
+
+                <form asp-action="Call" method="post" class="row g-2">
+                    <div class="col-12 col-md-9">
+                        <label asp-for="RelativePath" class="form-label">Relative API path</label>
+                        <input asp-for="RelativePath" class="form-control"/>
+                        <span asp-validation-for="RelativePath" class="text-danger"></span>
+                    </div>
+                    <div class="col-12 col-md-3 d-flex align-items-end">
+                        <button type="submit" class="btn btn-primary w-100">Call API</button>
+                    </div>
+                </form>
+
+                @if (Model.StatusCode.HasValue)
+                {
+                    <hr/>
+                    <h3 class="h6">Status Code</h3>
+                    <div class="border rounded p-2 bg-light mb-2">@Model.StatusCode</div>
+
+                    @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+                    {
+                        <div class="alert alert-danger mb-2">@Model.ErrorMessage</div>
+                    }
+
+                    <h3 class="h6">Response Body</h3>
+                    <pre class="border rounded p-3 bg-light mb-0 text-break">@Model.ResponseBody</pre>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

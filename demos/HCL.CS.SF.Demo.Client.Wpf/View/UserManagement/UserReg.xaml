@@ -1,0 +1,68 @@
+﻿<UserControl x:Class="HCL.CS.SF.DemoClientWpfApp.View.UserManagement.UserReg"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="580" d:DesignWidth="420" HorizontalAlignment="Center">
+    
+    <Grid Height="auto" Width="auto">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        <Label  Grid.Column="0" Grid.Row="0"  FontSize="21" FontWeight="Bold" Foreground="#85409d" Margin="0 0 10 0" Content="User Registration" HorizontalAlignment="Left" x:Name="CoolTabButton" >
+        </Label>
+
+        <TextBlock Grid.Column="0" FontWeight="Bold" Foreground="#1493D6" FontSize="12" Grid.Row="1"  x:Name="textUserName" Text="User Name:" VerticalAlignment="Top"/>
+        <TextBox Grid.Column="1" Grid.Row="1" Height="25"  x:Name="UserName" Text="{Binding UserName, Mode=TwoWay}" VerticalAlignment="Top"/>
+
+        <TextBlock Grid.Column="0" FontWeight="Bold" Foreground="#1493D6" FontSize="12" Grid.Row="2"   x:Name="textBlockFirstname" Text="First Name:" VerticalAlignment="Top"/>
+        <TextBox Grid.Column="1" Grid.Row="2" Height="25" x:Name="FiristName" Text="{Binding FirstName, Mode=TwoWay}" VerticalAlignment="Top"/>
+
+        <TextBlock Grid.Column="0" FontWeight="Bold" Foreground="#1493D6" FontSize="12" Grid.Row="3"   x:Name="textBlockLastName" Text="Last Name:" VerticalAlignment="Top"/>
+        <TextBox Grid.Column="1" Grid.Row="3" Height="25" x:Name="LastName" Text="{Binding LastName, Mode=TwoWay}" VerticalAlignment="Top"/>
+
+        <TextBlock Grid.Column="0" FontWeight="Bold" Foreground="#1493D6" FontSize="12" Grid.Row="4"   x:Name="textBlockEmailId" Text="Email Id:" VerticalAlignment="Top"/>
+        <TextBox Grid.Column="1" Grid.Row="4" Height="25"  x:Name="Email" Text="{Binding Email, Mode=TwoWay}" VerticalAlignment="Top"/>
+
+        <TextBlock Grid.Column="0" FontWeight="Bold" Foreground="#1493D6" FontSize="12" Grid.Row="5"   x:Name="textBlockPassword" Text="Password:" VerticalAlignment="Top"/>
+        <PasswordBox Grid.Column="1" Grid.Row="5" Height="25"    x:Name="PasswordBox" VerticalAlignment="Top"/>
+
+        <TextBlock Grid.Column="0" FontWeight="Bold" Foreground="#1493D6" FontSize="12" Grid.Row="6"   x:Name="textBlockConfirmPwd" Text="ConfirmPassword:" VerticalAlignment="Top"/>
+        <PasswordBox Grid.Column="1" Grid.Row="6" Height="25" x:Name="txtConfirmPasswordBox" VerticalAlignment="Top"/>
+
+        <TextBlock Grid.Column="0" FontWeight="Bold" Foreground="#1493D6" FontSize="12" Grid.Row="7"   x:Name="textBlockPhone" Text="Phone:" VerticalAlignment="Top"/>
+        <TextBox Grid.Column="1" Grid.Row="7" Height="25"  x:Name="PhoneNumber" Text="{Binding PhoneNumber, Mode=TwoWay}" VerticalAlignment="Top"/>
+
+        <TextBlock Grid.Column="0" FontWeight="Bold" Foreground="#1493D6" FontSize="12" Grid.Row="8"   x:Name="textBlockSecurityQuestion" Text="Choose SecurityQuestion:" VerticalAlignment="Top"/>
+        <ComboBox Grid.Column="1" Grid.Row="8" Height="25"  x:Name="cbSecurityQuestion" SelectedItem="{Binding SelectedSecurityQuestion}" VerticalAlignment="Top">
+            <ComboBoxItem Content="What is the name of your favorite pet?"/>
+            <ComboBoxItem Content="What is your mother's maiden name?"/>
+            <ComboBoxItem Content="What is the name of your first school?"/>
+            <ComboBoxItem Content="What was the make of your first car?"/>
+        </ComboBox>
+
+        <TextBlock Grid.Column="0" FontWeight="Bold" Foreground="#1493D6" FontSize="12" Grid.Row="9"  x:Name="textSecrityAnswer" Text="Answer:" VerticalAlignment="Top"/>
+        <TextBox Grid.Column="1" Grid.Row="9" Height="25"  x:Name="SecrityQuestionAnswer" Text="{Binding SecrityQuestionAnswer, Mode=TwoWay}" VerticalAlignment="Top"/>
+        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="10" Margin="10,0,0,0">
+            <Button Content="Register" Margin="2,10,10,1" Style="{DynamicResource RoundCorner}"  Background="#00C79A" FontWeight="Bold" Foreground="White" HorizontalAlignment="Right" Width="110"  Command="{Binding RegisterCommand}" CommandParameter="{Binding ElementName=PasswordBox}"  x:Name="Submit" />
+            <Button Content="Cancel" Margin="12,10,10,1" Style="{DynamicResource RoundCorner}"  HorizontalAlignment="Left" Foreground="White" Background="#F07562" FontWeight="Bold"  x:Name="RegistrationCancel" Command="{Binding RegistrationCancel}"   Width="110" />
+        </StackPanel>
+    </Grid>
+</UserControl>

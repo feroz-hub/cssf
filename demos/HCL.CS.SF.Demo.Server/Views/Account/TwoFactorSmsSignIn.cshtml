@@ -1,0 +1,43 @@
+﻿@model HCL.CS.SF.DemoServerApp.Models.TwoFactorViewModel
+<h2>@ViewData["Title"]</h2>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="TwoFactorSmsSignIn" asp-controller="Account" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <h4>Two Factor Authentication</h4>
+            <hr/>
+            <input type="hidden" asp-for="ReturnUrl"/>
+            <div class="form-group">
+                <label asp-for="TwoFactorCode">Verification code:</label>
+                <input asp-for="TwoFactorCode" class="form-control"/>
+                <span asp-validation-for="TwoFactorCode" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+            <div class="checkbox">
+                <label asp-for="RememberMe">
+                    <input asp-for="RememberMe" />
+                    @Html.DisplayNameFor(m => m.RememberMe)
+                </label>
+            </div>
+        </div>*@
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Verify</button>
+            </div>
+            <div class="form-group">
+                @Html.ActionLink("Choose different authentication mode", "AuthenticationMethod", new { ReturnUrl = ViewData["ReturnUrl"] })
+            </div>
+        </form>
+    </div>
+</div>
+@if (ViewBag.Message != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            alert("@ViewBag.Message");
+        };
+    </script>
+}
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

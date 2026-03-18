@@ -1,0 +1,563 @@
+@{
+    var providers = (ViewBag.Providers as List<HCL.CS.SF.Admin.UI.Models.Api.ProviderConfigModel>) ?? new List<HCL.CS.SF.Admin.UI.Models.Api.ProviderConfigModel>();
+}
+
+<!-- Page Header -->
+<div class="hcl-page-header">
+    <div>
+        <h1 class="hcl-page-title">
+            <span class="hcl-gradient-text">Notifications</span>
+        </h1>
+        <p style="color: var(--hcl-text-secondary); margin-top: 0.25rem; font-size: 0.875rem;">
+            Notification logs and provider configuration
+        </p>
+    </div>
+</div>
+
+<!-- Tabs -->
+<div class="hcl-tabs" style="margin-bottom: 1.5rem;">
+    <button class="hcl-tab active" id="tabLogs" onclick="switchMainTab('logs')">Notification Logs</button>
+    <button class="hcl-tab" id="tabProviders" onclick="switchMainTab('providers')">Provider Configuration</button>
+</div>
+
+<!-- ==================== TAB 1: NOTIFICATION LOGS ==================== -->
+<div id="panelLogs">
+    <!-- Filter Bar -->
+    <div class="hcl-card hcl-glass" style="padding: 1.25rem; margin-bottom: 1.5rem;">
+        <div class="hcl-filter-bar" style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-end;">
+            <div class="hcl-form-group" style="margin-bottom: 0; flex: 1; min-width: 140px;">
+                <label class="hcl-label">Type</label>
+                <select class="hcl-select" id="logFilterType">
+                    <option value="">All</option>
+                    <option value="Email">Email</option>
+                    <option value="SMS">SMS</option>
+                </select>
+            </div>
+            <div class="hcl-form-group" style="margin-bottom: 0; flex: 1; min-width: 140px;">
+                <label class="hcl-label">Status</label>
+                <select class="hcl-select" id="logFilterStatus">
+                    <option value="">All</option>
+                    <option value="Sent">Sent</option>
+                    <option value="Failed">Failed</option>
+                    <option value="Pending">Pending</option>
+                </select>
+            </div>
+            <div class="hcl-form-group" style="margin-bottom: 0; flex: 1; min-width: 140px;">
+                <label class="hcl-label">From Date</label>
+                <input type="date" class="hcl-input" id="logFilterFromDate" />
+            </div>
+            <div class="hcl-form-group" style="margin-bottom: 0; flex: 1; min-width: 140px;">
+                <label class="hcl-label">To Date</label>
+                <input type="date" class="hcl-input" id="logFilterToDate" />
+            </div>
+            <div class="hcl-form-group" style="margin-bottom: 0; flex: 1; min-width: 160px;">
+                <label class="hcl-label">Search</label>
+                <input type="text" class="hcl-input" id="logFilterSearch" placeholder="Recipient, subject..." />
+            </div>
+            <div class="hcl-form-group" style="margin-bottom: 0;">
+                <button class="hcl-btn hcl-btn-primary" onclick="searchLogs(1)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    Search
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading -->
+    <div id="logsLoading" style="display: none;">
+        <div class="hcl-card hcl-glass">
+            <div class="hcl-empty-state" style="padding: 3rem;">
+                <div style="width: 40px; height: 40px; border: 3px solid var(--hcl-border); border-top-color: var(--hcl-accent); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 1rem;"></div>
+                <p style="color: var(--hcl-text-tertiary);">Searching notifications...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Empty -->
+    <div id="logsEmpty" style="display: none;">
+        <div class="hcl-card hcl-glass">
+            <div class="hcl-empty-state" style="padding: 3rem;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="48" height="48" style="color: var(--hcl-text-tertiary); margin-bottom: 1rem;"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                <p style="color: var(--hcl-text-tertiary);">No notification logs found. Adjust your filters and try again.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Initial -->
+    <div id="logsInitial">
+        <div class="hcl-card hcl-glass">
+            <div class="hcl-empty-state" style="padding: 3rem;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="48" height="48" style="color: var(--hcl-text-tertiary); margin-bottom: 1rem;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <p style="color: var(--hcl-text-tertiary);">Use the filters above and click Search to load notification logs.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results -->
+    <div id="logsResults" style="display: none;">
+        <div class="hcl-card hcl-glass">
+            <div class="hcl-table-wrapper">
+                <table class="hcl-table">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Status</th>
+                            <th>Recipient</th>
+                            <th>Subject</th>
+                            <th>Provider</th>
+                            <th>Sent Date</th>
+                            <th style="text-align: right;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="logsTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+        <div class="hcl-pagination" id="logsPagination" style="margin-top: 1rem;"></div>
+    </div>
+</div>
+
+<!-- ==================== TAB 2: PROVIDER CONFIGURATION ==================== -->
+<div id="panelProviders" style="display: none;">
+    <div style="display: flex; justify-content: flex-end; margin-bottom: 1rem;">
+        <button class="hcl-btn hcl-btn-primary" onclick="openProviderModal()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add Provider
+        </button>
+    </div>
+
+    @if (!providers.Any())
+    {
+        <div class="hcl-card hcl-glass" id="noProvidersState">
+            <div class="hcl-empty-state" style="padding: 3rem;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="48" height="48" style="color: var(--hcl-text-tertiary); margin-bottom: 1rem;"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+                <p style="color: var(--hcl-text-tertiary);">No providers configured. Add a notification provider to get started.</p>
+            </div>
+        </div>
+    }
+
+    <div class="hcl-grid hcl-grid-3" id="providersGrid">
+        @foreach (var provider in providers)
+        {
+            <div class="hcl-card hcl-glass hcl-hover-lift" style="padding: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;" data-provider-id="@provider.Id">
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <h3 style="font-size: 1.125rem; font-weight: 600; color: var(--hcl-text-primary); margin: 0;">@provider.Provider</h3>
+                    @if (provider.IsActive)
+                    {
+                        <span class="hcl-badge hcl-badge-success">Active</span>
+                    }
+                    else
+                    {
+                        <span class="hcl-badge hcl-badge-danger">Inactive</span>
+                    }
+                </div>
+                <p style="font-size: 0.8rem; color: var(--hcl-text-tertiary); line-height: 1.4;">
+                    @(provider.Config?.Count ?? 0) configuration key(s)
+                </p>
+                <div style="display: flex; gap: 0.5rem; margin-top: auto; padding-top: 0.5rem; border-top: 1px solid var(--hcl-border);">
+                    <button class="hcl-btn hcl-btn-sm" style="flex: 1; justify-content: center; background: var(--hcl-bg-tertiary); color: var(--hcl-text-secondary); border: 1px solid var(--hcl-border);"
+                            onclick='editProvider(@Html.Raw(System.Text.Json.JsonSerializer.Serialize(provider)))'>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                        Edit
+                    </button>
+                    <button class="hcl-btn hcl-btn-sm" style="background: rgba(59,130,246,0.15); color: #3b82f6; border: 1px solid rgba(59,130,246,0.3);"
+                            onclick="testProvider('@provider.Id', '@provider.Provider')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                        Test
+                    </button>
+                    <button class="hcl-btn hcl-btn-danger hcl-btn-sm" onclick="deleteProvider('@provider.Id', '@provider.Provider')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                        Delete
+                    </button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- View Notification Detail Modal -->
+<div class="hcl-modal-backdrop" id="logDetailModal">
+    <div class="hcl-modal" style="max-width: 600px;">
+        <div class="hcl-modal-header">
+            <h3 class="hcl-modal-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20" style="display: inline; vertical-align: text-bottom; margin-right: 0.5rem;"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                Notification Detail
+            </h3>
+            <button class="hcl-btn-icon" onclick="HCL.closeModal('logDetailModal')">&times;</button>
+        </div>
+        <div class="hcl-modal-body">
+            <div class="hcl-form-group">
+                <label class="hcl-label">Recipient</label>
+                <p id="detailRecipient" style="color: var(--hcl-text-secondary);"></p>
+            </div>
+            <div class="hcl-form-group">
+                <label class="hcl-label">Subject</label>
+                <p id="detailSubject" style="color: var(--hcl-text-secondary);"></p>
+            </div>
+            <div class="hcl-form-group">
+                <label class="hcl-label">Message</label>
+                <pre id="detailMessage" style="background: var(--hcl-bg-tertiary); border: 1px solid var(--hcl-border); border-radius: 0.5rem; padding: 1rem; font-size: 0.8rem; overflow: auto; max-height: 300px; color: var(--hcl-text-secondary); white-space: pre-wrap; word-break: break-word;"></pre>
+            </div>
+        </div>
+        <div class="hcl-modal-footer">
+            <button class="hcl-btn hcl-btn-ghost" onclick="HCL.closeModal('logDetailModal')">Close</button>
+        </div>
+    </div>
+</div>
+
+<!-- Configure Provider Modal -->
+<div class="hcl-modal-backdrop" id="providerModal">
+    <div class="hcl-modal" style="max-width: 600px;">
+        <div class="hcl-modal-header">
+            <h3 class="hcl-modal-title" id="providerModalTitle">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20" style="display: inline; vertical-align: text-bottom; margin-right: 0.5rem;"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+                Add Provider
+            </h3>
+            <button class="hcl-btn-icon" onclick="HCL.closeModal('providerModal')">&times;</button>
+        </div>
+        <div class="hcl-modal-body">
+            <form id="providerForm" onsubmit="return false;">
+                <input type="hidden" id="prov_id" />
+                <div class="hcl-form-group">
+                    <label class="hcl-label">Provider Name <span style="color: #ef4444;">*</span></label>
+                    <input type="text" class="hcl-input" id="prov_name" required placeholder="e.g. SendGrid, Twilio, SMTP" />
+                </div>
+                <div class="hcl-form-group">
+                    <label class="hcl-label">Active</label>
+                    <label class="hcl-toggle-switch">
+                        <input type="checkbox" id="prov_active" checked />
+                        <span></span>
+                    </label>
+                </div>
+                <div class="hcl-form-group">
+                    <label class="hcl-label">Configuration (Key / Value pairs)</label>
+                    <div id="configFieldsContainer"></div>
+                    <button type="button" class="hcl-btn hcl-btn-sm hcl-btn-ghost" onclick="addConfigField('', '')" style="margin-top: 0.5rem;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        Add Field
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="hcl-modal-footer">
+            <button class="hcl-btn hcl-btn-ghost" onclick="HCL.closeModal('providerModal')">Cancel</button>
+            <button class="hcl-btn hcl-btn-primary" id="saveProviderBtn" onclick="saveProvider()">Save Provider</button>
+        </div>
+    </div>
+</div>
+
+<!-- Test Notification Modal -->
+<div class="hcl-modal-backdrop" id="testNotifModal">
+    <div class="hcl-modal" style="max-width: 500px;">
+        <div class="hcl-modal-header">
+            <h3 class="hcl-modal-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20" style="display: inline; vertical-align: text-bottom; margin-right: 0.5rem;"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                Send Test Notification
+            </h3>
+            <button class="hcl-btn-icon" onclick="HCL.closeModal('testNotifModal')">&times;</button>
+        </div>
+        <div class="hcl-modal-body">
+            <form id="testNotifForm" onsubmit="return false;">
+                <input type="hidden" id="test_providerId" />
+                <div class="hcl-form-group">
+                    <label class="hcl-label">Provider</label>
+                    <input type="text" class="hcl-input" id="test_providerName" readonly />
+                </div>
+                <div class="hcl-form-group">
+                    <label class="hcl-label">Recipient <span style="color: #ef4444;">*</span></label>
+                    <input type="text" class="hcl-input" id="test_recipient" placeholder="Email or phone number..." />
+                </div>
+                <div class="hcl-form-group">
+                    <label class="hcl-label">Message</label>
+                    <input type="text" class="hcl-input" id="test_message" value="This is a test notification from HCL Security Framework." />
+                </div>
+            </form>
+        </div>
+        <div class="hcl-modal-footer">
+            <button class="hcl-btn hcl-btn-ghost" onclick="HCL.closeModal('testNotifModal')">Cancel</button>
+            <button class="hcl-btn hcl-btn-primary" id="sendTestBtn" onclick="sendTestNotification()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                Send Test
+            </button>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<style>
+    @@keyframes spin { to { transform: rotate(360deg); } }
+    @@media (max-width: 768px) {
+        .hcl-filter-bar { flex-direction: column; }
+        .hcl-filter-bar .hcl-form-group { min-width: 100% !important; }
+        .hcl-grid-3 { grid-template-columns: 1fr !important; }
+    }
+</style>
+<script>
+    var logsData = [];
+    var logsCurrentPage = 1;
+
+    /* ---- Main Tabs ---- */
+    function switchMainTab(tab) {
+        document.getElementById('tabLogs').classList.toggle('active', tab === 'logs');
+        document.getElementById('tabProviders').classList.toggle('active', tab === 'providers');
+        document.getElementById('panelLogs').style.display = tab === 'logs' ? '' : 'none';
+        document.getElementById('panelProviders').style.display = tab === 'providers' ? '' : 'none';
+    }
+
+    /* ---- Notification Logs ---- */
+    function getTypeBadge(type) {
+        if (!type) return '<span class="hcl-badge hcl-badge-primary">Unknown</span>';
+        if (type === 'Email') return '<span class="hcl-badge hcl-badge-primary">Email</span>';
+        if (type === 'SMS') return '<span class="hcl-badge hcl-badge-purple">SMS</span>';
+        return '<span class="hcl-badge hcl-badge-primary">' + type + '</span>';
+    }
+
+    function getStatusBadge(status) {
+        if (!status) return '<span class="hcl-badge hcl-badge-warning">Unknown</span>';
+        if (status === 'Sent') return '<span class="hcl-badge hcl-badge-success">Sent</span>';
+        if (status === 'Failed') return '<span class="hcl-badge hcl-badge-danger">Failed</span>';
+        if (status === 'Pending') return '<span class="hcl-badge hcl-badge-warning">Pending</span>';
+        return '<span class="hcl-badge hcl-badge-primary">' + status + '</span>';
+    }
+
+    async function searchLogs(page) {
+        logsCurrentPage = page || 1;
+
+        document.getElementById('logsInitial').style.display = 'none';
+        document.getElementById('logsEmpty').style.display = 'none';
+        document.getElementById('logsResults').style.display = 'none';
+        document.getElementById('logsLoading').style.display = '';
+
+        var payload = {
+            type: document.getElementById('logFilterType').value || null,
+            status: document.getElementById('logFilterStatus').value || null,
+            fromDate: document.getElementById('logFilterFromDate').value || null,
+            toDate: document.getElementById('logFilterToDate').value || null,
+            searchValue: document.getElementById('logFilterSearch').value.trim() || null,
+            page: { currentPage: logsCurrentPage, itemsPerPage: 10 }
+        };
+
+        try {
+            var result = await HCL.apiRequest('/Admin/Notifications/SearchLogs', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            document.getElementById('logsLoading').style.display = 'none';
+            logsData = result.notifications || [];
+
+            if (logsData.length === 0) {
+                document.getElementById('logsEmpty').style.display = '';
+                return;
+            }
+
+            renderLogsTable();
+            renderLogsPagination(result.pageInfo || {});
+            document.getElementById('logsResults').style.display = '';
+        } catch (err) {
+            document.getElementById('logsLoading').style.display = 'none';
+            document.getElementById('logsEmpty').style.display = '';
+            HCL.toastError('Failed to search notification logs.');
+        }
+    }
+
+    function renderLogsTable() {
+        var tbody = document.getElementById('logsTableBody');
+        var html = '';
+        logsData.forEach(function(item, idx) {
+            html += '<tr>' +
+                '<td data-label="Type">' + getTypeBadge(item.type) + '</td>' +
+                '<td data-label="Status">' + getStatusBadge(item.status) + '</td>' +
+                '<td data-label="Recipient" style="color: var(--hcl-text-secondary); font-size: 0.875rem;">' + (item.recipient || 'N/A') + '</td>' +
+                '<td data-label="Subject" style="color: var(--hcl-text-secondary); font-size: 0.875rem; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">' + (item.subject || 'N/A') + '</td>' +
+                '<td data-label="Provider" style="color: var(--hcl-text-secondary); font-size: 0.875rem;">' + (item.provider || 'N/A') + '</td>' +
+                '<td data-label="Sent Date" style="color: var(--hcl-text-secondary); font-size: 0.875rem;">' + (item.sentDateTime ? HCL.formatDateTime(item.sentDateTime) : 'N/A') + '</td>' +
+                '<td data-label="Actions" style="text-align: right;">' +
+                    '<button class="hcl-btn hcl-btn-sm hcl-btn-ghost" onclick="viewLogDetail(' + idx + ')">' +
+                        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>' +
+                        ' View' +
+                    '</button>' +
+                '</td>' +
+                '</tr>';
+        });
+        tbody.innerHTML = html;
+    }
+
+    function renderLogsPagination(pageInfo) {
+        var container = document.getElementById('logsPagination');
+        var totalPages = pageInfo.totalPages || 1;
+        var current = pageInfo.currentPage || 1;
+
+        if (totalPages <= 1) { container.innerHTML = ''; return; }
+
+        var html = '<button class="hcl-page-btn" onclick="searchLogs(' + (current - 1) + ')" ' + (current <= 1 ? 'disabled' : '') + '>&laquo; Prev</button>';
+        var start = Math.max(1, current - 4);
+        var end = Math.min(totalPages, start + 9);
+        if (end - start < 9) start = Math.max(1, end - 9);
+        for (var i = start; i <= end; i++) {
+            html += '<button class="hcl-page-btn' + (i === current ? ' active' : '') + '" onclick="searchLogs(' + i + ')">' + i + '</button>';
+        }
+        html += '<button class="hcl-page-btn" onclick="searchLogs(' + (current + 1) + ')" ' + (current >= totalPages ? 'disabled' : '') + '>Next &raquo;</button>';
+        container.innerHTML = html;
+    }
+
+    function viewLogDetail(idx) {
+        var item = logsData[idx];
+        if (!item) return;
+        document.getElementById('detailRecipient').textContent = item.recipient || 'N/A';
+        document.getElementById('detailSubject').textContent = item.subject || 'N/A';
+        document.getElementById('detailMessage').textContent = item.message || '(empty)';
+        HCL.openModal('logDetailModal');
+    }
+
+    /* ---- Provider Configuration ---- */
+    function addConfigField(key, value) {
+        var container = document.getElementById('configFieldsContainer');
+        var row = document.createElement('div');
+        row.style.cssText = 'display: flex; gap: 0.5rem; margin-bottom: 0.5rem; align-items: center;';
+        row.innerHTML =
+            '<input type="text" class="hcl-input config-key" placeholder="Key" value="' + (key || '') + '" style="flex: 1;" />' +
+            '<input type="text" class="hcl-input config-val" placeholder="Value" value="' + (value || '') + '" style="flex: 1;" />' +
+            '<button type="button" class="hcl-btn hcl-btn-sm hcl-btn-danger hcl-btn-icon" onclick="this.parentElement.remove()" style="flex-shrink: 0;">&times;</button>';
+        container.appendChild(row);
+    }
+
+    function openProviderModal(provider) {
+        document.getElementById('prov_id').value = '';
+        document.getElementById('prov_name').value = '';
+        document.getElementById('prov_active').checked = true;
+        document.getElementById('configFieldsContainer').innerHTML = '';
+        document.getElementById('providerModalTitle').innerHTML =
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20" style="display: inline; vertical-align: text-bottom; margin-right: 0.5rem;"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg> Add Provider';
+        addConfigField('', '');
+        HCL.openModal('providerModal');
+    }
+
+    function editProvider(provider) {
+        document.getElementById('prov_id').value = provider.id || '';
+        document.getElementById('prov_name').value = provider.provider || '';
+        document.getElementById('prov_active').checked = provider.isActive !== false;
+        document.getElementById('configFieldsContainer').innerHTML = '';
+        document.getElementById('providerModalTitle').innerHTML =
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20" style="display: inline; vertical-align: text-bottom; margin-right: 0.5rem;"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit Provider';
+
+        var config = provider.config || {};
+        var keys = Object.keys(config);
+        if (keys.length === 0) {
+            addConfigField('', '');
+        } else {
+            keys.forEach(function(k) { addConfigField(k, config[k]); });
+        }
+        HCL.openModal('providerModal');
+    }
+
+    async function saveProvider() {
+        var name = document.getElementById('prov_name').value.trim();
+        if (!name) {
+            HCL.toastError('Provider name is required.');
+            return;
+        }
+
+        var config = {};
+        var keys = document.querySelectorAll('.config-key');
+        var vals = document.querySelectorAll('.config-val');
+        for (var i = 0; i < keys.length; i++) {
+            var k = keys[i].value.trim();
+            if (k) config[k] = vals[i].value.trim();
+        }
+
+        var btn = document.getElementById('saveProviderBtn');
+        btn.disabled = true;
+        btn.textContent = 'Saving...';
+
+        try {
+            var result = await HCL.apiRequest('/Admin/Notifications/SaveProvider', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    id: document.getElementById('prov_id').value || null,
+                    provider: name,
+                    isActive: document.getElementById('prov_active').checked,
+                    config: config
+                })
+            });
+
+            if (result.success) {
+                HCL.toastSuccess('Provider saved successfully.');
+                HCL.closeModal('providerModal');
+                setTimeout(function() { location.reload(); }, 800);
+            } else {
+                var msg = result.errors && result.errors.length > 0
+                    ? result.errors.map(function(e) { return e.description || e.code; }).join(', ')
+                    : 'Failed to save provider.';
+                HCL.toastError(msg);
+            }
+        } catch (err) {
+            HCL.toastError('An error occurred while saving the provider.');
+        } finally {
+            btn.disabled = false;
+            btn.textContent = 'Save Provider';
+        }
+    }
+
+    async function deleteProvider(id, name) {
+        var ok = await HCL.confirm('Delete Provider', 'Are you sure you want to delete the provider "' + name + '"? This action cannot be undone.');
+        if (!ok) return;
+
+        var result = await HCL.apiRequest('/Admin/Notifications/DeleteProvider/' + id, { method: 'POST' });
+        if (result.success) {
+            HCL.toastSuccess('Provider deleted successfully.');
+            setTimeout(function() { location.reload(); }, 800);
+        } else {
+            HCL.toastError('Failed to delete provider.');
+        }
+    }
+
+    function testProvider(id, name) {
+        document.getElementById('test_providerId').value = id;
+        document.getElementById('test_providerName').value = name;
+        document.getElementById('test_recipient').value = '';
+        HCL.openModal('testNotifModal');
+    }
+
+    async function sendTestNotification() {
+        var recipient = document.getElementById('test_recipient').value.trim();
+        if (!recipient) {
+            HCL.toastError('Recipient is required.');
+            return;
+        }
+
+        var btn = document.getElementById('sendTestBtn');
+        btn.disabled = true;
+        btn.textContent = 'Sending...';
+
+        try {
+            var result = await HCL.apiRequest('/Admin/Notifications/TestNotification', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    providerId: document.getElementById('test_providerId').value,
+                    recipient: recipient,
+                    message: document.getElementById('test_message').value.trim()
+                })
+            });
+
+            if (result.success) {
+                HCL.toastSuccess('Test notification sent successfully.');
+                HCL.closeModal('testNotifModal');
+            } else {
+                var msg = result.errors && result.errors.length > 0
+                    ? result.errors.map(function(e) { return e.description || e.code; }).join(', ')
+                    : 'Failed to send test notification.';
+                HCL.toastError(msg);
+            }
+        } catch (err) {
+            HCL.toastError('An error occurred while sending the test notification.');
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polygon points="5 3 19 12 5 21 5 3"/></svg> Send Test';
+        }
+    }
+</script>
+}

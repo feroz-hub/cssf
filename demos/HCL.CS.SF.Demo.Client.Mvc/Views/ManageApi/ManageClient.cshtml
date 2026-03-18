@@ -1,0 +1,88 @@
+﻿<div>
+    <h5>Client Redirect Url for client - <strong>"@ViewData["clientName"]"</strong></h5>
+    <hr/>
+    <div class="form-group">
+        <table id="RedirectClient" cellpadding="0" cellspacing="0"></table>
+        <div id="RedirectClientPager"></div>
+    </div>
+    <h5>Client Post Redirect Url for client - <strong>"@ViewData["clientName"]"</strong></h5>
+    <hr/>
+    <div class="form-group">
+        <table id="PostRedirectClient" cellpadding="0" cellspacing="0"></table>
+        <div id="PostRedirectClientPager"></div>
+    </div>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            var $resources = $('#RedirectClient');
+            $resources.jqGrid({
+                url: '@Url.Action("GetClientRedirectUrlByClientId", "ManageApi", new { clientId = ViewData["clientId"] })',
+                editurl: '@Url.Action("ManageClientRedirectUrl", "ManageApi", new { clientId = ViewData["clientId"] })',
+                datatype: 'json',
+                mtype: 'POST',
+                colNames: ['', 'Id', 'ClientId', 'RedirectUri'],
+                colModel: [
+                    {formatter: 'actions',
+                        formatoptions: {
+                            keys: true,
+                            delOptions: {url: '@Url.Action("DeleteClientRedirectUrl", "ManageApi", new { clientId = ViewData["clientId"] })'}
+                        },
+                        resizable: false,
+                        width: 60,
+                        name: 'actions'
+                    },
+                    {name: 'Id', sortable: false, editable: false, width: 300},
+                    {name: 'ClientId', sortable: false, editable: false, width: 300},
+                    {name: 'RedirectUri', sortable: false, editable: true, width: 400}],
+                caption: 'Client Redirect Url',
+                footerrow: true,
+                userDataOnFooter: true,
+                jsonReader: {repeatitems: false, id: 'Id'},
+                pager: $('#RedirectClientPager'),
+                rowNum: 10,
+                viewrecords: true,
+                height: '100%',
+            })
+                .jqGrid('navGrid', '#RedirectClientPager', {add: false, edit: false, del: false, search: false})
+                .jqGrid('inlineNav', '#RedirectClientPager', {edit: false, addParams: {rowID: '-1'}})
+                .bind('jqGridInlineSuccessSaveRow', demo.jqGrid.onJqGridInlineSuccessSaveRow)
+                .bind('jqGridInlineAfterSaveRow', demo.jqGrid.onJqGridInlineAfterSaveRow);
+
+            var $resources = $('#PostRedirectClient');
+            $resources.jqGrid({
+                url: '@Url.Action("GetClientPostRedirectUrlByClientId", "ManageApi", new { clientId = ViewData["clientId"] })',
+                editurl: '@Url.Action("ManageClientPostRedirectUrl", "ManageApi", new { clientId = ViewData["clientId"] })',
+                datatype: 'json',
+                mtype: 'POST',
+                colNames: ['', 'Id', 'ClientId', 'PostLogoutRedirectUri'],
+                colModel: [
+                    {formatter: 'actions',
+                        formatoptions: {
+                            keys: true,
+                            delOptions: {url: '@Url.Action("DeleteClientPostRedirectUrl", "ManageApi", new { clientId = ViewData["clientId"] })'}
+                        },
+                        resizable: false,
+                        width: 60,
+                        name: 'actions'
+                    },
+                    {name: 'Id', sortable: false, editable: false, width: 300},
+                    {name: 'ClientId', sortable: false, editable: false, width: 300},
+                    {name: 'PostLogoutRedirectUri', sortable: false, editable: true, width: 400}],
+                caption: 'Client Post Redirect Url',
+                footerrow: true,
+                userDataOnFooter: true,
+                jsonReader: {repeatitems: false, id: 'Id'},
+                pager: $('#PostRedirectClientPager'),
+                rowNum: 10,
+                viewrecords: true,
+                height: '100%',
+            })
+                .jqGrid('navGrid', '#PostRedirectClientPager', {add: false, edit: false, del: false, search: false})
+                .jqGrid('inlineNav', '#PostRedirectClientPager', {edit: false, addParams: {rowID: '-1'}})
+                .bind('jqGridInlineSuccessSaveRow', demo.jqGrid.onJqGridInlineSuccessSaveRow)
+                .bind('jqGridInlineAfterSaveRow', demo.jqGrid.onJqGridInlineAfterSaveRow);
+        });
+    </script>
+}

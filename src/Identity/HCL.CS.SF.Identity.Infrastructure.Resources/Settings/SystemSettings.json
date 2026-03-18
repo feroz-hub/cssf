@@ -1,0 +1,95 @@
+{
+  "SystemSettings": {
+    "DBConfig": {
+      "Database": "SqlServer",
+      "DBConnectionString": "${HCL.CS.SF_DB_CONNECTION_STRING}"
+    },
+    "LoginConfig": {
+      "IsPersistent": false,
+      "LockoutOnFailure": true,
+      "RememberClient": false
+    },
+    "UserConfig": {
+      "MinUserNameLength": 8,
+      "MaxUserNameLength": 255,
+      "MinFirstAndLastNameLength": 2,
+      "MaxFirstAndLastNameLength": 255,
+      "MinPhoneNumberLength": 4,
+      "MaxPhoneNumberLength": 17,
+      "MinSecurityQuestions": 0,
+      "MinSecurityAnswersLength": 3,
+      "MinDobyear": 18,
+      "MaxDobyear": 100,
+      "AccessFailedCount": 0,
+      "RequiredRecoveryCodes": 2,
+      "RequireUniqueEmail": true,
+      "RequireConfirmedEmail": true,
+      "RequireConfirmedPhoneNumber": true,
+      "LockOutAllowedForNewUsers": true,
+      "DefaultLockoutTimeSpanMin": 10,
+      "MaxFailedAccessAttempts": 5,
+      "EmailTokenExpiry": 5,
+      "OTPTokenExpiry": 5,
+      "PasswordResetTokenExpiry": 5,
+      "UserTokenExpiry": 5,
+      "LockAccountPeriod": 30,
+      "MinNoOfQuestions": 1,
+      "DefaultUserRole": "HCL.CS.SFUser"
+    },
+    "PasswordConfig": {
+      "MinPasswordLength": 8,
+      "MaxPasswordLength": 40,
+      "RequiredUniqueChars": 1,
+      "RequireDigit": true,
+      "RequireLowercase": true,
+      "RequireUppercase": true,
+      "RequireSpecialChar": true,
+      "PasswordPattern": "",
+      "MaxLimitPasswordReuse": 3,
+      "MaxPasswordExpiry": 30,
+      "PasswordNotificationBeforeExpiry": 3
+    },
+    "EmailConfig": {
+      "SmtpServer": "mailrelay.HCL.CS.SF.com",
+      "Port": "25",
+      "UserName": "${HCL.CS.SF_SMTP_USERNAME}",
+      "Password": "${HCL.CS.SF_SMTP_PASSWORD}",
+      "EmailNotificationType": "Token/Link",
+      "SecureSocketOptions": "false"
+    },
+    "SMSConfig": {
+      "SMSAccountIdentification": "${HCL.CS.SF_SMS_ACCOUNT_ID}",
+      "SMSAccountPassword": "${HCL.CS.SF_SMS_ACCOUNT_PASSWORD}",
+      "SMSAccountFrom": "${HCL.CS.SF_SMS_ACCOUNT_FROM}",
+      "SMSStatusCallbackURL": "https://localhost:50001/account/SMSCallback/"
+    },
+    "LDAPConfig": {
+      "LdapHostName": "localhost",
+      "LdapDomainName": "dc=example,dc=com",
+      "LDAPPort": "10389",
+      "IsSecureConnection": "false",
+      "IsTwoFactorAuthenticationRequired": "false",
+      "TwoFactorType": "Email/Sms/AuthenticatorApp"
+    },
+    "CryptoConfig": {
+      "RandomStringLength": 32
+    },
+    "LogConfig": {
+      "WriteLogTo": "File/DataBase",
+      "LogFileConfig": {
+        "FilePath": "",
+        "RollingIntervalType": "Month/Day/Hour/Minute",
+        "RestrictedToMinimumLevel": "Debug/Error/Fatal/Information/Verbose/Warning",
+        "MinimumConfiguration": "Debug/Error/Fatal/Information/Verbose/Warning",
+        "SetLogFileSize": "true",
+        "FileSizeInBytes": "5242880"
+      },
+      "LogDbConfig": {
+        "Database": "SqlServer/MySql",
+        "ConnectionString": "",
+        "RestrictedToMinimumLevel": "Debug/Error/Fatal/Information/Verbose/Warning",
+        "MinimumConfiguration": "Debug/Error/Fatal/Information/Verbose/Warning"
+      }
+    }
+  }
+}

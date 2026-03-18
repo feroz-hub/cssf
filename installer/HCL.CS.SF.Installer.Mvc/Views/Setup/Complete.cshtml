@@ -1,0 +1,75 @@
+@model HCLCSSFInstallerMVC.ViewModels.FinishViewModel
+@{
+    var isCompleted = Model.InstallationCompleted || Model.AlreadyInstalled;
+    ViewData["Title"] = isCompleted ? "Setup / Completed" : "Setup / Pending";
+
+    var headline = Model.AlreadyInstalled
+        ? "Installation Already Completed"
+        : Model.InstallationCompleted
+            ? "Installation Completed"
+            : "Installation Pending";
+
+    var message = !string.IsNullOrWhiteSpace(Model.Message)
+        ? Model.Message
+        : Model.InstallationCompleted
+            ? "HCL.CS.SF has been provisioned successfully."
+            : "Installation has not finished for this environment.";
+
+    var statusClass = Model.InstallationCompleted || Model.AlreadyInstalled
+        ? "status-card status-success"
+        : "status-card status-neutral";
+}
+
+<section class="surface">
+    <header class="surface-header">
+        <p class="eyebrow">Stage 06</p>
+        <h1>@headline</h1>
+        <p>@message</p>
+    </header>
+
+    <div class="@statusClass" role="status">
+        <h2>Environment State</h2>
+        <p>@(Model.InstallationCompleted || Model.AlreadyInstalled ? "Installer lock is active for this environment." : "Complete prior steps to finalize installation.")</p>
+    </div>
+
+    <div class="meta-grid mt-4">
+        <div class="meta-item">
+            <span class="meta-label">Status</span>
+            <span
+                class="meta-value">@(Model.InstallationCompleted || Model.AlreadyInstalled ? "Completed" : "Pending")</span>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">Database Provider</span>
+            <span class="meta-value">@Model.DatabaseProvider</span>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">Seeded Client Id</span>
+            <code id="completion-client-id">@Model.ClientId</code>
+            @if (!string.IsNullOrWhiteSpace(Model.ClientId))
+            {
+                <button type="button" class="btn btn-subtle btn-sm mt-2" data-copy-target="completion-client-id">Copy
+                    Client Id
+                </button>
+            }
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">Seeded Client Secret</span>
+            <code id="completion-client-secret">@Model.ClientSecret</code>
+            @if (!string.IsNullOrWhiteSpace(Model.ClientSecret))
+            {
+                <button type="button" class="btn btn-subtle btn-sm mt-2" data-copy-target="completion-client-secret">
+                    Copy Client Secret
+                </button>
+            }
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">Completed On (UTC)</span>
+            <span class="meta-value">@(Model.CompletedOnUtc?.ToString("u") ?? "n/a")</span>
+        </div>
+    </div>
+
+    <div class="action-row mt-4">
+        <a class="btn btn-accent btn-lg" asp-controller="Setup" asp-action="Root">Go to Start</a>
+        <a class="btn btn-ghost btn-lg" href="/health" target="_blank" rel="noopener">Open Health Check</a>
+    </div>
+</section>

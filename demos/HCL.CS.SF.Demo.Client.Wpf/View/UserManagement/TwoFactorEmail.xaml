@@ -1,0 +1,86 @@
+﻿<UserControl x:Class="HCL.CS.SF.DemoClientWpfApp.View.TwofactorEmail"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:viewmodel="clr-namespace:HCL.CS.SF.DemoClientWpfApp.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:TwoFactorEmailViewModel}"
+             mc:Ignorable="d" HorizontalAlignment="Center">
+    <StackPanel>
+        <Grid x:Name="LayoutRoot">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackPanel Margin="2,2,20,5" Background="Transparent">
+                <Grid Height="auto" Width="auto" Background="White" Margin="10,10,10,5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10" />
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                       
+                    
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Label  Grid.Column="1" Grid.Row="1" FontSize="14" FontWeight="Bold" Foreground="#85409d" HorizontalAlignment="Left" Name="VerifyPhone" >
+                        <Bold>Verify Email</Bold>
+                    </Label>
+                    <TextBlock Grid.Column="1"  Grid.Row="2" FontWeight="Bold"  Name="textVerifyPhone" Text="Please enter the email verification Code :" Foreground="#1493D6" VerticalAlignment="Top"/>
+                    <TextBox Grid.Column="2" Height="25" Grid.Row="2" Width="200"  Name="EmailVerificationCode" Text="{Binding EmailVerificationCode, Mode=TwoWay}" />
+                    <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="4" HorizontalAlignment="Left">
+                        <Button Background="#1cb5ef" Style="{DynamicResource RoundCorner}" Width="90" Foreground="White" Content="VerifyEmail" Height="40"  Margin="2,10" Command="{Binding Path=VerifyEmailCommand}"  Name="VerifyEmailButton" VerticalAlignment="Top"/>
+                        <Button Background="#1cb5ef" Style="{DynamicResource RoundCorner}" Width="90" Foreground="White" Content="ReSendEmail" Height="40"  Margin="2,10" Command="{Binding Path=ResendEmailCommand}"  Name="ResendEmail" VerticalAlignment="Top"/>
+                        <Button Background="#1cb5ef" Style="{DynamicResource RoundCorner}" Width="70" Foreground="White" Content="Cancel" Height="40"  Margin="2,10"  Command="{Binding Path=CancelEmailCommand}"  Name="CancelEmail" VerticalAlignment="Top"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,10,0,80" Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="5" HorizontalAlignment="Left">
+                        <Button  Width="90"  HorizontalAlignment="Left" FontWeight="Bold" Content="Change to sms |" Cursor="Hand" Command="{Binding Path=GotoSmsCommand}">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <TextBlock TextDecorations="Underline">  
+                                                <ContentPresenter />
+                                    </TextBlock>
+                                </ControlTemplate>
+                            </Button.Template>
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Foreground" Value="Blue" />
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="true">
+                                            <Setter Property="Foreground" Value="Red" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                        <Button  Width="180"  HorizontalAlignment="Left" FontWeight="Bold" Content="Change to authenticator app" Cursor="Hand" Command="{Binding Path=GotoAuthenicatorCommand}">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <TextBlock TextDecorations="Underline">  
+                                             <ContentPresenter />
+                                    </TextBlock>
+                                </ControlTemplate>
+                            </Button.Template>
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Foreground" Value="Blue" />
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="true">
+                                            <Setter Property="Foreground" Value="Red" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </Grid>
+    </StackPanel>
+</UserControl>

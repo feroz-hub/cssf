@@ -1,0 +1,59 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RuntimeIdentifiers>win-x64;linux-x64</RuntimeIdentifiers>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <RunAnalyzersDuringBuild>true</RunAnalyzersDuringBuild>
+  </PropertyGroup>
+
+  <!--Includes-->
+  <PropertyGroup Label="Globals">
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="stylecop1.json"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App"/>
+    <PackageReference Include="Isopoh.Cryptography.Argon2" Version="1.1.12"/>
+    <PackageReference Include="Microsoft.Extensions.Identity.Core">
+      <Version>8.0.11</Version>
+    </PackageReference>
+    <PackageReference Include="AutoMapper" Version="16.1.1"/>
+    <PackageReference Include="GoogleAuthenticator" Version="3.0.0"/>
+    <PackageReference Include="IdentityModel" Version="6.0.0"/>
+    <PackageReference Include="Microsoft.AspNetCore.DataProtection.Extensions" Version="8.0.11"/>
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0"/>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0"/>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="8.0.0"/>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0"/>
+    <PackageReference Include="Portable.BouncyCastle" Version="1.9.0"/>
+    <PackageReference Include="System.DirectoryServices" Version="8.0.0"/>
+    <PackageReference Include="System.DirectoryServices.Protocols" Version="8.0.1"/>
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.16.0"/>
+    <!--<PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="StyleCop.MSBuild" Version="6.2.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>-->
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\SharedKernel\DomainValidation\DomainValidation.csproj"/>
+    <ProjectReference Include="..\HCL.CS.SF.Identity.DomainServices\HCL.CS.SF.DomainServices.csproj"/>
+    <ProjectReference Include="..\HCL.CS.SF.Identity.Domain\HCL.CS.SF.Domain.csproj"/>
+    <ProjectReference Include="..\HCL.CS.SF.Identity.Contracts\HCL.CS.SF.Service.Interfaces.csproj"/>
+  </ItemGroup>
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>HCL.CS.SF.IntegrationTests</_Parameter1>
+      <!--We use the value of AssemblyName to declare the value of the attribute-->
+    </AssemblyAttribute>
+  </ItemGroup>
+</Project>

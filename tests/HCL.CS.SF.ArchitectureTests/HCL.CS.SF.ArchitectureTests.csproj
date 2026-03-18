@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>HCL.CS.SF.ArchitectureTests</AssemblyName>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="6.1.0"/>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1"/>
+    <PackageReference Include="xunit" Version="2.4.1"/>
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Identity\HCL.CS.SF.Identity.Domain\HCL.CS.SF.Domain.csproj"/>
+    <ProjectReference Include="..\..\src\Identity\HCL.CS.SF.Identity.DomainServices\HCL.CS.SF.DomainServices.csproj"/>
+    <ProjectReference Include="..\..\src\Identity\HCL.CS.SF.Identity.Application\HCL.CS.SF.Service.csproj"/>
+    <ProjectReference Include="..\..\src\Identity\HCL.CS.SF.Identity.Persistence\HCL.CS.SF.Infrastructure.Data.csproj"/>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,27 @@
+{
+  "info": {
+    "name": "HCL.CS.SF Enterprise API Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Starter collection for identity and admin surfaces."
+  },
+  "item": [
+    {
+      "name": "Identity Discovery",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/.well-known/openid-configuration",
+          "host": ["{{baseUrl}}"],
+          "path": [".well-known", "openid-configuration"]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://localhost:5001"
+    }
+  ]
+}

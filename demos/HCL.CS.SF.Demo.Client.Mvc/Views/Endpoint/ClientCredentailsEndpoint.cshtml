@@ -1,0 +1,40 @@
+﻿@model HCL.CS.SF.DemoClientMvc.ViewModels.Endpoint.EndpointTokenFlowViewModel
+
+<div class="card">
+    <div class="card-body">
+        <h2 class="h5">Client Credentials Flow</h2>
+        @if (!Model.Succeeded)
+        {
+            <div class="alert alert-danger mb-0">
+                @Model.ErrorDescription
+            </div>
+        }
+        else
+        {
+            <div class="mb-2"><strong>Token Type:</strong> @Model.TokenType</div>
+            <div class="mb-2"><strong>Expires In:</strong> @Model.ExpiresIn seconds</div>
+            <div class="alert alert-success">Token issued successfully. Raw token rendering is disabled.</div>
+
+            <h3 class="h6">Claims</h3>
+            <div class="table-responsive">
+                <table class="table table-sm table-striped align-middle mb-0">
+                    <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Value</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var claim in Model.Claims)
+                    {
+                        <tr>
+                            <td><code>@claim.Type</code></td>
+                            <td class="text-break">@claim.Value</td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>

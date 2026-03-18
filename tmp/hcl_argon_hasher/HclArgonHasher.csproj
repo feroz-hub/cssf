@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/Identity/HCL.CS.SF.Identity.Application/HCL.CS.SF.Service.csproj" />
+    <ProjectReference Include="../../src/Identity/HCL.CS.SF.Identity.Domain/HCL.CS.SF.Domain.csproj" />
+  </ItemGroup>
+</Project>

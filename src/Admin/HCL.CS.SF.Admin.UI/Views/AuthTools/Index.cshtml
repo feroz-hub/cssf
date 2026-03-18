@@ -1,0 +1,512 @@
+@{
+    var authority = ViewBag.Authority as string ?? "https://localhost:5001";
+}
+
+<!-- Page Header -->
+<div class="hcl-page-header" style="margin-bottom: 2rem;">
+    <div>
+        <h1 class="hcl-page-title">
+            <span class="hcl-gradient-text" style="font-size: 2rem; font-weight: 700;">Auth Tools</span>
+        </h1>
+        <p style="color: var(--hcl-text-secondary); margin-top: 0.25rem; font-size: 0.875rem;">
+            Endpoint tester, token inspector and sign-in diagnostics
+        </p>
+    </div>
+    <div class="hcl-page-actions">
+        <a href="/Admin/Operations" class="hcl-btn hcl-btn-sm" style="background: var(--hcl-bg-tertiary); color: var(--hcl-text-secondary); border: 1px solid var(--hcl-border);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+            Back to Operations
+        </a>
+    </div>
+</div>
+
+<!-- Tabs -->
+<div class="hcl-tabs" style="margin-bottom: 1.5rem;">
+    <button class="hcl-tab active" onclick="HCL.switchTab('authtools', 'endpoint-tester')">Endpoint Tester</button>
+    <button class="hcl-tab" onclick="HCL.switchTab('authtools', 'token-inspector')">Token Inspector</button>
+    <button class="hcl-tab" onclick="HCL.switchTab('authtools', 'signin-test')">Password Sign-In Test</button>
+</div>
+
+<!-- ===== TAB 1: Endpoint Tester ===== -->
+<div id="authtools-tab-endpoint-tester">
+    <!-- Quick Links -->
+    <div class="hcl-card hcl-glass" style="padding: 1rem 1.25rem; margin-bottom: 1rem;">
+        <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+            <span style="font-size: 0.8rem; color: var(--hcl-text-tertiary); margin-right: 0.25rem;">Quick:</span>
+            <button class="hcl-btn hcl-btn-ghost hcl-btn-sm" onclick="loadQuick('GET', '/.well-known/openid-configuration')">Discovery</button>
+            <button class="hcl-btn hcl-btn-ghost hcl-btn-sm" onclick="loadQuick('GET', '/.well-known/openid-configuration/jwks')">JWKS</button>
+            <button class="hcl-btn hcl-btn-ghost hcl-btn-sm" onclick="loadQuick('GET', '/health')">Health</button>
+            <button class="hcl-btn hcl-btn-ghost hcl-btn-sm" onclick="loadQuick('GET', '/health/live')">Liveness</button>
+            <button class="hcl-btn hcl-btn-ghost hcl-btn-sm" onclick="loadQuick('GET', '/health/ready')">Readiness</button>
+            <button class="hcl-btn hcl-btn-ghost hcl-btn-sm" onclick="loadQuick('GET', '/security/userinfo')">UserInfo</button>
+            <button class="hcl-btn hcl-btn-ghost hcl-btn-sm" onclick="loadQuick('POST', '/security/token')">Token</button>
+            <button class="hcl-btn hcl-btn-ghost hcl-btn-sm" onclick="loadQuick('POST', '/security/introspect')">Introspect</button>
+        </div>
+    </div>
+
+    <!-- Request Builder -->
+    <div class="hcl-card hcl-glass" style="padding: 1.5rem; margin-bottom: 1.5rem;">
+        <div style="display: flex; gap: 0.75rem; margin-bottom: 1rem; flex-wrap: wrap;">
+            <div class="hcl-form-group" style="margin-bottom: 0; width: 120px;">
+                <label class="hcl-label">Method</label>
+                <select class="hcl-select" id="reqMethod">
+                    <option value="GET">GET</option>
+                    <option value="POST">POST</option>
+                </select>
+            </div>
+            <div class="hcl-form-group" style="margin-bottom: 0; flex: 1; min-width: 300px;">
+                <label class="hcl-label">URL</label>
+                <input type="text" class="hcl-input" id="reqUrl" value="@(authority)/.well-known/openid-configuration" />
+            </div>
+            <div class="hcl-form-group" style="margin-bottom: 0; display: flex; align-items: flex-end;">
+                <button class="hcl-btn hcl-btn-primary" id="sendBtn" onclick="sendRequest()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                    Send
+                </button>
+            </div>
+        </div>
+
+        <!-- Headers Section -->
+        <div style="margin-bottom: 1rem;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem;">
+                <label class="hcl-label" style="margin-bottom: 0;">Headers</label>
+                <button class="hcl-btn hcl-btn-ghost hcl-btn-sm" onclick="addHeader()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    Add
+                </button>
+            </div>
+            <div id="headersContainer">
+                <div class="header-row" style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
+                    <input type="text" class="hcl-input header-key" placeholder="Key" style="flex: 1;" />
+                    <input type="text" class="hcl-input header-value" placeholder="Value" style="flex: 2;" />
+                    <button class="hcl-btn hcl-btn-ghost hcl-btn-sm" onclick="this.parentElement.remove()" title="Remove">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Body Section -->
+        <div id="bodySection">
+            <label class="hcl-label">Body</label>
+            <textarea class="hcl-textarea" id="reqBody" rows="5" placeholder="Request body (JSON or form-encoded)..." style="font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.85rem;"></textarea>
+        </div>
+    </div>
+
+    <!-- Response Section -->
+    <div id="responseSection" style="display: none;">
+        <div class="hcl-card hcl-glass" style="padding: 1.5rem;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <h3 style="font-size: 1rem; font-weight: 600; color: var(--hcl-text-primary);">Response</h3>
+                    <span id="resStatusBadge" class="hcl-badge"></span>
+                    <span id="resTime" style="font-size: 0.75rem; color: var(--hcl-text-tertiary);"></span>
+                </div>
+                <button class="hcl-btn hcl-btn-ghost hcl-btn-sm" onclick="copyResponse()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                    Copy
+                </button>
+            </div>
+
+            <!-- Response Headers (collapsible) -->
+            <details style="margin-bottom: 1rem;">
+                <summary style="cursor: pointer; font-size: 0.85rem; color: var(--hcl-text-secondary); font-weight: 500; margin-bottom: 0.5rem;">Response Headers</summary>
+                <pre class="hcl-pre" style="max-height: 200px; overflow: auto;"><code id="resHeaders" class="hcl-code" style="font-size: 0.8rem;"></code></pre>
+            </details>
+
+            <!-- Response Body -->
+            <pre class="hcl-pre" style="max-height: 60vh; overflow: auto; background: rgba(0,0,0,0.3); border: 1px solid var(--hcl-border); border-radius: 8px;"><code id="resBody" class="hcl-code" style="font-size: 0.85rem; white-space: pre-wrap; word-break: break-all;"></code></pre>
+        </div>
+    </div>
+</div>
+
+<!-- ===== TAB 2: Token Inspector ===== -->
+<div id="authtools-tab-token-inspector" style="display: none;">
+    <div class="hcl-card hcl-glass" style="padding: 1.5rem; margin-bottom: 1.5rem;">
+        <div class="hcl-form-group">
+            <label class="hcl-label">Paste JWT Token</label>
+            <textarea class="hcl-textarea" id="jwtInput" rows="6" placeholder="eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkw..." style="font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.85rem;"></textarea>
+        </div>
+        <button class="hcl-btn hcl-btn-primary" onclick="decodeJwt()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            Decode
+        </button>
+    </div>
+
+    <!-- Decoded Output -->
+    <div id="jwtOutput" style="display: none;">
+        <!-- Expiration Status -->
+        <div id="jwtExpStatus" class="hcl-alert" style="margin-bottom: 1rem;"></div>
+
+        <div class="hcl-grid hcl-grid-2" style="margin-bottom: 1.5rem;">
+            <!-- Header -->
+            <div class="hcl-card hcl-glass" style="padding: 1.5rem;">
+                <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 1rem; color: var(--hcl-text-primary);">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" style="display: inline; vertical-align: text-bottom; margin-right: 0.5rem; color: #3b82f6;"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                    Header
+                </h3>
+                <div id="jwtHeader"></div>
+            </div>
+
+            <!-- Signature -->
+            <div class="hcl-card hcl-glass" style="padding: 1.5rem;">
+                <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 1rem; color: var(--hcl-text-primary);">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" style="display: inline; vertical-align: text-bottom; margin-right: 0.5rem; color: #a855f7;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    Signature
+                </h3>
+                <pre class="hcl-pre" style="overflow: auto; max-height: 200px;"><code id="jwtSignature" class="hcl-code" style="font-size: 0.8rem; word-break: break-all;"></code></pre>
+            </div>
+        </div>
+
+        <!-- Payload -->
+        <div class="hcl-card hcl-glass" style="padding: 1.5rem;">
+            <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 1rem; color: var(--hcl-text-primary);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" style="display: inline; vertical-align: text-bottom; margin-right: 0.5rem; color: #06b6d4;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                Payload Claims
+            </h3>
+            <div class="hcl-table-wrapper">
+                <table class="hcl-table" id="jwtClaimsTable">
+                    <thead>
+                        <tr>
+                            <th>Claim</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody id="jwtClaimsBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== TAB 3: Password Sign-In Test ===== -->
+<div id="authtools-tab-signin-test" style="display: none;">
+    <div class="hcl-card hcl-glass" style="padding: 1.5rem; max-width: 500px;">
+        <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 1.25rem; color: var(--hcl-text-primary);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" style="display: inline; vertical-align: text-bottom; margin-right: 0.5rem; color: #f59e0b;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Test Password Sign-In
+        </h3>
+        <p style="font-size: 0.85rem; color: var(--hcl-text-secondary); margin-bottom: 1.25rem;">
+            Test user credentials against the identity server. This performs a resource owner password grant.
+        </p>
+
+        <div class="hcl-form-group">
+            <label class="hcl-label">Username</label>
+            <input type="text" class="hcl-input" id="signinUsername" placeholder="user@example.com" autocomplete="off" />
+        </div>
+        <div class="hcl-form-group">
+            <label class="hcl-label">Password</label>
+            <input type="password" class="hcl-input" id="signinPassword" placeholder="Enter password" autocomplete="off" />
+        </div>
+        <button class="hcl-btn hcl-btn-primary" id="signinBtn" onclick="testSignIn()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+            Test Sign-In
+        </button>
+    </div>
+
+    <!-- Sign-In Result -->
+    <div id="signinResult" style="display: none; margin-top: 1.5rem; max-width: 500px;">
+        <div class="hcl-card hcl-glass" style="padding: 1.5rem;">
+            <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 1rem; color: var(--hcl-text-primary);">Sign-In Result</h3>
+            <div id="signinResultStatus" style="margin-bottom: 1rem;"></div>
+            <pre class="hcl-pre" style="max-height: 300px; overflow: auto;"><code id="signinResultBody" class="hcl-code" style="font-size: 0.85rem; white-space: pre-wrap; word-break: break-all;"></code></pre>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+    var authority = '@Html.Raw(authority)';
+
+    // ===== Endpoint Tester =====
+
+    function loadQuick(method, path) {
+        document.getElementById('reqMethod').value = method;
+        document.getElementById('reqUrl').value = authority + path;
+        document.getElementById('reqBody').value = '';
+    }
+
+    function addHeader() {
+        var container = document.getElementById('headersContainer');
+        var row = document.createElement('div');
+        row.className = 'header-row';
+        row.style.cssText = 'display: flex; gap: 0.5rem; margin-bottom: 0.5rem;';
+        row.innerHTML =
+            '<input type="text" class="hcl-input header-key" placeholder="Key" style="flex: 1;" />' +
+            '<input type="text" class="hcl-input header-value" placeholder="Value" style="flex: 2;" />' +
+            '<button class="hcl-btn hcl-btn-ghost hcl-btn-sm" onclick="this.parentElement.remove()" title="Remove">' +
+                '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>' +
+            '</button>';
+        container.appendChild(row);
+    }
+
+    function getHeaders() {
+        var headers = {};
+        var rows = document.querySelectorAll('#headersContainer .header-row');
+        rows.forEach(function(row) {
+            var key = row.querySelector('.header-key').value.trim();
+            var val = row.querySelector('.header-value').value.trim();
+            if (key && val) headers[key] = val;
+        });
+        return headers;
+    }
+
+    async function sendRequest() {
+        var method = document.getElementById('reqMethod').value;
+        var url = document.getElementById('reqUrl').value.trim();
+        var body = document.getElementById('reqBody').value.trim();
+        var headers = getHeaders();
+
+        if (!url) {
+            HCL.toastError('Please enter a URL.');
+            return;
+        }
+
+        var btn = document.getElementById('sendBtn');
+        btn.disabled = true;
+        btn.innerHTML = '<span style="display: inline-block; width: 16px; height: 16px; border: 2px solid currentColor; border-top-color: transparent; border-radius: 50%; animation: spin 0.6s linear infinite;"></span> Sending...';
+
+        var startTime = performance.now();
+
+        try {
+            var result = await HCL.apiRequest('/Admin/AuthTools/TestEndpoint', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    url: url,
+                    method: method,
+                    body: body || null,
+                    contentType: headers['Content-Type'] || 'application/json',
+                    headers: headers
+                })
+            });
+
+            var elapsed = Math.round(performance.now() - startTime);
+
+            // Status badge
+            var statusBadge = document.getElementById('resStatusBadge');
+            var statusCode = result.statusCode || 0;
+            var statusColor = statusCode >= 200 && statusCode < 300 ? 'background: rgba(34,197,94,0.15); color: #22c55e;' :
+                              statusCode >= 400 ? 'background: rgba(239,68,68,0.15); color: #ef4444;' :
+                              'background: rgba(245,158,11,0.15); color: #f59e0b;';
+            statusBadge.setAttribute('style', statusColor + ' font-size: 0.85rem;');
+            statusBadge.textContent = statusCode + ' ' + (result.statusText || '');
+
+            document.getElementById('resTime').textContent = elapsed + 'ms';
+
+            // Headers
+            var hdrText = '';
+            if (result.headers) {
+                for (var k in result.headers) {
+                    hdrText += k + ': ' + result.headers[k] + '\n';
+                }
+            }
+            document.getElementById('resHeaders').textContent = hdrText || '(none)';
+
+            // Body
+            var bodyText = result.body || '';
+            try { bodyText = JSON.stringify(JSON.parse(bodyText), null, 2); } catch(e) {}
+            document.getElementById('resBody').textContent = bodyText;
+
+            document.getElementById('responseSection').style.display = '';
+
+        } catch (err) {
+            HCL.toastError('Request failed: ' + (err.message || 'Unknown error'));
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Send';
+        }
+    }
+
+    function copyResponse() {
+        var body = document.getElementById('resBody').textContent;
+        HCL.copyToClipboard(body);
+        HCL.toastSuccess('Response copied to clipboard.');
+    }
+
+    // ===== Token Inspector =====
+
+    function base64UrlDecode(str) {
+        str = str.replace(/-/g, '+').replace(/_/g, '/');
+        while (str.length % 4) str += '=';
+        return atob(str);
+    }
+
+    function toHex(str) {
+        var hex = '';
+        for (var i = 0; i < str.length; i++) {
+            var code = str.charCodeAt(i).toString(16);
+            hex += (code.length < 2 ? '0' : '') + code;
+        }
+        return hex;
+    }
+
+    function renderClaimValue(val) {
+        if (typeof val === 'number') {
+            // Check if it looks like a Unix timestamp (between 2000 and 2100)
+            if (val > 946684800 && val < 4102444800) {
+                var d = new Date(val * 1000);
+                return val + ' <span style="color: var(--hcl-text-tertiary); font-size: 0.8rem;">(' + d.toISOString() + ')</span>';
+            }
+            return String(val);
+        }
+        if (Array.isArray(val)) return val.join(', ');
+        if (typeof val === 'object') return JSON.stringify(val, null, 2);
+        return String(val);
+    }
+
+    function decodeJwt() {
+        var token = document.getElementById('jwtInput').value.trim();
+        if (!token) {
+            HCL.toastError('Please paste a JWT token.');
+            return;
+        }
+
+        var parts = token.split('.');
+        if (parts.length !== 3) {
+            HCL.toastError('Invalid JWT format. Expected 3 dot-separated parts.');
+            return;
+        }
+
+        try {
+            var header = JSON.parse(base64UrlDecode(parts[0]));
+            var payload = JSON.parse(base64UrlDecode(parts[1]));
+            var sigHex = toHex(base64UrlDecode(parts[2]));
+
+            // Header
+            var hdrHtml = '';
+            for (var k in header) {
+                hdrHtml += '<div style="display: flex; justify-content: space-between; padding: 0.5rem 0.75rem; background: var(--hcl-bg-tertiary); border-radius: 0.5rem; margin-bottom: 0.5rem;">' +
+                    '<span style="font-weight: 500; color: var(--hcl-text-primary); font-size: 0.875rem;">' + k + '</span>' +
+                    '<span class="hcl-badge hcl-badge-primary" style="font-size: 0.8rem;">' + header[k] + '</span>' +
+                    '</div>';
+            }
+            document.getElementById('jwtHeader').innerHTML = hdrHtml;
+
+            // Signature
+            document.getElementById('jwtSignature').textContent = sigHex;
+
+            // Payload claims
+            var claimsHtml = '';
+            for (var c in payload) {
+                var isExp = (c === 'exp' || c === 'iat' || c === 'nbf' || c === 'auth_time');
+                claimsHtml += '<tr>' +
+                    '<td data-label="Claim" style="font-weight: 500; color: var(--hcl-text-primary); font-size: 0.875rem; white-space: nowrap;">' + c + '</td>' +
+                    '<td data-label="Value" style="color: var(--hcl-text-secondary); font-size: 0.875rem; word-break: break-all;">' + renderClaimValue(payload[c]) + '</td>' +
+                    '</tr>';
+            }
+            document.getElementById('jwtClaimsBody').innerHTML = claimsHtml;
+
+            // Expiration status
+            var expEl = document.getElementById('jwtExpStatus');
+            if (payload.exp) {
+                var expDate = new Date(payload.exp * 1000);
+                var now = new Date();
+                if (expDate > now) {
+                    var diff = expDate - now;
+                    var hours = Math.floor(diff / 3600000);
+                    var mins = Math.floor((diff % 3600000) / 60000);
+                    expEl.className = 'hcl-alert hcl-alert-info';
+                    expEl.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" style="flex-shrink: 0;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>' +
+                        '<span style="margin-left: 0.75rem;"><strong style="color: #22c55e;">Valid</strong> — Expires in ' + hours + 'h ' + mins + 'm (' + expDate.toISOString() + ')</span>';
+                    expEl.style.display = 'flex';
+                    expEl.style.alignItems = 'center';
+                } else {
+                    expEl.className = 'hcl-alert hcl-alert-warning';
+                    expEl.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" style="flex-shrink: 0;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>' +
+                        '<span style="margin-left: 0.75rem;"><strong style="color: #ef4444;">Expired</strong> — Token expired on ' + expDate.toISOString() + '</span>';
+                    expEl.style.display = 'flex';
+                    expEl.style.alignItems = 'center';
+                }
+            } else {
+                expEl.className = 'hcl-alert hcl-alert-info';
+                expEl.innerHTML = '<span>No expiration claim (exp) found in token.</span>';
+                expEl.style.display = '';
+            }
+
+            document.getElementById('jwtOutput').style.display = '';
+            HCL.toastSuccess('Token decoded successfully.');
+        } catch (e) {
+            HCL.toastError('Failed to decode token: ' + e.message);
+        }
+    }
+
+    // ===== Password Sign-In Test =====
+
+    async function testSignIn() {
+        var username = document.getElementById('signinUsername').value.trim();
+        var password = document.getElementById('signinPassword').value;
+
+        if (!username || !password) {
+            HCL.toastError('Please enter both username and password.');
+            return;
+        }
+
+        var btn = document.getElementById('signinBtn');
+        btn.disabled = true;
+        btn.innerHTML = '<span style="display: inline-block; width: 16px; height: 16px; border: 2px solid currentColor; border-top-color: transparent; border-radius: 50%; animation: spin 0.6s linear infinite;"></span> Testing...';
+
+        try {
+            var bodyParams = 'grant_type=password' +
+                '&username=' + encodeURIComponent(username) +
+                '&password=' + encodeURIComponent(password) +
+                '&scope=openid profile email';
+
+            var result = await HCL.apiRequest('/Admin/AuthTools/TestEndpoint', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    url: authority + '/security/token',
+                    method: 'POST',
+                    body: bodyParams,
+                    contentType: 'application/x-www-form-urlencoded',
+                    headers: {}
+                })
+            });
+
+            var statusEl = document.getElementById('signinResultStatus');
+            var bodyEl = document.getElementById('signinResultBody');
+            var statusCode = result.statusCode || 0;
+
+            if (statusCode === 200) {
+                statusEl.innerHTML = '<span class="hcl-badge" style="background: rgba(34,197,94,0.15); color: #22c55e; font-size: 0.85rem;">Succeeded</span>' +
+                    ' <span style="font-size: 0.85rem; color: var(--hcl-text-secondary); margin-left: 0.5rem;">Authentication successful for ' + username + '</span>';
+            } else if (statusCode === 400) {
+                var parsed = {};
+                try { parsed = JSON.parse(result.body || '{}'); } catch(e) {}
+                var errorDesc = parsed.error_description || parsed.error || 'Bad Request';
+                var icon = '';
+                if (errorDesc.toLowerCase().indexOf('locked') !== -1) {
+                    icon = 'Locked Out';
+                } else if (errorDesc.toLowerCase().indexOf('2fa') !== -1 || errorDesc.toLowerCase().indexOf('two') !== -1 || errorDesc.toLowerCase().indexOf('mfa') !== -1) {
+                    icon = 'Requires 2FA';
+                } else if (errorDesc.toLowerCase().indexOf('invalid') !== -1 || errorDesc.toLowerCase().indexOf('credentials') !== -1) {
+                    icon = 'Invalid Credentials';
+                } else {
+                    icon = 'Failed';
+                }
+                statusEl.innerHTML = '<span class="hcl-badge" style="background: rgba(239,68,68,0.15); color: #ef4444; font-size: 0.85rem;">' + icon + '</span>' +
+                    ' <span style="font-size: 0.85rem; color: var(--hcl-text-secondary); margin-left: 0.5rem;">' + errorDesc + '</span>';
+            } else {
+                statusEl.innerHTML = '<span class="hcl-badge" style="background: rgba(245,158,11,0.15); color: #f59e0b; font-size: 0.85rem;">' + statusCode + '</span>' +
+                    ' <span style="font-size: 0.85rem; color: var(--hcl-text-secondary); margin-left: 0.5rem;">' + (result.statusText || 'Unknown') + '</span>';
+            }
+
+            var bodyText = result.body || '';
+            try { bodyText = JSON.stringify(JSON.parse(bodyText), null, 2); } catch(e) {}
+            bodyEl.textContent = bodyText;
+
+            document.getElementById('signinResult').style.display = '';
+
+        } catch (err) {
+            HCL.toastError('Sign-in test failed: ' + (err.message || 'Unknown error'));
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg> Test Sign-In';
+        }
+    }
+</script>
+<style>
+    @@keyframes spin { to { transform: rotate(360deg); } }
+</style>
+}

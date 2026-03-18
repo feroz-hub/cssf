@@ -1,0 +1,43 @@
+﻿@model HCL.CS.SF.DemoClientMvc.Models.VerifyAccountViewModel
+<h2>@ViewData["Title"]</h2>
+<div class="row">
+    <div class="col-md-6">
+        <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <h4>Verify user account</h4>
+            <hr/>
+            <input type="hidden" asp-for="ReturnUrl"/>
+            <div class="form-group">
+                <label asp-for="UserName"></label>
+                <input asp-for="UserName" class="form-control"/>
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmailVerificationCode"></label>
+                <input asp-for="EmailVerificationCode" class="form-control"/>
+                <span asp-validation-for="EmailVerificationCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button type="submit" name="action" value="GenerateEmailToken" class="btn btn-primary">Generate Email
+                    Token
+                </button>
+                <button type="submit" name="action" value="VerifyEmailToken" class="btn btn-primary">Verify Email
+                    Token
+                </button>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneVerificationCode"></label>
+                <input asp-for="PhoneVerificationCode" class="form-control"/>
+                <span asp-validation-for="PhoneVerificationCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button type="submit" name="action" value="GeneratePhoneToken" class="btn btn-primary">Generate
+                    PhoneNumber Token
+                </button>
+                <button type="submit" name="action" value="VerifyPhoneToken" class="btn btn-primary">Verify PhoneNumber
+                    Token
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

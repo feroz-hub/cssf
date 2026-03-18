@@ -1,0 +1,2449 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "HCL.CS.SF API Inventory",
+    "version": "1.0.0",
+    "description": "Generated from docs/api/all-apis.md"
+  },
+  "servers": [
+    {
+      "url": "{baseUrl}",
+      "description": "Environment base URL",
+      "variables": {
+        "baseUrl": {
+          "default": "https://localhost:5001"
+        }
+      }
+    }
+  ],
+  "tags": [
+    {
+      "name": "External Auth (Demo Server)"
+    },
+    {
+      "name": "Health APIs"
+    },
+    {
+      "name": "Identity Management APIs (Gateway)"
+    },
+    {
+      "name": "Installer APIs"
+    },
+    {
+      "name": "OAuth/OIDC Endpoints"
+    },
+    {
+      "name": "Resource Server Demo APIs"
+    }
+  ],
+  "paths": {
+    "/Security/Api/ApiResource/AddApiResource": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "AddApiResource",
+        "operationId": "post__Security_Api_ApiResource_AddApiResource",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/ApiResource/AddApiResourceClaim": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "AddApiResourceClaim",
+        "operationId": "post__Security_Api_ApiResource_AddApiResourceClaim",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/ApiResource/AddApiScope": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "AddApiScope",
+        "operationId": "post__Security_Api_ApiResource_AddApiScope",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/ApiResource/AddApiScopeClaim": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "AddApiScopeClaim",
+        "operationId": "post__Security_Api_ApiResource_AddApiScopeClaim",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/ApiResource/DeleteApiResourceById": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "DeleteApiResourceById",
+        "operationId": "post__Security_Api_ApiResource_DeleteApiResourceById",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/ApiResource/DeleteApiResourceByName": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "DeleteApiResourceByName",
+        "operationId": "post__Security_Api_ApiResource_DeleteApiResourceByName",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/ApiResource/DeleteApiResourceClaimById": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "DeleteApiResourceClaimById",
+        "operationId": "post__Security_Api_ApiResource_DeleteApiResourceClaimById",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/ApiResource/DeleteApiResourceClaimByResourceIdAsync": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "DeleteApiResourceClaimByResourceIdAsync",
+        "operationId": "post__Security_Api_ApiResource_DeleteApiResourceClaimByResourceIdAsync",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/ApiResource/DeleteApiResourceClaimModel": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "DeleteApiResourceClaimModel",
+        "operationId": "post__Security_Api_ApiResource_DeleteApiResourceClaimModel",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/ApiResource/DeleteApiScopeById": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "DeleteApiScopeById",
+        "operationId": "post__Security_Api_ApiResource_DeleteApiScopeById",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/ApiResource/DeleteApiScopeByName": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "DeleteApiScopeByName",
+        "operationId": "post__Security_Api_ApiResource_DeleteApiScopeByName",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/ApiResource/DeleteApiScopeClaimById": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "DeleteApiScopeClaimById",
+        "operationId": "post__Security_Api_ApiResource_DeleteApiScopeClaimById",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/ApiResource/DeleteApiScopeClaimByScopeId": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "DeleteApiScopeClaimByScopeId",
+        "operationId": "post__Security_Api_ApiResource_DeleteApiScopeClaimByScopeId",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/ApiResource/DeleteApiScopeClaimModel": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "DeleteApiScopeClaimModel",
+        "operationId": "post__Security_Api_ApiResource_DeleteApiScopeClaimModel",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/ApiResource/GetAllApiResources": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GetAllApiResources",
+        "operationId": "post__Security_Api_ApiResource_GetAllApiResources",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/ApiResource/GetAllApiResourcesByScopesAsync": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GetAllApiResourcesByScopesAsync",
+        "operationId": "post__Security_Api_ApiResource_GetAllApiResourcesByScopesAsync",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/ApiResource/GetAllApiScopes": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GetAllApiScopes",
+        "operationId": "post__Security_Api_ApiResource_GetAllApiScopes",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/ApiResource/GetApiResourceById": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GetApiResourceById",
+        "operationId": "post__Security_Api_ApiResource_GetApiResourceById",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/ApiResource/GetApiResourceByName": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GetApiResourceByName",
+        "operationId": "post__Security_Api_ApiResource_GetApiResourceByName",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/ApiResource/GetApiResourceClaimsById": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GetApiResourceClaimsById",
+        "operationId": "post__Security_Api_ApiResource_GetApiResourceClaimsById",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/ApiResource/GetApiScopeById": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GetApiScopeById",
+        "operationId": "post__Security_Api_ApiResource_GetApiScopeById",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/ApiResource/GetApiScopeByName": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GetApiScopeByName",
+        "operationId": "post__Security_Api_ApiResource_GetApiScopeByName",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/ApiResource/GetApiScopeClaims": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GetApiScopeClaims",
+        "operationId": "post__Security_Api_ApiResource_GetApiScopeClaims",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/ApiResource/UpdateApiResource": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "UpdateApiResource",
+        "operationId": "post__Security_Api_ApiResource_UpdateApiResource",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/ApiResource/UpdateApiScope": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "UpdateApiScope",
+        "operationId": "post__Security_Api_ApiResource_UpdateApiScope",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/Audittrail/AddAuditTrail": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "AddAuditTrail",
+        "operationId": "post__Security_Api_Audittrail_AddAuditTrail",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/Audittrail/AddAuditTrailModel": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "AddAuditTrailModel",
+        "operationId": "post__Security_Api_Audittrail_AddAuditTrailModel",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/Audittrail/GetAuditDetails": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GetAuditDetailsAsync",
+        "operationId": "post__Security_Api_Audittrail_GetAuditDetails",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/Authentication/CountRecoveryCodesAsync": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "CountRecoveryCodesAsync",
+        "operationId": "post__Security_Api_Authentication_CountRecoveryCodesAsync",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/Authentication/GenerateRecoveryCodes": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GenerateRecoveryCodes",
+        "operationId": "post__Security_Api_Authentication_GenerateRecoveryCodes",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/Authentication/IsUserSignedIn": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "IsUserSignedIn",
+        "operationId": "post__Security_Api_Authentication_IsUserSignedIn",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/Authentication/PasswordSignIn": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "PasswordSignIn",
+        "operationId": "post__Security_Api_Authentication_PasswordSignIn",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/Authentication/PasswordSignInByTwoFactorAuthenticatorToken": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "PasswordSignInByTwoFactorAuthenticatorToken",
+        "operationId": "post__Security_Api_Authentication_PasswordSignInByTwoFactorAuthenticatorToken",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/Authentication/ResetAuthenticatorApp": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "ResetAuthenticatorApp",
+        "operationId": "post__Security_Api_Authentication_ResetAuthenticatorApp",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/Authentication/RopValidateCredentials": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "RopValidateCredentials",
+        "operationId": "post__Security_Api_Authentication_RopValidateCredentials",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/Authentication/SetupAuthenticatorApp": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "SetupAuthenticatorApp",
+        "operationId": "post__Security_Api_Authentication_SetupAuthenticatorApp",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/Authentication/SignOut": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "SignOut",
+        "operationId": "post__Security_Api_Authentication_SignOut",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/Authentication/TwoFactorAuthenticatorAppSignIn": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "TwoFactorAuthenticatorAppSignIn",
+        "operationId": "post__Security_Api_Authentication_TwoFactorAuthenticatorAppSignIn",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/Authentication/TwoFactorEmailSignIn": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "TwoFactorEmailSignIn",
+        "operationId": "post__Security_Api_Authentication_TwoFactorEmailSignIn",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/Authentication/TwoFactorRecoveryCodeSignIn": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "TwoFactorRecoveryCodeSignIn",
+        "operationId": "post__Security_Api_Authentication_TwoFactorRecoveryCodeSignIn",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/Authentication/TwoFactorSmsSignInAsync": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "TwoFactorSmsSignInAsync",
+        "operationId": "post__Security_Api_Authentication_TwoFactorSmsSignInAsync",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/Authentication/VerifyAuthenticatorAppSetup": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "VerifyAuthenticatorAppSetup",
+        "operationId": "post__Security_Api_Authentication_VerifyAuthenticatorAppSetup",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/Client/DeleteClient": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "DeleteClient",
+        "operationId": "post__Security_Api_Client_DeleteClient",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/Client/GenerateClientSecret": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GenerateClientSecret",
+        "operationId": "post__Security_Api_Client_GenerateClientSecret",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/Client/GetAllClient": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GetAllClient",
+        "operationId": "post__Security_Api_Client_GetAllClient",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/Client/GetClient": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GetClient",
+        "operationId": "post__Security_Api_Client_GetClient",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/Client/RegisterClient": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "RegisterClient",
+        "operationId": "post__Security_Api_Client_RegisterClient",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/Client/UpdateClient": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "UpdateClient",
+        "operationId": "post__Security_Api_Client_UpdateClient",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/IdentityResource/AddIdentityResource": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "AddIdentityResource",
+        "operationId": "post__Security_Api_IdentityResource_AddIdentityResource",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/IdentityResource/AddIdentityResourceClaim": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "AddIdentityResourceClaim",
+        "operationId": "post__Security_Api_IdentityResource_AddIdentityResourceClaim",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/IdentityResource/DeleteIdentityResourceById": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "DeleteIdentityResourceById",
+        "operationId": "post__Security_Api_IdentityResource_DeleteIdentityResourceById",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/IdentityResource/DeleteIdentityResourceByName": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "DeleteIdentityResourceByName",
+        "operationId": "post__Security_Api_IdentityResource_DeleteIdentityResourceByName",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/IdentityResource/DeleteIdentityResourceClaimById": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "DeleteIdentityResourceClaimByIdAsync",
+        "operationId": "post__Security_Api_IdentityResource_DeleteIdentityResourceClaimById",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/IdentityResource/DeleteIdentityResourceClaimByResourceIdAsync": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "DeleteIdentityResourceClaimByResourceIdAsync",
+        "operationId": "post__Security_Api_IdentityResource_DeleteIdentityResourceClaimByResourceIdAsync",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/IdentityResource/DeleteIdentityResourceClaimModel": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "DeleteIdentityResourceClaimModel",
+        "operationId": "post__Security_Api_IdentityResource_DeleteIdentityResourceClaimModel",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/IdentityResource/GetAllIdentityResources": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GetAllIdentityResources",
+        "operationId": "post__Security_Api_IdentityResource_GetAllIdentityResources",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/IdentityResource/GetIdentityResourceById": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GetIdentityResourceById",
+        "operationId": "post__Security_Api_IdentityResource_GetIdentityResourceById",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/IdentityResource/GetIdentityResourceByName": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GetIdentityResourceByName",
+        "operationId": "post__Security_Api_IdentityResource_GetIdentityResourceByName",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/IdentityResource/GetIdentityResourceClaims": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GetIdentityResourceClaims",
+        "operationId": "post__Security_Api_IdentityResource_GetIdentityResourceClaims",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/IdentityResource/UpdateIdentityResource": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "UpdateIdentityResource",
+        "operationId": "post__Security_Api_IdentityResource_UpdateIdentityResource",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/Role/AddRoleClaim": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "AddRoleClaim",
+        "operationId": "post__Security_Api_Role_AddRoleClaim",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/Role/AddRoleClaimList": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "AddRoleClaimList",
+        "operationId": "post__Security_Api_Role_AddRoleClaimList",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/Role/CreateRole": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "CreateRole",
+        "operationId": "post__Security_Api_Role_CreateRole",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/Role/DeleteRoleById": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "DeleteRoleById",
+        "operationId": "post__Security_Api_Role_DeleteRoleById",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/Role/DeleteRoleByName": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "DeleteRoleByName",
+        "operationId": "post__Security_Api_Role_DeleteRoleByName",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/Role/GetAllRoles": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GetAllRoles",
+        "operationId": "post__Security_Api_Role_GetAllRoles",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/Role/GetRoleById": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GetRoleById",
+        "operationId": "post__Security_Api_Role_GetRoleById",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/Role/GetRoleByName": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GetRoleByName",
+        "operationId": "post__Security_Api_Role_GetRoleByName",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/Role/GetRoleClaim": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GetRoleClaim",
+        "operationId": "post__Security_Api_Role_GetRoleClaim",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/Role/RemoveRoleClaim": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "RemoveRoleClaim",
+        "operationId": "post__Security_Api_Role_RemoveRoleClaim",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/Role/RemoveRoleClaimsById": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "RemoveRoleClaimById",
+        "operationId": "post__Security_Api_Role_RemoveRoleClaimsById",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/Role/RemoveRoleClaimsList": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "RemoveRoleClaimsList",
+        "operationId": "post__Security_Api_Role_RemoveRoleClaimsList",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/Role/UpdateRole": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "UpdateRoleAsync",
+        "operationId": "post__Security_Api_Role_UpdateRole",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/SecurityToken/GetActiveSecurityTokensBetweenDates": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GetActiveSecurityTokensBetweenDates",
+        "operationId": "post__Security_Api_SecurityToken_GetActiveSecurityTokensBetweenDates",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/SecurityToken/GetActiveSecurityTokensByClientIds": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GetActiveSecurityTokensByClientIds",
+        "operationId": "post__Security_Api_SecurityToken_GetActiveSecurityTokensByClientIds",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/SecurityToken/GetActiveSecurityTokensByUserIds": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GetActiveSecurityTokensByUserIds",
+        "operationId": "post__Security_Api_SecurityToken_GetActiveSecurityTokensByUserIds",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/SecurityToken/GetAllSecurityTokensBetweenDates": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GetAllSecurityTokensBetweenDates",
+        "operationId": "post__Security_Api_SecurityToken_GetAllSecurityTokensBetweenDates",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/AddAdminClaim": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "AddAdminClaim",
+        "operationId": "post__Security_Api_User_AddAdminClaim",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/AddAdminClaimList": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "AddAdminClaimList",
+        "operationId": "post__Security_Api_User_AddAdminClaimList",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/AddClaim": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "AddClaim",
+        "operationId": "post__Security_Api_User_AddClaim",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/AddClaimList": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "AddClaimList",
+        "operationId": "post__Security_Api_User_AddClaimList",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/AddSecurityQuestion": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "AddSecurityQuestion",
+        "operationId": "post__Security_Api_User_AddSecurityQuestion",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/AddUserRole": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "AddUserRole",
+        "operationId": "post__Security_Api_User_AddUserRole",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/AddUserRolesList": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "AddUserRolesList",
+        "operationId": "post__Security_Api_User_AddUserRolesList",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/AddUserSecurityQuestion": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "AddUserSecurityQuestion",
+        "operationId": "post__Security_Api_User_AddUserSecurityQuestion",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/AddUserSecurityQuestionList": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "AddUserSecurityQuestionList",
+        "operationId": "post__Security_Api_User_AddUserSecurityQuestionList",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/ChangePassword": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "ChangePassword",
+        "operationId": "post__Security_Api_User_ChangePassword",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/DeleteSecurityQuestion": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "DeleteSecurityQuestion",
+        "operationId": "post__Security_Api_User_DeleteSecurityQuestion",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/DeleteUserById": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "DeleteUserById",
+        "operationId": "post__Security_Api_User_DeleteUserById",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/DeleteUserByName": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "DeleteUserByName",
+        "operationId": "post__Security_Api_User_DeleteUserByName",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/DeleteUserSecurityQuestion": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "DeleteUserSecurityQuestion",
+        "operationId": "post__Security_Api_User_DeleteUserSecurityQuestion",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/DeleteUserSecurityQuestionList": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "DeleteUserSecurityQuestionList",
+        "operationId": "post__Security_Api_User_DeleteUserSecurityQuestionList",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/GenerateEmailConfirmationToken": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GenerateEmailConfirmationToken",
+        "operationId": "post__Security_Api_User_GenerateEmailConfirmationToken",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/GenerateEmailTwoFactorToken": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GenerateEmailTwoFactorToken",
+        "operationId": "post__Security_Api_User_GenerateEmailTwoFactorToken",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/GeneratePasswordResetToken": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GeneratePasswordResetToken",
+        "operationId": "post__Security_Api_User_GeneratePasswordResetToken",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/GeneratePhoneNumberConfirmationToken": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GeneratePhoneNumberConfirmationToken",
+        "operationId": "post__Security_Api_User_GeneratePhoneNumberConfirmationToken",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/GenerateSmsTwoFactorToken": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GenerateSmsTwoFactorToken",
+        "operationId": "post__Security_Api_User_GenerateSmsTwoFactorToken",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/GenerateUserTokenAsync": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GenerateUserTokenAsync",
+        "operationId": "post__Security_Api_User_GenerateUserTokenAsync",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/GetAdminUserClaims": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GetAdminUserClaims",
+        "operationId": "post__Security_Api_User_GetAdminUserClaims",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/GetAllSecurityQuestions": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GetAllSecurityQuestions",
+        "operationId": "post__Security_Api_User_GetAllSecurityQuestions",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/GetAllTwoFactorType": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GetAllTwoFactorType",
+        "operationId": "post__Security_Api_User_GetAllTwoFactorType",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/GetAllUsers": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GetAllUsers",
+        "operationId": "post__Security_Api_User_GetAllUsers",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/GetClaims": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GetClaims",
+        "operationId": "post__Security_Api_User_GetClaims",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/GetUserByEmail": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GetUserByEmail",
+        "operationId": "post__Security_Api_User_GetUserByEmail",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/GetUserById": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GetUserById",
+        "operationId": "post__Security_Api_User_GetUserById",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/GetUserByName": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GetUserByName",
+        "operationId": "post__Security_Api_User_GetUserByName",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/GetUserClaims": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GetUserClaims",
+        "operationId": "post__Security_Api_User_GetUserClaims",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/GetUserRoleClaimsById": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GetUserRoleClaimsById",
+        "operationId": "post__Security_Api_User_GetUserRoleClaimsById",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/GetUserRoleClaimsByName": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GetUserRoleClaimsByName",
+        "operationId": "post__Security_Api_User_GetUserRoleClaimsByName",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/GetUserRoles": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GetUserRoles",
+        "operationId": "post__Security_Api_User_GetUserRoles",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/GetUserSecurityQuestions": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GetUserSecurityQuestions",
+        "operationId": "post__Security_Api_User_GetUserSecurityQuestions",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/GetUsersForClaim": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GetUsersForClaim",
+        "operationId": "post__Security_Api_User_GetUsersForClaim",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/GetUsersInRole": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "GetUsersInRole",
+        "operationId": "post__Security_Api_User_GetUsersInRole",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/IsUserExistsByClaimPrincipal": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "IsUserExistsByClaimPrincipal",
+        "operationId": "post__Security_Api_User_IsUserExistsByClaimPrincipal",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/IsUserExistsById": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "IsUserExistsById",
+        "operationId": "post__Security_Api_User_IsUserExistsById",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/IsUserExistsByName": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "IsUserExistsByName",
+        "operationId": "post__Security_Api_User_IsUserExistsByName",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/LockUser": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "LockUser",
+        "operationId": "post__Security_Api_User_LockUser",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/RegisterUser": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "RegisterUser",
+        "operationId": "post__Security_Api_User_RegisterUser",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/RemoveAdminClaim": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "RemoveAdminClaim",
+        "operationId": "post__Security_Api_User_RemoveAdminClaim",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/RemoveAdminClaimList": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "RemoveAdminClaimList",
+        "operationId": "post__Security_Api_User_RemoveAdminClaimList",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/RemoveClaim": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "RemoveClaim",
+        "operationId": "post__Security_Api_User_RemoveClaim",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/RemoveClaimList": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "RemoveClaimList",
+        "operationId": "post__Security_Api_User_RemoveClaimList",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/RemoveUserRole": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "RemoveUserRole",
+        "operationId": "post__Security_Api_User_RemoveUserRole",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/RemoveUserRoleList": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "RemoveUserRoleList",
+        "operationId": "post__Security_Api_User_RemoveUserRoleList",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/ReplaceClaim": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "ReplaceClaim",
+        "operationId": "post__Security_Api_User_ReplaceClaim",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/ResetPassword": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "ResetPassword",
+        "operationId": "post__Security_Api_User_ResetPassword",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/SetTwoFactorEnabled": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "SetTwoFactorEnabled",
+        "operationId": "post__Security_Api_User_SetTwoFactorEnabled",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/UnLockUser": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "UnLockUser",
+        "operationId": "post__Security_Api_User_UnLockUser",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/UnLockUserByToken": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "UnLockUserByToken",
+        "operationId": "post__Security_Api_User_UnLockUserByToken",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/UnLockUserByuserSecurityQuestions": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "UnLockUserByuserSecurityQuestions",
+        "operationId": "post__Security_Api_User_UnLockUserByuserSecurityQuestions",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/UpdateSecurityQuestion": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "UpdateSecurityQuestion",
+        "operationId": "post__Security_Api_User_UpdateSecurityQuestion",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/UpdateUser": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "UpdateUser",
+        "operationId": "post__Security_Api_User_UpdateUser",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/UpdateUserSecurityQuestion": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "UpdateUserSecurityQuestion",
+        "operationId": "post__Security_Api_User_UpdateUserSecurityQuestion",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/UpdateUserTwoFactorType": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "UpdateUserTwoFactorType",
+        "operationId": "post__Security_Api_User_UpdateUserTwoFactorType",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/VerifyEmailConfirmationToken": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "VerifyEmailConfirmationToken",
+        "operationId": "post__Security_Api_User_VerifyEmailConfirmationToken",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/VerifyEmailTwoFactorToken": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "VerifyEmailTwoFactorToken",
+        "operationId": "post__Security_Api_User_VerifyEmailTwoFactorToken",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/VerifyPhoneNumberConfirmationToken": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "VerifyPhoneNumberConfirmationToken",
+        "operationId": "post__Security_Api_User_VerifyPhoneNumberConfirmationToken",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/VerifySmsTwoFactorToken": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "VerifySmsTwoFactorToken",
+        "operationId": "post__Security_Api_User_VerifySmsTwoFactorToken",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/User/VerifyUserToken": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "VerifyUserToken",
+        "operationId": "post__Security_Api_User_VerifyUserToken",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Security/Api/lockuserwithenddate": {
+      "post": {
+        "tags": [
+          "Identity Management APIs (Gateway)"
+        ],
+        "summary": "LockUserWithEndDate",
+        "operationId": "post__Security_Api_lockuserwithenddate",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/security/authorize": {
+      "get": {
+        "tags": [
+          "OAuth/OIDC Endpoints"
+        ],
+        "summary": "AuthorizeEndpoint",
+        "operationId": "get__security_authorize",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "OAuth/OIDC Endpoints"
+        ],
+        "summary": "AuthorizeEndpoint",
+        "operationId": "post__security_authorize",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/security/authorize/authorizecallback": {
+      "get": {
+        "tags": [
+          "OAuth/OIDC Endpoints"
+        ],
+        "summary": "AuthorizeCallBackEndpoint",
+        "operationId": "get__security_authorize_authorizecallback",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/security/token": {
+      "post": {
+        "tags": [
+          "OAuth/OIDC Endpoints"
+        ],
+        "summary": "TokenEndpoint",
+        "operationId": "post__security_token",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/security/introspect": {
+      "post": {
+        "tags": [
+          "OAuth/OIDC Endpoints"
+        ],
+        "summary": "IntrospectionEndpoint",
+        "operationId": "post__security_introspect",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/security/endsession": {
+      "get": {
+        "tags": [
+          "OAuth/OIDC Endpoints"
+        ],
+        "summary": "EndSessionEndpoint",
+        "operationId": "get__security_endsession",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "OAuth/OIDC Endpoints"
+        ],
+        "summary": "EndSessionEndpoint",
+        "operationId": "post__security_endsession",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/security/endsession/callback": {
+      "get": {
+        "tags": [
+          "OAuth/OIDC Endpoints"
+        ],
+        "summary": "EndSessionCallbackEndpoint",
+        "operationId": "get__security_endsession_callback",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/security/revocation": {
+      "post": {
+        "tags": [
+          "OAuth/OIDC Endpoints"
+        ],
+        "summary": "TokenRevocationEndpoint",
+        "operationId": "post__security_revocation",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/.well-known/openid-configuration/jwks": {
+      "get": {
+        "tags": [
+          "OAuth/OIDC Endpoints"
+        ],
+        "summary": "JwksEndpoint",
+        "operationId": "get___well_known_openid_configuration_jwks",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/security/userinfo": {
+      "get": {
+        "tags": [
+          "OAuth/OIDC Endpoints"
+        ],
+        "summary": "UserInfoEndpoint",
+        "operationId": "get__security_userinfo",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "OAuth/OIDC Endpoints"
+        ],
+        "summary": "UserInfoEndpoint",
+        "operationId": "post__security_userinfo",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/auth/external/google/start": {
+      "get": {
+        "tags": [
+          "External Auth (Demo Server)"
+        ],
+        "summary": "ExternalAuthController.GoogleStart",
+        "operationId": "get__auth_external_google_start",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/auth/external/google/callback": {
+      "get": {
+        "tags": [
+          "External Auth (Demo Server)"
+        ],
+        "summary": "ExternalAuthController.GoogleCallback",
+        "operationId": "get__auth_external_google_callback",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/auth/external/link/google": {
+      "post": {
+        "tags": [
+          "External Auth (Demo Server)"
+        ],
+        "summary": "ExternalAuthController.LinkGoogle",
+        "operationId": "post__auth_external_link_google",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/auth/external/unlink/google": {
+      "post": {
+        "tags": [
+          "External Auth (Demo Server)"
+        ],
+        "summary": "ExternalAuthController.UnlinkGoogle",
+        "operationId": "post__auth_external_unlink_google",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "tags": [
+          "Installer APIs"
+        ],
+        "summary": "SetupController.Root",
+        "operationId": "get__",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/setup": {
+      "get": {
+        "tags": [
+          "Installer APIs"
+        ],
+        "summary": "SetupController.Provider",
+        "operationId": "get__setup",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/setup/provider": {
+      "post": {
+        "tags": [
+          "Installer APIs"
+        ],
+        "summary": "SetupController.SaveProvider",
+        "operationId": "post__setup_provider",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/setup/connection": {
+      "get": {
+        "tags": [
+          "Installer APIs"
+        ],
+        "summary": "SetupController.Connection",
+        "operationId": "get__setup_connection",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Installer APIs"
+        ],
+        "summary": "SetupController.SaveConnection",
+        "operationId": "post__setup_connection",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/setup/validate": {
+      "get": {
+        "tags": [
+          "Installer APIs"
+        ],
+        "summary": "SetupController.Validate",
+        "operationId": "get__setup_validate",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Installer APIs"
+        ],
+        "summary": "SetupController.ExecuteValidation",
+        "operationId": "post__setup_validate",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/setup/migrate": {
+      "get": {
+        "tags": [
+          "Installer APIs"
+        ],
+        "summary": "SetupController.Migrate",
+        "operationId": "get__setup_migrate",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Installer APIs"
+        ],
+        "summary": "SetupController.RunMigrations",
+        "operationId": "post__setup_migrate",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/setup/seed": {
+      "get": {
+        "tags": [
+          "Installer APIs"
+        ],
+        "summary": "SetupController.Seed",
+        "operationId": "get__setup_seed",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Installer APIs"
+        ],
+        "summary": "SetupController.Seed",
+        "operationId": "post__setup_seed",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/complete": {
+      "get": {
+        "tags": [
+          "Installer APIs"
+        ],
+        "summary": "SetupController.Complete",
+        "operationId": "get__complete",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/installed": {
+      "get": {
+        "tags": [
+          "Installer APIs"
+        ],
+        "summary": "SetupController.Installed",
+        "operationId": "get__installed",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/error": {
+      "get": {
+        "tags": [
+          "Installer APIs"
+        ],
+        "summary": "SetupController.Error",
+        "operationId": "get__error",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/health/live": {
+      "get": {
+        "tags": [
+          "Health APIs"
+        ],
+        "summary": "Demo Server Health",
+        "operationId": "get__health_live",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/health/ready": {
+      "get": {
+        "tags": [
+          "Health APIs"
+        ],
+        "summary": "Demo Server Health",
+        "operationId": "get__health_ready",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "tags": [
+          "Health APIs"
+        ],
+        "summary": "Installer MVC Health",
+        "operationId": "get__health",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    }
+  }
+}

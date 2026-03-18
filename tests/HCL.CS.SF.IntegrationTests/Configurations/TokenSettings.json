@@ -1,0 +1,54 @@
+{
+  "TokenSettings": {
+    "TokenConfig": {
+      "IssuerUri": "https://localhost:5001",
+      "CachingLifetime": 3600,
+      "ShowKeySet": true,
+      "TokenExpiration": 60,
+      "ClientSecretLength": 60,
+      "ClientSecretExpiration": 30
+    },
+    "AuthenticationConfig": {
+      "RequireCspFrameSrcForSignout": true
+    },
+    "InputLengthRestrictionsConfig": {
+      "ClientId": 100,
+      "ClientSecret": 100,
+      "Scope": 512,
+      "RedirectUri": 400,
+      "Nonce": 300,
+      "GrantType": 100,
+      "UserName": 100,
+      "Password": 100,
+      "AuthorizationCode": 100,
+      "RefreshToken": 100,
+      "Jwt": 51200,
+      "CodeChallengeMinLength": 43,
+      "CodeChallengeMaxLength": 128,
+      "CodeVerifierMinLength": 43,
+      "CodeVerifierMaxLength": 128
+    },
+    "UserInteractionConfig": {
+      "LoginUrl": "/account/login",
+      "LoginReturnUrlParameter": "returnUrl",
+      "LogoutUrl": "/account/logout",
+      "LogoutIdParameter": "logoutId",
+      "ErrorUrl": "/home/error",
+      "ErrorIdParameter": "errorId"
+    },
+    "EndpointsConfig": {
+      "EnableAuthorizeEndpoint": true,
+      "EnableJWKSEndpoint": true,
+      "EnableTokenEndpoint": true,
+      "EnableUserInfoEndpoint": true,
+      "EnableDiscoveryEndpoint": true,
+      "EnableEndSessionEndpoint": true,
+      "EnableTokenRevocationEndpoint": true,
+      "EnableIntrospectionEndpoint": true,
+      "FrontchannelLogoutSupported": true,
+      "FrontchannelLogoutSessionRequired": true,
+      "BackchannelLogoutSupported": true,
+      "BackchannelLogoutSessionRequired": true
+    }
+  }
+}

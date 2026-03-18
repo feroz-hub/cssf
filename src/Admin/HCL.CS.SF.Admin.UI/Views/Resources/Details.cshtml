@@ -1,0 +1,545 @@
+@model HCL.CS.SF.Admin.UI.Models.Api.ApiResourcesModel
+
+<!-- Page Header -->
+<div class="hcl-page-header" style="margin-bottom: 2rem;">
+    <div style="display: flex; align-items: center; gap: 1rem;">
+        <div style="width: 56px; height: 56px; border-radius: 0.75rem; background: var(--hcl-bg-tertiary); display: flex; align-items: center; justify-content: center;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28" style="color: var(--hcl-text-tertiary);"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div>
+            <h1 class="hcl-page-title">
+                <span class="hcl-gradient-text">@Model.Name</span>
+            </h1>
+            <p style="color: var(--hcl-text-secondary); font-size: 0.875rem;">
+                @(Model.DisplayName ?? "API Resource")
+                &middot;
+                @if (Model.Enabled)
+                {
+                    <span class="hcl-badge hcl-badge-success">Enabled</span>
+                }
+                else
+                {
+                    <span class="hcl-badge hcl-badge-danger">Disabled</span>
+                }
+            </p>
+        </div>
+    </div>
+    <div class="hcl-page-actions">
+        <a href="/Admin/Resources" class="hcl-btn hcl-btn-sm" style="background: var(--hcl-bg-tertiary); color: var(--hcl-text-secondary); border: 1px solid var(--hcl-border);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+            Back to Resources
+        </a>
+    </div>
+</div>
+
+<!-- Tabs -->
+<div class="hcl-tabs" style="margin-bottom: 1.5rem;">
+    <button class="hcl-tab active" onclick="HCL.switchTab('resource', 'general'); activateTab(this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        General
+    </button>
+    <button class="hcl-tab" onclick="HCL.switchTab('resource', 'scopes'); activateTab(this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Scopes
+        <span class="hcl-badge hcl-badge-primary" style="margin-left: 0.375rem;">@(Model.ApiScopes?.Count ?? 0)</span>
+    </button>
+    <button class="hcl-tab" onclick="HCL.switchTab('resource', 'claims'); activateTab(this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Claims
+        <span class="hcl-badge hcl-badge-primary" style="margin-left: 0.375rem;">@(Model.ApiResourceClaims?.Count ?? 0)</span>
+    </button>
+</div>
+
+<!-- Tab: General -->
+<div class="tab-panel" id="tab-resource-general">
+    <div class="hcl-card hcl-glass">
+        <div style="padding: 1.5rem;">
+            <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 1.25rem; color: var(--hcl-text-primary);">General Settings</h3>
+            <form id="generalForm" onsubmit="return false;">
+                <div class="hcl-grid hcl-grid-2">
+                    <div class="hcl-form-group">
+                        <label class="hcl-label">Name <span style="color: #ef4444;">*</span></label>
+                        <input type="text" class="hcl-input" id="gen_name" value="@Model.Name" />
+                    </div>
+                    <div class="hcl-form-group">
+                        <label class="hcl-label">Display Name</label>
+                        <input type="text" class="hcl-input" id="gen_displayName" value="@Model.DisplayName" />
+                    </div>
+                </div>
+                <div class="hcl-form-group">
+                    <label class="hcl-label">Description</label>
+                    <input type="text" class="hcl-input" id="gen_description" value="@Model.Description" />
+                </div>
+                <div style="display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: var(--hcl-bg-tertiary); border-radius: 0.5rem; margin-top: 0.5rem;">
+                    <div>
+                        <div style="font-weight: 500; color: var(--hcl-text-primary);">Enabled</div>
+                        <div style="font-size: 0.8rem; color: var(--hcl-text-tertiary);">Allow this resource to be requested</div>
+                    </div>
+                    <label class="hcl-toggle-switch">
+                        <input type="checkbox" id="gen_enabled" @(Model.Enabled ? "checked" : "") />
+                        <span></span>
+                    </label>
+                </div>
+                <div style="display: flex; justify-content: flex-end; margin-top: 1.25rem;">
+                    <button class="hcl-btn hcl-btn-primary" onclick="saveGeneral()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                        Save General
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Tab: Scopes -->
+<div class="tab-panel" id="tab-resource-scopes" style="display: none;">
+    <div class="hcl-card hcl-glass">
+        <div style="padding: 1.5rem;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem;">
+                <h3 style="font-size: 1rem; font-weight: 600; color: var(--hcl-text-primary);">API Scopes</h3>
+                <button class="hcl-btn hcl-btn-primary hcl-btn-sm" onclick="HCL.openModal('detailAddScopeModal')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    Add Scope
+                </button>
+            </div>
+            <div class="hcl-table-wrapper">
+                <table class="hcl-table" id="scopesTable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Display Name</th>
+                            <th>Description</th>
+                            <th>Required</th>
+                            <th>Emphasize</th>
+                            <th style="text-align: right;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.ApiScopes == null || !Model.ApiScopes.Any())
+                        {
+                            <tr id="noScopesRow">
+                                <td colspan="6">
+                                    <div class="hcl-empty-state" style="padding: 2rem 0;">
+                                        <p style="color: var(--hcl-text-tertiary);">No scopes defined. Add a scope to control access to this API.</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var scope in Model.ApiScopes)
+                            {
+                                <tr data-scope-id="@scope.Id">
+                                    <td data-label="Name">
+                                        <code style="font-size: 0.8rem; background: var(--hcl-bg-tertiary); padding: 0.125rem 0.375rem; border-radius: 0.25rem;">@scope.Name</code>
+                                    </td>
+                                    <td data-label="Display Name" style="color: var(--hcl-text-secondary);">@(scope.DisplayName ?? "—")</td>
+                                    <td data-label="Description" style="color: var(--hcl-text-tertiary); font-size: 0.8rem;">@(scope.Description ?? "—")</td>
+                                    <td data-label="Required">
+                                        @if (scope.Required)
+                                        {
+                                            <span class="hcl-badge hcl-badge-warning">Yes</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="hcl-badge">No</span>
+                                        }
+                                    </td>
+                                    <td data-label="Emphasize">
+                                        @if (scope.Emphasize)
+                                        {
+                                            <span class="hcl-badge" style="background: rgba(168,85,247,0.15); color: #a855f7;">Yes</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="hcl-badge">No</span>
+                                        }
+                                    </td>
+                                    <td data-label="Actions" style="text-align: right;">
+                                        <div style="display: flex; gap: 0.375rem; justify-content: flex-end;">
+                                            <button class="hcl-btn hcl-btn-sm hcl-btn-ghost" onclick="openDetailEditScopeModal('@scope.Id', '@scope.Name', '@(scope.DisplayName ?? "")', '@(scope.Description ?? "")', @scope.Required.ToString().ToLower(), @scope.Emphasize.ToString().ToLower())">
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                                                Edit
+                                            </button>
+                                            <button class="hcl-btn hcl-btn-sm hcl-btn-danger" onclick="detailDeleteScope('@scope.Id', '@scope.Name')">
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Tab: Claims -->
+<div class="tab-panel" id="tab-resource-claims" style="display: none;">
+    <div class="hcl-card hcl-glass">
+        <div style="padding: 1.5rem;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem;">
+                <h3 style="font-size: 1rem; font-weight: 600; color: var(--hcl-text-primary);">Resource Claims</h3>
+            </div>
+
+            <!-- Current Claims -->
+            <div id="claimsList" style="margin-bottom: 1.5rem;">
+                @if (Model.ApiResourceClaims == null || !Model.ApiResourceClaims.Any())
+                {
+                    <p id="noClaimsMsg" style="color: var(--hcl-text-tertiary); font-size: 0.875rem;">No claims configured for this resource.</p>
+                }
+                else
+                {
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                        @foreach (var claim in Model.ApiResourceClaims)
+                        {
+                            <div class="claim-tag" data-claim-id="@claim.Id" style="display: inline-flex; align-items: center; gap: 0.375rem; padding: 0.375rem 0.75rem; background: var(--hcl-bg-tertiary); border: 1px solid var(--hcl-border); border-radius: 0.375rem;">
+                                <span style="font-size: 0.8rem; font-weight: 500; color: var(--hcl-text-primary);">@claim.Type</span>
+                                <button class="hcl-btn-icon" onclick="removeClaim('@claim.Id', '@claim.Type')" style="width: 18px; height: 18px; font-size: 0.7rem; color: var(--hcl-text-tertiary);">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                                </button>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+
+            <!-- Add Claim -->
+            <div style="border-top: 1px solid var(--hcl-border); padding-top: 1.25rem;">
+                <label class="hcl-label" style="margin-bottom: 0.5rem;">Add Claim Type</label>
+                <div style="display: flex; gap: 0.5rem;">
+                    <input type="text" class="hcl-input" id="newClaimType" placeholder="e.g. sub, email, role" style="flex: 1;" />
+                    <button class="hcl-btn hcl-btn-primary hcl-btn-sm" onclick="addClaim()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        Add
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Scope Modal (Detail Page) -->
+<div class="hcl-modal-backdrop" id="detailAddScopeModal">
+    <div class="hcl-modal" style="max-width: 540px;">
+        <div class="hcl-modal-header">
+            <h3 class="hcl-modal-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20" style="display: inline; vertical-align: text-bottom; margin-right: 0.5rem;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                Add Scope to @Model.Name
+            </h3>
+            <button class="hcl-btn-icon" onclick="HCL.closeModal('detailAddScopeModal')">&times;</button>
+        </div>
+        <div class="hcl-modal-body">
+            <form id="detailAddScopeForm" onsubmit="return false;">
+                <div class="hcl-form-group">
+                    <label class="hcl-label">Scope Name <span style="color: #ef4444;">*</span></label>
+                    <input type="text" class="hcl-input" id="detail_scope_name" required placeholder="read:items" />
+                </div>
+                <div class="hcl-form-group">
+                    <label class="hcl-label">Display Name</label>
+                    <input type="text" class="hcl-input" id="detail_scope_displayName" placeholder="Read Items" />
+                </div>
+                <div class="hcl-form-group">
+                    <label class="hcl-label">Description</label>
+                    <input type="text" class="hcl-input" id="detail_scope_description" placeholder="Optional description" />
+                </div>
+                <div style="display: flex; gap: 2rem; margin-top: 0.5rem;">
+                    <label class="hcl-checkbox">
+                        <input type="checkbox" id="detail_scope_required" />
+                        Required
+                    </label>
+                    <label class="hcl-checkbox">
+                        <input type="checkbox" id="detail_scope_emphasize" />
+                        Emphasize
+                    </label>
+                </div>
+            </form>
+        </div>
+        <div class="hcl-modal-footer">
+            <button class="hcl-btn hcl-btn-ghost" onclick="HCL.closeModal('detailAddScopeModal')">Cancel</button>
+            <button class="hcl-btn hcl-btn-primary" id="detailAddScopeBtn" onclick="detailCreateScope()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                Add Scope
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Scope Modal (Detail Page) -->
+<div class="hcl-modal-backdrop" id="detailEditScopeModal">
+    <div class="hcl-modal" style="max-width: 540px;">
+        <div class="hcl-modal-header">
+            <h3 class="hcl-modal-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20" style="display: inline; vertical-align: text-bottom; margin-right: 0.5rem;"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                Edit Scope
+            </h3>
+            <button class="hcl-btn-icon" onclick="HCL.closeModal('detailEditScopeModal')">&times;</button>
+        </div>
+        <div class="hcl-modal-body">
+            <form id="detailEditScopeForm" onsubmit="return false;">
+                <input type="hidden" id="detail_edit_scope_id" />
+                <div class="hcl-form-group">
+                    <label class="hcl-label">Scope Name <span style="color: #ef4444;">*</span></label>
+                    <input type="text" class="hcl-input" id="detail_edit_scope_name" required />
+                </div>
+                <div class="hcl-form-group">
+                    <label class="hcl-label">Display Name</label>
+                    <input type="text" class="hcl-input" id="detail_edit_scope_displayName" />
+                </div>
+                <div class="hcl-form-group">
+                    <label class="hcl-label">Description</label>
+                    <input type="text" class="hcl-input" id="detail_edit_scope_description" />
+                </div>
+                <div style="display: flex; gap: 2rem; margin-top: 0.5rem;">
+                    <label class="hcl-checkbox">
+                        <input type="checkbox" id="detail_edit_scope_required" />
+                        Required
+                    </label>
+                    <label class="hcl-checkbox">
+                        <input type="checkbox" id="detail_edit_scope_emphasize" />
+                        Emphasize
+                    </label>
+                </div>
+            </form>
+        </div>
+        <div class="hcl-modal-footer">
+            <button class="hcl-btn hcl-btn-ghost" onclick="HCL.closeModal('detailEditScopeModal')">Cancel</button>
+            <button class="hcl-btn hcl-btn-primary" id="detailEditScopeBtn" onclick="detailUpdateScope()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                Save Changes
+            </button>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+    var resourceId = '@Model.Id';
+
+    function activateTab(btn) {
+        document.querySelectorAll('.hcl-tab').forEach(function(t) { t.classList.remove('active'); });
+        btn.classList.add('active');
+    }
+
+    function handleResult(result, successMsg) {
+        if (result.success) {
+            HCL.toastSuccess(successMsg);
+        } else {
+            var msg = result.errors && result.errors.length > 0
+                ? result.errors.map(function(e) { return e.description || e.code; }).join(', ')
+                : 'Operation failed.';
+            HCL.toastError(msg);
+        }
+    }
+
+    // -----------------------------------------------------------------------
+    // General
+    // -----------------------------------------------------------------------
+    async function saveGeneral() {
+        var name = document.getElementById('gen_name').value.trim();
+        if (!name) {
+            HCL.toastError('Resource name is required.');
+            return;
+        }
+        try {
+            var result = await HCL.apiRequest('/Admin/Resources/Update', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    id: resourceId,
+                    name: name,
+                    displayName: document.getElementById('gen_displayName').value.trim() || null,
+                    description: document.getElementById('gen_description').value.trim() || null,
+                    enabled: document.getElementById('gen_enabled').checked
+                })
+            });
+            handleResult(result, 'General settings saved successfully.');
+        } catch (err) {
+            HCL.toastError('An error occurred while saving.');
+        }
+    }
+
+    // -----------------------------------------------------------------------
+    // Scopes
+    // -----------------------------------------------------------------------
+    async function detailCreateScope() {
+        var name = document.getElementById('detail_scope_name').value.trim();
+        if (!name) {
+            HCL.toastError('Scope name is required.');
+            return;
+        }
+        var btn = document.getElementById('detailAddScopeBtn');
+        btn.disabled = true;
+        btn.textContent = 'Adding...';
+        try {
+            var result = await HCL.apiRequest('/Admin/Resources/AddScope', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    apiResourceId: resourceId,
+                    name: name,
+                    displayName: document.getElementById('detail_scope_displayName').value.trim() || null,
+                    description: document.getElementById('detail_scope_description').value.trim() || null,
+                    required: document.getElementById('detail_scope_required').checked,
+                    emphasize: document.getElementById('detail_scope_emphasize').checked
+                })
+            });
+            if (result.success) {
+                HCL.toastSuccess('Scope added successfully.');
+                HCL.closeModal('detailAddScopeModal');
+                setTimeout(function() { location.reload(); }, 800);
+            } else {
+                handleResult(result, '');
+            }
+        } catch (err) {
+            HCL.toastError('An error occurred while adding the scope.');
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Add Scope';
+        }
+    }
+
+    function openDetailEditScopeModal(scopeId, name, displayName, description, required, emphasize) {
+        document.getElementById('detail_edit_scope_id').value = scopeId;
+        document.getElementById('detail_edit_scope_name').value = name;
+        document.getElementById('detail_edit_scope_displayName').value = displayName;
+        document.getElementById('detail_edit_scope_description').value = description;
+        document.getElementById('detail_edit_scope_required').checked = required;
+        document.getElementById('detail_edit_scope_emphasize').checked = emphasize;
+        HCL.openModal('detailEditScopeModal');
+    }
+
+    async function detailUpdateScope() {
+        var name = document.getElementById('detail_edit_scope_name').value.trim();
+        if (!name) {
+            HCL.toastError('Scope name is required.');
+            return;
+        }
+        var btn = document.getElementById('detailEditScopeBtn');
+        btn.disabled = true;
+        btn.textContent = 'Saving...';
+        try {
+            var result = await HCL.apiRequest('/Admin/Resources/UpdateScope', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    id: document.getElementById('detail_edit_scope_id').value,
+                    apiResourceId: resourceId,
+                    name: name,
+                    displayName: document.getElementById('detail_edit_scope_displayName').value.trim() || null,
+                    description: document.getElementById('detail_edit_scope_description').value.trim() || null,
+                    required: document.getElementById('detail_edit_scope_required').checked,
+                    emphasize: document.getElementById('detail_edit_scope_emphasize').checked
+                })
+            });
+            if (result.success) {
+                HCL.toastSuccess('Scope updated successfully.');
+                HCL.closeModal('detailEditScopeModal');
+                setTimeout(function() { location.reload(); }, 800);
+            } else {
+                handleResult(result, '');
+            }
+        } catch (err) {
+            HCL.toastError('An error occurred while updating the scope.');
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> Save Changes';
+        }
+    }
+
+    async function detailDeleteScope(scopeId, scopeName) {
+        var ok = await HCL.confirm('Delete Scope', 'Are you sure you want to delete scope "' + scopeName + '"? This action cannot be undone.');
+        if (!ok) return;
+        var result = await HCL.apiRequest('/Admin/Resources/DeleteScope/' + scopeId, { method: 'POST' });
+        if (result.success) {
+            HCL.toastSuccess('Scope deleted successfully.');
+            setTimeout(function() { location.reload(); }, 800);
+        } else {
+            handleResult(result, '');
+        }
+    }
+
+    // -----------------------------------------------------------------------
+    // Claims
+    // -----------------------------------------------------------------------
+    async function addClaim() {
+        var claimType = document.getElementById('newClaimType').value.trim();
+        if (!claimType) {
+            HCL.toastError('Claim type is required.');
+            return;
+        }
+        try {
+            // Save the resource with the new claim appended
+            var existingClaims = [];
+            document.querySelectorAll('.claim-tag').forEach(function(tag) {
+                existingClaims.push({
+                    apiResourceId: resourceId,
+                    type: tag.querySelector('span').textContent.trim()
+                });
+            });
+            existingClaims.push({ apiResourceId: resourceId, type: claimType });
+
+            var result = await HCL.apiRequest('/Admin/Resources/Update', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    id: resourceId,
+                    name: '@Model.Name',
+                    enabled: @Model.Enabled.ToString().ToLower(),
+                    apiResourceClaims: existingClaims
+                })
+            });
+            if (result.success) {
+                HCL.toastSuccess('Claim added successfully.');
+                setTimeout(function() { location.reload(); }, 800);
+            } else {
+                handleResult(result, '');
+            }
+        } catch (err) {
+            HCL.toastError('An error occurred while adding the claim.');
+        }
+    }
+
+    async function removeClaim(claimId, claimType) {
+        var ok = await HCL.confirm('Remove Claim', 'Remove claim type "' + claimType + '" from this resource?');
+        if (!ok) return;
+        try {
+            var remainingClaims = [];
+            document.querySelectorAll('.claim-tag').forEach(function(tag) {
+                if (tag.getAttribute('data-claim-id') !== claimId) {
+                    remainingClaims.push({
+                        id: tag.getAttribute('data-claim-id'),
+                        apiResourceId: resourceId,
+                        type: tag.querySelector('span').textContent.trim()
+                    });
+                }
+            });
+
+            var result = await HCL.apiRequest('/Admin/Resources/Update', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    id: resourceId,
+                    name: '@Model.Name',
+                    enabled: @Model.Enabled.ToString().ToLower(),
+                    apiResourceClaims: remainingClaims
+                })
+            });
+            if (result.success) {
+                HCL.toastSuccess('Claim removed successfully.');
+                var tag = document.querySelector('.claim-tag[data-claim-id="' + claimId + '"]');
+                if (tag) tag.remove();
+                if (document.querySelectorAll('.claim-tag').length === 0) {
+                    document.getElementById('claimsList').innerHTML = '<p id="noClaimsMsg" style="color: var(--hcl-text-tertiary); font-size: 0.875rem;">No claims configured for this resource.</p>';
+                }
+            } else {
+                handleResult(result, '');
+            }
+        } catch (err) {
+            HCL.toastError('An error occurred while removing the claim.');
+        }
+    }
+</script>
+}

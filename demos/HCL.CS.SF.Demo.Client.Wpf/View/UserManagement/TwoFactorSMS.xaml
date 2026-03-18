@@ -1,0 +1,90 @@
+﻿<UserControl x:Class="HCL.CS.SF.DemoClientWpfApp.View.TwoFactorSMS"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" HorizontalAlignment="Center">
+    <StackPanel>
+        <Grid x:Name="LayoutRoot">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackPanel Margin="2,2,30,5" Background="Transparent">
+                <Grid Height="auto" Width="auto" Background="White" Margin="10,10,20,5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10" />
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+         
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Label  Grid.Column="1"   Grid.Row="1" FontSize="12" FontWeight="Bold" Foreground="#85409d" Margin="0,0,0,20" HorizontalAlignment="Left" Name="VerifyPhone" >
+                        <Bold>Verify Phone</Bold>
+                    </Label>
+                     <TextBlock Grid.Column="1" FontWeight="Bold"  Grid.Row="2" Margin="0,10,0,0" Name="textVerifyPhone" Text="Please enter the phone verification code :" Foreground="#1493D6" VerticalAlignment="Top"/>
+                    <TextBox Grid.Column="2" Width="200" Height="25" Grid.Row="2" HorizontalAlignment="Left" Margin="0,10,0,0" Name="PhoneVerificationCode" Text="{Binding PhoneVerificationCode, Mode=TwoWay}" />
+
+                    <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="3">
+                        <Button Background="#1cb5ef" Style="{DynamicResource RoundCorner}" Margin="2,10,10,0" Width="95"  Foreground="White" Content="VerifyPhone" Height="40" Grid.Column="4" Grid.Row="6"  Command="{Binding Path=VerifyPhoneCommand}"  Name="VerifyPhoneButton" VerticalAlignment="Top"/>
+                        <Button Background="#1cb5ef" Style="{DynamicResource RoundCorner}" Margin="2,10,10,0" Width="95" Foreground="White" Content="ReSendSMS" Height="40" Grid.Column="5" Grid.Row="6"  Command="{Binding Path=ResendPhoneCommand}"  Name="ResendPhone" VerticalAlignment="Top"/>
+                        <Button Background="#1cb5ef" Style="{DynamicResource RoundCorner}"  Margin="2,10" Width="80" Foreground="White" Content="Cancel" Height="40" Grid.Column="6" Grid.Row="6"   Command="{Binding Path=CancelPhoneCommand}"  Name="CancelPhone" VerticalAlignment="Top"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="4" Margin="10,0,0,50">
+                        <Button Margin="2,10" FontWeight="Bold"  HorizontalAlignment="Left" Name="TwoFactorEmail" Content="Change To Email" Cursor="Hand" Command="{Binding Path=GoTwoFactorEmailCommand}">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <TextBlock TextDecorations="Underline">  
+                    <ContentPresenter />
+                                    </TextBlock>
+                                </ControlTemplate>
+                            </Button.Template>
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Foreground" Value="Blue" />
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="true">
+                                            <Setter Property="Foreground" Value="Red" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                        <Button Margin="32,10,10,10" FontWeight="Bold" Grid.ColumnSpan="2"  HorizontalAlignment="Right" Name="TwofactorAuthenticaor" Content="Change To Authenticator" Cursor="Hand" Command="{Binding Path=GoTwoFactorAuthenticatorCommand}">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <TextBlock TextDecorations="Underline">  
+                    <ContentPresenter />
+                                    </TextBlock>
+                                </ControlTemplate>
+                            </Button.Template>
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Foreground" Value="Blue" />
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="true">
+                                            <Setter Property="Foreground" Value="Red" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </Grid>
+    </StackPanel>
+</UserControl>

@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: HCL.CS.SF-identity
+  labels:
+    app: HCL.CS.SF-identity
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: HCL.CS.SF-identity
+  template:
+    metadata:
+      labels:
+        app: HCL.CS.SF-identity
+    spec:
+      containers:
+        - name: identity-api
+          image: HCL.CS.SF/identity-api:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: HCL.CS.SF-config

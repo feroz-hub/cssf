@@ -1,0 +1,39 @@
+﻿@model HCL.CS.SF.DemoServerApp.Models.TwoFactorViewModel
+<h2>@ViewData["Title"]</h2>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AuthenticationMethod" asp-controller="Account" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+            <h4>Authentication modes</h4>
+            <hr/>
+            <input type="hidden" asp-for="ReturnUrl"/>
+            <div class="form-group">
+                <button type="submit" name="action" value="TFAEmail" class="btn btn-link">Email Authentication
+                </button>
+            </div>
+            <div class="form-group">
+                <button type="submit" name="action" value="TFASms" class="btn btn-link">SMS Authentication
+                </button>
+            </div>
+            <div class="form-group">
+                <button type="submit" name="action" value="Authenticator" class="btn btn-link">Authenticator App
+                </button>
+            </div>
+            <div class="form-group">
+                <button type="submit" name="action" value="RecoveryCodes" class="btn btn-link">Recovery Codes
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+@if (ViewBag.Message != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            alert("@ViewBag.Message");
+        };
+    </script>
+}
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

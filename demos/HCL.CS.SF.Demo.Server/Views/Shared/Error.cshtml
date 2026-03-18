@@ -1,0 +1,25 @@
+﻿@model HCL.CS.SF.DemoServerApp.Models.ErrorViewModel
+@{
+    ViewData["Title"] = "Error";
+    var errorCode = string.IsNullOrWhiteSpace(Model?.ErrorCode) ? "UnhandledError" : Model.ErrorCode;
+    var errorMessage = string.IsNullOrWhiteSpace(Model?.ErrorMessage)
+        ? "The request could not be completed due to an unexpected error."
+        : Model.ErrorMessage;
+}
+
+<h1 class="text-danger">Error.</h1>
+<h2 class="text-danger">An error occurred while processing your request.</h2>
+
+@if (Model.ShowRequestId)
+{
+    <p>
+        <strong>Request ID:</strong> <code>@Model.RequestId</code>
+    </p>
+}
+
+<p>
+    <strong>Error Code:</strong> <code>@errorCode</code>
+</p>
+<p>
+    <strong>Error Message:</strong> <code>@errorMessage</code>
+</p>

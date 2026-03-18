@@ -1,0 +1,72 @@
+@using HCLCSSFInstallerMVC.Application.DTOs
+@model HCLCSSFInstallerMVC.ViewModels.SetupConnectionViewModel
+@{
+    ViewData["Title"] = "Setup / Connection";
+    var providerLabel = Model.Provider?.ToString() ?? "Not selected";
+    var template = Model.Provider switch
+    {
+        DatabaseProviderType.SqlServer => "Server=localhost;Database=HCL.CS.SF_identity;User Id=sa;Password=<strong-password>;Encrypt=True;TrustServerCertificate=False;",
+        DatabaseProviderType.MySql => "Server=localhost;Port=3306;Database=HCL.CS.SF_identity;Uid=root;Pwd=<strong-password>;SslMode=Preferred;",
+        DatabaseProviderType.PostgreSql when Model.IsRunningInContainer => "Host=postgres;Port=5432;Database=HCL.CS.SF;Username=HCL.CS.SF;Password=HCL.CS.SF;",
+        DatabaseProviderType.PostgreSql => "Host=localhost;Port=55433;Database=HCL.CS.SF;Username=HCL.CS.SF;Password=HCL.CS.SF;",
+        DatabaseProviderType.Sqlite => "Data Source=.data/HCL.CS.SF_identity.db;Mode=ReadWriteCreate;Cache=Shared;",
+        _ => "Server=<host>;Database=HCL.CS.SF_identity;User Id=<user>;Password=<password>;"
+    };
+    var secondaryPostgreSqlTemplate = "Host=localhost;Port=55433;Database=HCL.CS.SF;Username=HCL.CS.SF;Password=HCL.CS.SF;";
+}
+
+<section class="surface">
+    <header class="surface-header">
+        <p class="eyebrow">Stage 02</p>
+        <h1>Define Connectivity</h1>
+        <p>Provide a valid connection string for the selected provider. This is used for validation, migration
+            execution, and seed bootstrap.</p>
+    </header>
+
+    <div class="meta-grid meta-grid-single">
+        <div class="meta-item">
+            <span class="meta-label">Selected Provider</span>
+            <span class="meta-value">@providerLabel</span>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">Recommended Template</span>
+            <pre class="code-block"><code>@template</code></pre>
+        </div>
+        @if (Model.Provider == DatabaseProviderType.PostgreSql && Model.IsRunningInContainer)
+        {
+            <div class="meta-item">
+                <span class="meta-label">Host Machine Example</span>
+                <pre class="code-block"><code>@secondaryPostgreSqlTemplate</code></pre>
+            </div>
+        }
+    </div>
+
+    @if (Model.Provider == DatabaseProviderType.PostgreSql && Model.IsRunningInContainer)
+    {
+        <div class="alert alert-warning">
+            The installer is running inside Docker. For the bundled Docker stack, use <code>Host=postgres;Port=5432</code>.
+            Do not use <code>localhost:55433</code> here because <code>localhost</code> points to the installer container itself.
+        </div>
+    }
+
+    <form asp-action="SaveConnection" method="post" novalidate class="stack-lg">
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+        <input asp-for="Provider" type="hidden"/>
+
+        <div class="field-block">
+            <label asp-for="ConnectionString" class="field-label">Connection String</label>
+            <textarea asp-for="ConnectionString" class="form-control control-glass code-input" rows="6"
+                      placeholder="@template"></textarea>
+            <span asp-validation-for="ConnectionString" class="field-error"></span>
+        </div>
+
+        <div class="action-row">
+            <a class="btn btn-ghost btn-lg" asp-action="Provider">Back</a>
+            <button type="submit" class="btn btn-accent btn-lg">Continue to Validation</button>
+        </div>
+    </form>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial"/>
+}

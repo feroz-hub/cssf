@@ -1,0 +1,221 @@
+@model HCLCSSFInstallerMVC.ViewModels.SeedStepViewModel
+@{
+    ViewData["Title"] = "Setup / Seed";
+}
+
+<section class="surface">
+    <header class="surface-header">
+        <p class="eyebrow">Stage 05</p>
+        <h1>Bootstrap Identity Baseline</h1>
+        <p>Seed the default client and initial administrative account. These credentials become the first operational
+            access point for HCL.CS.SF.</p>
+    </header>
+
+    @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+    {
+        <div class="alert alert-danger">@Model.ErrorMessage</div>
+    }
+
+    @if (Model.IsCompleted)
+    {
+        <div class="status-card status-success mb-4">
+            <h2>Seed Completed</h2>
+            <p>Initial client credentials were generated successfully.</p>
+            <div class="meta-grid mt-3">
+                <div class="meta-item">
+                    <span class="meta-label">Client Id</span>
+                    <code>@Model.GeneratedClientId</code>
+                    <button type="button" class="btn btn-subtle btn-sm mt-2" data-copy-value="@Model.GeneratedClientId">
+                        Copy Client Id
+                    </button>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Client Secret</span>
+                    <code>@Model.GeneratedClientSecret</code>
+                    <button type="button" class="btn btn-subtle btn-sm mt-2"
+                            data-copy-value="@Model.GeneratedClientSecret">Copy Client Secret
+                    </button>
+                </div>
+            </div>
+        </div>
+    }
+
+    <form asp-action="Seed" method="post" novalidate class="js-loading-form stack-lg">
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+        <section class="section-card">
+            <h2 class="section-title">Client Configuration</h2>
+
+            <div class="row g-3 mb-3">
+                <div class="col-md-6 field-block">
+                    <label asp-for="ClientName" class="field-label">Client Name</label>
+                    <input asp-for="ClientName" class="form-control control-glass"/>
+                    <span asp-validation-for="ClientName" class="field-error"></span>
+                </div>
+                <div class="col-md-6 field-block">
+                    <label asp-for="ClientUri" class="field-label">Client Uri</label>
+                    <input asp-for="ClientUri" class="form-control control-glass"/>
+                    <span asp-validation-for="ClientUri" class="field-error"></span>
+                </div>
+            </div>
+
+            <div class="row g-3 mb-3">
+                <div class="col-lg-6">
+                    <h3 class="mini-title">Grant Types</h3>
+                    <div class="choice-grid">
+                        <div class="form-check choice-check">
+                            <input asp-for="UseAuthorizationCodeGrant" class="form-check-input"/>
+                            <label asp-for="UseAuthorizationCodeGrant" class="form-check-label">Authorization
+                                Code</label>
+                            <span class="choice-meta">Recommended for browser and mobile clients.</span>
+                        </div>
+                        <div class="form-check choice-check">
+                            <input asp-for="UseClientCredentialsGrant" class="form-check-input"/>
+                            <label asp-for="UseClientCredentialsGrant" class="form-check-label">Client
+                                Credentials</label>
+                            <span class="choice-meta">Machine-to-machine service authentication.</span>
+                        </div>
+                        <div class="form-check choice-check">
+                            <input asp-for="UseRefreshTokenGrant" class="form-check-input"/>
+                            <label asp-for="UseRefreshTokenGrant" class="form-check-label">Refresh Token</label>
+                            <span class="choice-meta">Long-lived sessions with token rotation.</span>
+                        </div>
+                        <div class="form-check choice-check">
+                            <input asp-for="UsePasswordGrant" class="form-check-input"/>
+                            <label asp-for="UsePasswordGrant" class="form-check-label">Resource Owner Password</label>
+                            <span class="choice-meta">Legacy flow; avoid for public clients.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <h3 class="mini-title">Response Types</h3>
+                    <div class="choice-grid">
+                        <div class="form-check choice-check">
+                            <input asp-for="UseCodeResponseType" class="form-check-input"/>
+                            <label asp-for="UseCodeResponseType" class="form-check-label">code</label>
+                            <span class="choice-meta">Required for Authorization Code clients. Leave unchecked for client_credentials-only clients.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-check choice-check mb-3">
+                <input asp-for="UseDefaultScopes" class="form-check-input"/>
+                <label asp-for="UseDefaultScopes" class="form-check-label">Use default scopes</label>
+                <span class="choice-meta">Disables manual scope input when enabled.</span>
+            </div>
+
+            <div class="field-block mb-3">
+                <label asp-for="AllowedScopes" class="field-label">Allowed Scopes</label>
+                <input asp-for="AllowedScopes" class="form-control control-glass"/>
+                <span asp-validation-for="AllowedScopes" class="field-error"></span>
+            </div>
+
+            <div class="row g-3 mb-3">
+                <div class="col-md-6 field-block">
+                    <label asp-for="RedirectUris" class="field-label">Redirect Uris (one per line)</label>
+                    <textarea asp-for="RedirectUris" class="form-control control-glass" rows="3"></textarea>
+                    <small class="form-text text-muted">Required only for Authorization Code clients. Leave blank for machine-to-machine clients.</small>
+                    <span asp-validation-for="RedirectUris" class="field-error"></span>
+                </div>
+                <div class="col-md-6 field-block">
+                    <label asp-for="PostLogoutRedirectUris" class="field-label">Post Logout Redirect Uris (one per
+                        line)</label>
+                    <textarea asp-for="PostLogoutRedirectUris" class="form-control control-glass" rows="3"></textarea>
+                    <small class="form-text text-muted">Optional. Use this only for browser logout return flows.</small>
+                    <span asp-validation-for="PostLogoutRedirectUris" class="field-error"></span>
+                </div>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-md-6 field-block">
+                    <label asp-for="FrontChannelLogoutUri" class="field-label">Front Channel Logout Uri</label>
+                    <input asp-for="FrontChannelLogoutUri" class="form-control control-glass"/>
+                    <span asp-validation-for="FrontChannelLogoutUri" class="field-error"></span>
+                </div>
+                <div class="col-md-6 field-block">
+                    <label asp-for="BackChannelLogoutUri" class="field-label">Back Channel Logout Uri</label>
+                    <input asp-for="BackChannelLogoutUri" class="form-control control-glass"/>
+                    <span asp-validation-for="BackChannelLogoutUri" class="field-error"></span>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-card">
+            <h2 class="section-title">Administrator Configuration</h2>
+
+            <div class="row g-3 mb-3">
+                <div class="col-md-4 field-block">
+                    <label asp-for="UserName" class="field-label">Username</label>
+                    <input asp-for="UserName" class="form-control control-glass" autocomplete="username"/>
+                    <span asp-validation-for="UserName" class="field-error"></span>
+                </div>
+                <div class="col-md-4 field-block">
+                    <label asp-for="Password" class="field-label">Password</label>
+                    <input asp-for="Password" class="form-control control-glass" type="password"
+                           autocomplete="new-password"/>
+                    <span asp-validation-for="Password" class="field-error"></span>
+                </div>
+                <div class="col-md-4 field-block">
+                    <label asp-for="ConfirmPassword" class="field-label">Confirm Password</label>
+                    <input asp-for="ConfirmPassword" class="form-control control-glass" type="password"
+                           autocomplete="new-password"/>
+                    <span asp-validation-for="ConfirmPassword" class="field-error"></span>
+                </div>
+            </div>
+
+            <div class="row g-3 mb-3">
+                <div class="col-md-4 field-block">
+                    <label asp-for="FirstName" class="field-label">First Name</label>
+                    <input asp-for="FirstName" class="form-control control-glass"/>
+                    <span asp-validation-for="FirstName" class="field-error"></span>
+                </div>
+                <div class="col-md-4 field-block">
+                    <label asp-for="LastName" class="field-label">Last Name</label>
+                    <input asp-for="LastName" class="form-control control-glass"/>
+                    <span asp-validation-for="LastName" class="field-error"></span>
+                </div>
+                <div class="col-md-4 field-block">
+                    <label asp-for="IdentityProvider" class="field-label">Identity Provider</label>
+                    <select asp-for="IdentityProvider" class="form-select control-glass">
+                        <option value="Local">Local</option>
+                        <option value="Ldap">Ldap</option>
+                    </select>
+                    <span asp-validation-for="IdentityProvider" class="field-error"></span>
+                </div>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-md-6 field-block">
+                    <label asp-for="Email" class="field-label">Email</label>
+                    <input asp-for="Email" class="form-control control-glass"/>
+                    <span asp-validation-for="Email" class="field-error"></span>
+                </div>
+                <div class="col-md-6 field-block">
+                    <label asp-for="PhoneNumber" class="field-label">Phone Number</label>
+                    <input asp-for="PhoneNumber" class="form-control control-glass"/>
+                    <span asp-validation-for="PhoneNumber" class="field-error"></span>
+                </div>
+            </div>
+        </section>
+
+        <div class="action-row">
+            <a class="btn btn-ghost btn-lg" asp-action="Migrate">Back</a>
+            <button type="submit" class="btn btn-accent btn-lg">Seed Environment</button>
+            <div class="spinner-border spinner-border-sm text-primary d-none js-loading-indicator" role="status"
+                 aria-hidden="true"></div>
+            <span class="loading-note d-none js-loading-indicator">Seeding default records...</span>
+        </div>
+    </form>
+
+    <div class="action-row mt-3">
+        <form asp-action="SkipSeed" method="post" class="d-inline">
+            <button type="submit" class="btn btn-ghost btn-lg">Skip seed — complete without initial data</button>
+        </form>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial"/>
+}

@@ -1,0 +1,93 @@
+﻿<UserControl x:Class="HCL.CS.SF.DemoClientWpfApp.View.Role"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HCL.CS.SF.DemoClientWpfApp.View" xmlns:intr="http://schemas.microsoft.com/xaml/behaviors" xmlns:viewmodel="clr-namespace:HCL.CS.SF.DemoClientWpfApp.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:RoleViewModel}"
+             mc:Ignorable="d" HorizontalAlignment="Center">
+    <intr:Interaction.Triggers>
+        <intr:EventTrigger EventName="Loaded">
+            <intr:InvokeCommandAction Command="{Binding OnLoadCommand}"/>
+        </intr:EventTrigger>
+    </intr:Interaction.Triggers>
+    <StackPanel>
+        <Grid x:Name="LayoutRoot" Height="500">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackPanel Margin="20,2,20,5" Background="Transparent">
+                <Grid Background="White" Margin="10,10,10,5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label HorizontalAlignment="Left" HorizontalContentAlignment="Left" Width="200" Margin="0 0 0 10"   FontSize="15" Foreground="Black" FontWeight="Bold" Content="ROLE SERVICES"/>
+                    <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
+                        <TextBlock Text="Add New Role:" Margin="12,10"  Grid.Row="1" Grid.Column="0" FontWeight="Bold"/>
+                        <Button x:Name="btnAdd" Grid.Row="1" Grid.Column="1"   ToolTip="Expand" Foreground="Black" Background="Transparent" BorderBrush="Transparent" Command="{Binding AddRoleCommand}" >
+                            <Image Height="15" Stretch="Fill" Width="15" Source="/Image/AddIcon.png" />
+                        </Button>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+                        <TextBlock Text="Refresh:" Margin="12,10"  Grid.Row="1" Grid.Column="2" FontWeight="Bold"/>
+                        <Button x:Name="btnRefresh" Grid.Row="1" Grid.Column="2"   ToolTip="Expand" Foreground="Black" Background="Transparent" BorderBrush="Transparent" Command="{Binding RefreshCommand}" >
+                            <Image Height="15" Stretch="Fill" Width="15" Source="/Image/refreshIcon.png" />
+                        </Button>
+                    </StackPanel>
+
+                    <DataGrid IsReadOnly="True"  HorizontalAlignment="Center"  AutoGenerateColumns="False" Grid.ColumnSpan="2" ItemsSource="{Binding RoleModels}"   HeadersVisibility="Column"    Name="grdKitsGroupingParent" VerticalAlignment="Center"  CanUserAddRows="True" Width="auto"  Grid.Row="2" RowDetailsVisibilityMode="Visible" SelectedItem="{Binding Path=SelectedItem , Mode=TwoWay}" >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn CanUserReorder="True"   CanUserResize="True" CanUserSort="True" IsReadOnly="False" Width="250" Binding="{Binding Path= Name}" Header="ROLE NAME"  Foreground="Black">
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn CanUserReorder="True" CanUserResize="True" CanUserSort="True" IsReadOnly="False" Width="250" Binding="{Binding Description}" Header="ROLE DESCRIPTION"  Foreground="Black">
+                            </DataGridTextColumn>
+
+                            <DataGridTemplateColumn  Header="UPDATE"   IsReadOnly="False">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button x:Name="btnUpdate"  ToolTip="Expand" Foreground="Black" Background="Transparent" BorderBrush="Transparent" Tag="{Binding Name}" Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.UpdateRoleCommand}" CommandParameter="{Binding ElementName=grdKitsGroupingParent,Path=SelectedItem}"  >
+                                            <Image Height="15" Stretch="Fill" Width="15" Source="/Image/Edit.png" />
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn  Header="DELETE" IsReadOnly="False">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button x:Name="btndelete" Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.DeleteRoleCommand}" CommandParameter="{Binding ElementName=grdKitsGroupingParent,Path=SelectedItem}"  ToolTip="Expand" Foreground="Black" Background="Transparent" BorderBrush="Transparent" Tag="{Binding Name}" >
+                                            <Image Height="15" Width="15" Source="/Image/Deleteicon.png" />
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn  Header="VIEW CLAIMS" IsReadOnly="False">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button x:Name="btnView" Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.ViewRoleClaimCommand}" CommandParameter="{Binding ElementName=grdKitsGroupingParent,Path=SelectedItem}"  ToolTip="Expand" Foreground="Black" Background="Transparent" BorderBrush="Transparent" Tag="{Binding Name}" >
+                                            <Image Height="15" Width="15" Source="/Image/Viewicon.png" />
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </StackPanel>
+        </Grid>
+    </StackPanel>
+</UserControl>

@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup Label="Globals">
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RuntimeIdentifiers>win-x64;linux-x64</RuntimeIdentifiers>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Identity\HCL.CS.SF.Identity.DomainServices\HCL.CS.SF.DomainServices.csproj"/>
+    <ProjectReference Include="..\..\Identity\HCL.CS.SF.Identity.Domain\HCL.CS.SF.Domain.csproj"/>
+    <ProjectReference Include="..\..\Identity\HCL.CS.SF.Identity.Contracts\HCL.CS.SF.Service.Interfaces.csproj"/>
+    <ProjectReference Include="..\..\Identity\HCL.CS.SF.Identity.Application\HCL.CS.SF.Service.csproj"/>
+  </ItemGroup>
+  <ItemGroup>
+    <!--<PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="StyleCop.MSBuild" Version="6.2.0">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>-->
+  </ItemGroup>
+
+</Project>
+

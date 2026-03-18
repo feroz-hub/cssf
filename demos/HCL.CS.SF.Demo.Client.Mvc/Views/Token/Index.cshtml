@@ -1,0 +1,93 @@
+@model HCL.CS.SF.DemoClientMvc.ViewModels.Token.TokenViewModel
+
+@{
+    ViewData["Title"] = "Tokens";
+}
+
+<div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
+    <h2 class="h4 mb-0">Token Center</h2>
+    <div class="d-flex gap-2">
+        <form asp-controller="Account" asp-action="RefreshToken" method="post" class="mb-0">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="returnUrl" value="/Token"/>
+            <button type="submit" class="btn btn-sm btn-primary">Refresh Tokens</button>
+        </form>
+        <a asp-controller="Api" asp-action="Index" class="btn btn-sm btn-outline-secondary">Open API Test</a>
+    </div>
+</div>
+
+@if (!Model.HasTokens)
+{
+    <div class="alert alert-warning">
+        No tokens are currently available in this authenticated session.
+    </div>
+}
+else
+{
+    <div class="row g-3 mb-3">
+        <div class="col-12 col-md-6">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Access Token</h5>
+                    <p class="card-text mb-0"><code>@Model.MaskedAccessToken</code></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">ID Token</h5>
+                    <p class="card-text mb-0"><code>@Model.MaskedIdToken</code></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Refresh Token</h5>
+                    <p class="card-text mb-0"><code>@Model.MaskedRefreshToken</code></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Access Token Expires (UTC)</h5>
+                    <p class="card-text mb-0">@(!string.IsNullOrWhiteSpace(Model.ExpiresAtUtc) ? Model.ExpiresAtUtc : "(not available)")</p>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Access Token Claims</h5>
+        @if (Model.AccessTokenClaims.Count == 0)
+        {
+            <p class="mb-0 text-muted">No readable JWT claims are available for the current access token.</p>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-sm table-striped mb-0">
+                    <thead>
+                    <tr>
+                        <th style="width: 30%;">Type</th>
+                        <th>Value</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var claim in Model.AccessTokenClaims)
+                    {
+                        <tr>
+                            <td><code>@claim.Type</code></td>
+                            <td>@claim.Value</td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>

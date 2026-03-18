@@ -1,0 +1,77 @@
+@model HCLCSSFInstallerMVC.ViewModels.MigrationViewModel
+@{
+    ViewData["Title"] = "Setup / Migrate";
+
+    var statusClass = Model.IsCompleted
+        ? "status-card status-success"
+        : !string.IsNullOrWhiteSpace(Model.ErrorMessage)
+            ? "status-card status-danger"
+            : "status-card status-neutral";
+
+    var statusTitle = Model.IsCompleted
+        ? "Migration Complete"
+        : !string.IsNullOrWhiteSpace(Model.ErrorMessage)
+            ? "Migration Failed"
+            : "Migration Pending";
+
+    var statusMessage = Model.IsCompleted
+        ? "Schema has been applied successfully. Continue to seeding."
+        : !string.IsNullOrWhiteSpace(Model.ErrorMessage)
+            ? "Check logs and connectivity, then retry migration."
+            : "Run migrations to create the required HCL.CS.SF schema.";
+}
+
+<section class="surface">
+    <header class="surface-header">
+        <p class="eyebrow">Stage 04</p>
+        <h1>Apply Schema Migrations</h1>
+        <p>Execute installation migrations for the selected provider. This is idempotent for completed migration
+            sets.</p>
+    </header>
+
+    <div class="@statusClass" role="status">
+        <h2>@statusTitle</h2>
+        <p>@statusMessage</p>
+    </div>
+
+    @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+    {
+        <div class="alert alert-danger">@Model.ErrorMessage</div>
+    }
+
+    <div class="meta-grid">
+        <div class="meta-item">
+            <span class="meta-label">Run State</span>
+            <span class="meta-value">@(Model.CanRun ? "Ready" : "Blocked")</span>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">Current Status</span>
+            <span class="meta-value">@(Model.IsCompleted ? "Completed" : "Not Completed")</span>
+        </div>
+    </div>
+
+    <form asp-action="RunMigrations" method="post" class="js-loading-form stack-lg mt-4">
+        <div class="action-row">
+            <a class="btn btn-ghost btn-lg" asp-action="Validate">Back</a>
+            <button type="submit" class="btn btn-accent btn-lg" @(Model.CanRun ? null : "disabled")>Run Migrations
+            </button>
+        </div>
+
+        <div class="progress-shell d-none js-loading-indicator">
+            <div class="progress mb-2" role="progressbar" aria-label="Migration progress">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 100%"></div>
+            </div>
+            <p class="loading-note mb-0">Applying migration set. First-time environments may take up to a minute.</p>
+        </div>
+    </form>
+
+    @if (Model.IsCompleted)
+    {
+        <div class="action-row mt-3">
+            <a class="btn btn-accent btn-lg" asp-action="Seed">Continue to seed</a>
+            <form asp-action="SkipSeed" method="post" class="d-inline">
+                <button type="submit" class="btn btn-ghost btn-lg">Skip seed — complete without initial data</button>
+            </form>
+        </div>
+    }
+</section>

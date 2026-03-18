@@ -1,0 +1,77 @@
+﻿<UserControl x:Class="HCL.CS.SF.DemoClientWpfApp.View.APIDashBoard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HCL.CS.SF.DemoClientWpfApp.View" xmlns:intr="http://schemas.microsoft.com/xaml/behaviors" xmlns:viewmodel="clr-namespace:HCL.CS.SF.DemoClientWpfApp.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:APIDashBoardViewModel}"
+             mc:Ignorable="d" HorizontalAlignment="Center">
+    <intr:Interaction.Triggers>
+        <intr:EventTrigger EventName="Loaded">
+            <intr:InvokeCommandAction Command="{Binding OnLoadCommand}"/>
+        </intr:EventTrigger>
+    </intr:Interaction.Triggers>
+    <UserControl.Resources>
+        <Image x:Key="APIImage" Stretch="Uniform" Source="/Image/API.jpeg"/>
+        <Image x:Key="IdResourceImage" Stretch="Uniform" Source="/Image/IdResource.png"/>
+        <Image x:Key="ClientAppImage" Stretch="Uniform" Source="/Image/clientApp.png"/>
+        <Image x:Key="RoleImage" Stretch="Uniform" Source="/Image/Role.jpeg"/>
+        <Image x:Key="UserRoleImage" Source="/Image/UserRoleIcon.jpg" Stretch="Uniform"/>
+    </UserControl.Resources>
+    <StackPanel>
+        <Grid x:Name="LayoutRoot">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackPanel Margin="2,2,20,5" Background="Transparent">
+                <Grid Height="auto" Width="auto" Background="Transparent" Margin="10,10,10,5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="15*" />
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="20"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="20"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="20"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="20"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="20"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label HorizontalContentAlignment="Right" Grid.Column="9" Content="{Binding DashboardLastLoginTime}"   Grid.ColumnSpan="2" FontWeight="Bold"  Grid.Row="1" FontSize="12" Foreground="#85409d" Margin="0,20,0,0" HorizontalAlignment="Left" Name="DashboardUserLastLogin" >
+                    </Label>
+
+                    <Button Background="Transparent" Cursor="Hand" Content="{StaticResource APIImage}" HorizontalAlignment="Right"   Foreground="White"  Height="120" Grid.Column="1" Grid.Row="2"    Command="{Binding Path=APiResourceCommand}"  Name="APiResourceCommand" BorderBrush="Transparent" VerticalAlignment="Top"/>
+                    <Label  Background="Transparent" HorizontalContentAlignment="Left" FontSize="12"  FontWeight="Bold" Foreground="#85409d" Cursor="Hand" Content="API Resource" HorizontalAlignment="Center"  Grid.Column="1" Grid.Row="3"    Name="lblUserProfileCommand" VerticalAlignment="Top"/>
+
+                    <Button Background="Transparent" Cursor="Hand" Content="{StaticResource IdResourceImage}" Foreground="White"  Height="120"     Grid.Column="3" Grid.Row="2"  Command="{Binding Path=IdentityResourceCommand}"  Name="IdentityResourceCommand" VerticalAlignment="Top" BorderBrush="Transparent"/>
+                    <Label  Background="Transparent" HorizontalContentAlignment="Left" FontSize="12" FontWeight="Bold" Foreground="#85409d" HorizontalAlignment="Center"  Cursor="Hand" Content="Identity Resource"  Grid.Column="3" Grid.Row="3"  Name="lblchangepassword" VerticalAlignment="Top"/>
+                   
+                    <Button BorderBrush="Transparent" Background="Transparent" Cursor="Hand" Content="{StaticResource ClientAppImage}" HorizontalAlignment="Left"  Foreground="White" Height="120"    Grid.Column="5" Grid.Row="2"    Command="{Binding Path=CleintCommand}"  Name="CleintCommand" VerticalAlignment="Top"/>
+                    <Label  Background="Transparent" FontSize="12" FontWeight="Bold" Foreground="#85409d"  Cursor="Hand" Content="Client" HorizontalAlignment="Center"  Grid.Column="5" Grid.Row="3"   Name="Client" VerticalAlignment="Top"/>
+                    
+                    <Button BorderBrush="Transparent" Background="Transparent" Cursor="Hand" Content="{StaticResource RoleImage}"   HorizontalAlignment="Left" Foreground="White"  Height="120" Grid.Column="7" Grid.Row="2"   Command="{Binding Path=RoleCommand}"  Name="VerifyPhoneButton1"  VerticalAlignment="Top"/>
+                    <Label  Background="Transparent" HorizontalContentAlignment="Left" FontSize="12"  FontWeight="Bold" Foreground="#85409d" HorizontalAlignment="Center" Cursor="Hand" Content="Role"   Grid.Column="7"  Grid.Row="3"    Name="lblapicall" Margin="0 0 0 60" VerticalAlignment="Top"/>
+
+                    <Button BorderBrush="Transparent" Background="Transparent" Cursor="Hand" Content="{StaticResource UserRoleImage}"   HorizontalAlignment="Left" Foreground="White"  Height="120" Grid.Column="9" Grid.Row="2"   Command="{Binding Path=UserRoleCommand}"  Name="UserRoleCommand"  VerticalAlignment="Top"/>
+                    <Label  Background="Transparent" HorizontalContentAlignment="Left" FontSize="12"  FontWeight="Bold" Foreground="#85409d" HorizontalAlignment="Center" Cursor="Hand" Content="UserRole"   Grid.Column="9"  Grid.Row="3"    Name="lblUserRoleCommand" Margin="0 0 0 60" VerticalAlignment="Top"/>
+
+                </Grid>
+            </StackPanel>
+        </Grid>
+    </StackPanel>
+</UserControl>

@@ -1,0 +1,279 @@
+@model HCL.CS.SF.Admin.UI.Models.Api.RoleModel
+
+@{
+    var roleClaims = ViewBag.RoleClaims as List<HCL.CS.SF.Admin.UI.Models.Api.RoleClaimModel> ?? Model.RoleClaims ?? new();
+}
+
+<!-- Page Header -->
+<div class="hcl-page-header" style="margin-bottom: 2rem;">
+    <div style="display: flex; align-items: center; gap: 1rem;">
+        <div style="width: 56px; height: 56px; border-radius: 0.75rem; background: linear-gradient(135deg, rgba(168,85,247,0.2), rgba(236,72,153,0.2)); display: flex; align-items: center; justify-content: center;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28" style="color: #a855f7;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div>
+            <h1 class="hcl-page-title">
+                <span class="hcl-gradient-text" id="roleNameDisplay">@Model.Name</span>
+            </h1>
+            <p style="color: var(--hcl-text-secondary); font-size: 0.875rem;" id="roleDescDisplay">
+                @(Model.Description ?? "No description")
+            </p>
+        </div>
+    </div>
+    <div class="hcl-page-actions" style="display: flex; gap: 0.5rem;">
+        <button class="hcl-btn hcl-btn-sm" style="background: var(--hcl-bg-tertiary); color: var(--hcl-text-secondary); border: 1px solid var(--hcl-border);" onclick="HCL.openModal('editRoleModal')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            Edit Role
+        </button>
+        <a href="/Admin/Roles" class="hcl-btn hcl-btn-sm" style="background: var(--hcl-bg-tertiary); color: var(--hcl-text-secondary); border: 1px solid var(--hcl-border);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+            Back to Roles
+        </a>
+    </div>
+</div>
+
+<!-- Metadata -->
+<div class="hcl-card hcl-glass" style="margin-bottom: 1.5rem;">
+    <div style="padding: 1.25rem;">
+        <div class="hcl-grid hcl-grid-3">
+            <div style="padding: 0.75rem; background: var(--hcl-bg-tertiary); border-radius: 0.5rem;">
+                <div style="font-size: 0.75rem; color: var(--hcl-text-tertiary);">Role ID</div>
+                <div style="font-size: 0.8rem; font-weight: 500; color: var(--hcl-text-primary); word-break: break-all; cursor: pointer;" onclick="HCL.copyToClipboard('@Model.Id')" title="Click to copy">
+                    @Model.Id
+                </div>
+            </div>
+            <div style="padding: 0.75rem; background: var(--hcl-bg-tertiary); border-radius: 0.5rem;">
+                <div style="font-size: 0.75rem; color: var(--hcl-text-tertiary);">Role Name</div>
+                <div style="font-size: 0.8rem; font-weight: 500; color: var(--hcl-text-primary);">@Model.Name</div>
+            </div>
+            <div style="padding: 0.75rem; background: var(--hcl-bg-tertiary); border-radius: 0.5rem;">
+                <div style="font-size: 0.75rem; color: var(--hcl-text-tertiary);">Total Claims</div>
+                <div style="font-size: 0.8rem; font-weight: 500; color: var(--hcl-text-primary);">@roleClaims.Count</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Claims Section -->
+<div class="hcl-grid hcl-grid-2">
+    <!-- Add Claim -->
+    <div class="hcl-card hcl-glass">
+        <div style="padding: 1.5rem;">
+            <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 1.25rem; color: var(--hcl-text-primary);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" style="display: inline; vertical-align: text-bottom; margin-right: 0.375rem;"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                Add Claim
+            </h3>
+            <div class="hcl-form-group">
+                <label class="hcl-label">Claim Type <span style="color: #ef4444;">*</span></label>
+                <input type="text" class="hcl-input" id="addClaimType" placeholder="e.g. permission, scope, feature" />
+            </div>
+            <div class="hcl-form-group">
+                <label class="hcl-label">Claim Value <span style="color: #ef4444;">*</span></label>
+                <input type="text" class="hcl-input" id="addClaimValue" placeholder="e.g. read, write, admin" />
+            </div>
+            <button class="hcl-btn hcl-btn-primary hcl-btn-sm" id="addClaimBtn" onclick="addClaim()" style="margin-top: 0.5rem;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                Add Claim
+            </button>
+        </div>
+    </div>
+
+    <!-- Existing Claims -->
+    <div class="hcl-card hcl-glass">
+        <div style="padding: 1.5rem;">
+            <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 1.25rem; color: var(--hcl-text-primary);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" style="display: inline; vertical-align: text-bottom; margin-right: 0.375rem;"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+                Role Claims
+                <span class="hcl-badge" style="margin-left: 0.5rem; font-size: 0.7rem;" id="claimCountBadge">@roleClaims.Count</span>
+            </h3>
+            <div id="claimsList">
+                @if (roleClaims.Any())
+                {
+                    <div class="hcl-table-wrapper">
+                        <table class="hcl-table" id="claimsTable">
+                            <thead>
+                                <tr>
+                                    <th>Claim Type</th>
+                                    <th>Claim Value</th>
+                                    <th style="text-align: right;">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="claimsTableBody">
+                                @foreach (var claim in roleClaims)
+                                {
+                                    <tr id="claim-@claim.Id">
+                                        <td data-label="Type">
+                                            <span style="font-weight: 500; color: var(--hcl-text-primary);">@claim.ClaimType</span>
+                                        </td>
+                                        <td data-label="Value" style="color: var(--hcl-text-secondary); font-size: 0.875rem;">
+                                            @claim.ClaimValue
+                                        </td>
+                                        <td data-label="Actions" style="text-align: right;">
+                                            <button class="hcl-btn hcl-btn-danger hcl-btn-sm"
+                                                    onclick="removeClaim('@claim.Id', '@claim.RoleId', '@claim.ClaimType', '@claim.ClaimValue')">
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                                                Remove
+                                            </button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <div class="hcl-empty-state" id="claimsEmptyState" style="padding: 2rem 0;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="36" height="36" style="color: var(--hcl-text-tertiary); margin-bottom: 0.75rem;"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+                        <p style="color: var(--hcl-text-tertiary); font-size: 0.875rem;">No claims assigned to this role yet.</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Role Modal -->
+<div class="hcl-modal-backdrop" id="editRoleModal">
+    <div class="hcl-modal">
+        <div class="hcl-modal-header">
+            <h3 class="hcl-modal-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20" style="display: inline; vertical-align: text-bottom; margin-right: 0.5rem;"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                Edit Role
+            </h3>
+            <button class="hcl-btn-icon" onclick="HCL.closeModal('editRoleModal')">&times;</button>
+        </div>
+        <div class="hcl-modal-body">
+            <form id="editRoleForm" onsubmit="return false;">
+                <div class="hcl-form-group">
+                    <label class="hcl-label">Role Name <span style="color: #ef4444;">*</span></label>
+                    <input type="text" class="hcl-input" id="edit_roleName" value="@Model.Name" required />
+                </div>
+                <div class="hcl-form-group">
+                    <label class="hcl-label">Description</label>
+                    <input type="text" class="hcl-input" id="edit_roleDescription" value="@(Model.Description ?? "")" placeholder="Brief description of this role's purpose" />
+                </div>
+            </form>
+        </div>
+        <div class="hcl-modal-footer">
+            <button class="hcl-btn hcl-btn-ghost" onclick="HCL.closeModal('editRoleModal')">Cancel</button>
+            <button class="hcl-btn hcl-btn-primary" id="editRoleBtn" onclick="updateRole()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                Save Changes
+            </button>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+    var roleId = '@Model.Id';
+
+    async function updateRole() {
+        var name = document.getElementById('edit_roleName').value.trim();
+        if (!name) {
+            HCL.toastError('Role name is required.');
+            return;
+        }
+
+        var btn = document.getElementById('editRoleBtn');
+        btn.disabled = true;
+        btn.textContent = 'Saving...';
+
+        try {
+            var result = await HCL.apiRequest('/Admin/Roles/Update', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    id: roleId,
+                    name: name,
+                    description: document.getElementById('edit_roleDescription').value.trim() || null
+                })
+            });
+
+            if (result.success) {
+                HCL.toastSuccess('Role updated successfully.');
+                HCL.closeModal('editRoleModal');
+                document.getElementById('roleNameDisplay').textContent = name;
+                document.getElementById('roleDescDisplay').textContent = document.getElementById('edit_roleDescription').value.trim() || 'No description';
+            } else {
+                var msg = result.errors && result.errors.length > 0
+                    ? result.errors.map(function(e) { return e.description || e.code; }).join(', ')
+                    : 'Failed to update role.';
+                HCL.toastError(msg);
+            }
+        } catch (err) {
+            HCL.toastError('An error occurred while updating the role.');
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> Save Changes';
+        }
+    }
+
+    async function addClaim() {
+        var claimType = document.getElementById('addClaimType').value.trim();
+        var claimValue = document.getElementById('addClaimValue').value.trim();
+        if (!claimType || !claimValue) {
+            HCL.toastError('Claim type and value are required.');
+            return;
+        }
+
+        var btn = document.getElementById('addClaimBtn');
+        btn.disabled = true;
+
+        try {
+            var result = await HCL.apiRequest('/Admin/Roles/AddClaim', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ roleId: roleId, claimType: claimType, claimValue: claimValue })
+            });
+
+            if (result.success) {
+                HCL.toastSuccess('Claim added successfully.');
+                document.getElementById('addClaimType').value = '';
+                document.getElementById('addClaimValue').value = '';
+                setTimeout(function() { location.reload(); }, 800);
+            } else {
+                var msg = result.errors && result.errors.length > 0
+                    ? result.errors.map(function(e) { return e.description || e.code; }).join(', ')
+                    : 'Failed to add claim.';
+                HCL.toastError(msg);
+            }
+        } catch (err) {
+            HCL.toastError('An error occurred while adding the claim.');
+        } finally {
+            btn.disabled = false;
+        }
+    }
+
+    async function removeClaim(claimId, claimRoleId, claimType, claimValue) {
+        var ok = await HCL.confirm('Remove Claim', 'Remove claim "' + claimType + ': ' + claimValue + '" from this role?');
+        if (!ok) return;
+
+        var result = await HCL.apiRequest('/Admin/Roles/RemoveClaim', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id: claimId, roleId: claimRoleId, claimType: claimType, claimValue: claimValue })
+        });
+
+        if (result.success) {
+            HCL.toastSuccess('Claim removed successfully.');
+            var el = document.getElementById('claim-' + claimId);
+            if (el) el.remove();
+
+            // Update badge count
+            var tbody = document.getElementById('claimsTableBody');
+            var remaining = tbody ? tbody.querySelectorAll('tr').length : 0;
+            var badge = document.getElementById('claimCountBadge');
+            if (badge) badge.textContent = remaining;
+
+            // Show empty state if no claims left
+            if (remaining === 0) {
+                var claimsList = document.getElementById('claimsList');
+                claimsList.innerHTML = '<div class="hcl-empty-state" style="padding: 2rem 0;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="36" height="36" style="color: var(--hcl-text-tertiary); margin-bottom: 0.75rem;"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg><p style="color: var(--hcl-text-tertiary); font-size: 0.875rem;">No claims assigned to this role yet.</p></div>';
+            }
+        } else {
+            HCL.toastError('Failed to remove claim.');
+        }
+    }
+</script>
+}

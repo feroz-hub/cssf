@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup Label="Globals">
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RuntimeIdentifiers>win-x64;linux-x64</RuntimeIdentifiers>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Audit\"/>
+    <Folder Include="Client\"/>
+    <Folder Include="Role\"/>
+    <Folder Include="Token\"/>
+    <Folder Include="User\"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.DirectoryServices.Protocols" Version="8.0.1"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Identity\HCL.CS.SF.Identity.Domain\HCL.CS.SF.Domain.csproj"/>
+    <ProjectReference Include="..\..\src\Identity\HCL.CS.SF.Identity.Application\HCL.CS.SF.Service.csproj"/>
+  </ItemGroup>
+
+</Project>
+

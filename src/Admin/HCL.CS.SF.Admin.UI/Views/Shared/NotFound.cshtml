@@ -1,0 +1,21 @@
+@{
+    ViewData["Title"] = ViewData["Title"] ?? "Not Found";
+    ViewData["Breadcrumb"] = "Not Found";
+    var errorMessage = ViewBag.ErrorMessage as string ?? "The requested resource was not found.";
+}
+
+<div class="hcl-page-header">
+    <h1 class="hcl-page-title">@ViewData["Title"]</h1>
+</div>
+
+<div class="hcl-card" style="max-width: 600px;">
+    <div class="hcl-card-body" style="text-align: center; padding: 48px 24px;">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--hcl-accent-warning)" stroke-width="1.5" style="margin-bottom: 16px;">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        <p style="color: var(--hcl-text-secondary); margin-bottom: 24px;">@errorMessage</p>
+        <a href="javascript:history.back()" class="hcl-btn hcl-btn-primary">Go Back</a>
+    </div>
+</div>

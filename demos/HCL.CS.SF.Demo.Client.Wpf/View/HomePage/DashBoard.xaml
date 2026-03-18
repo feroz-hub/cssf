@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="HCL.CS.SF.DemoClientWpfApp.View.DashBoard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:intr="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:viewmodel="clr-namespace:HCL.CS.SF.DemoClientWpfApp.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:DashBoardViewModel}"
+             mc:Ignorable="d" HorizontalAlignment="Center" Width="auto">
+    <intr:Interaction.Triggers>
+        <intr:EventTrigger EventName="Loaded">
+            <intr:InvokeCommandAction Command="{Binding OnLoadCommand}"/>
+        </intr:EventTrigger>
+    </intr:Interaction.Triggers>
+    <UserControl.Resources>
+        <Image x:Key="ProfileImage" Stretch="Fill" Source="/Image/UpdateProfile.png"/>
+        <Image x:Key="PasswordChangeImage" Stretch="Fill" Source="/Image/changepassword.jpeg"/>
+        <Image x:Key="twofactorimage" Stretch="Fill" Source="/Image/2FA.jpeg"/>
+    </UserControl.Resources>
+    <StackPanel>
+        <Grid x:Name="LayoutRoot">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackPanel Margin="10,2,20,5" Background="Transparent">
+
+                <Grid Height="auto" Width="auto" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10" />
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80"></ColumnDefinition>
+                        <ColumnDefinition Width="160"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="160"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="160"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Background="Transparent" Cursor="Hand" Content="{StaticResource ProfileImage}" HorizontalAlignment="Center"   Foreground="White" Width="100"  Height="100" Grid.Column="1" Grid.Row="4"     Command="{Binding Path=UserProfileCommand}"  Name="UserProfileCommand" BorderBrush="Transparent" VerticalAlignment="Top"/>
+                    <Label  Background="Transparent" HorizontalContentAlignment="Center" FontSize="12"  FontWeight="Bold" Foreground="#85409d" Cursor="Hand" Content="User Profile" HorizontalAlignment="Center"  Grid.Column="1" Grid.Row="5"    Name="lblUserProfileCommand" VerticalAlignment="Top"/>
+
+                    <Button Background="Transparent" Cursor="Hand" Content="{StaticResource PasswordChangeImage}" Foreground="White"  Height="100"  Width="100"   Grid.Column="3" Grid.Row="4"    Command="{Binding Path=PasswordChangeCommand}"  Name="PasswordChangeCommand" VerticalAlignment="Top" BorderBrush="Transparent"/>
+                    <Label  Background="Transparent" HorizontalContentAlignment="Center" FontSize="12" FontWeight="Bold" Foreground="#85409d" HorizontalAlignment="Center"  Cursor="Hand" Content="Change Password"  Grid.Column="3" Grid.Row="5"   Name="lblchangepassword" VerticalAlignment="Top"/>
+
+                    <Button BorderBrush="Transparent" Background="Transparent" Cursor="Hand" Content="{StaticResource twofactorimage}" HorizontalAlignment="Center" Width="100" Foreground="White" Height="100"    Grid.Column="5" Grid.Row="4"    Command="{Binding Path=TwoFactorCommand}"  Name="TwoFactorCommand" VerticalAlignment="Top"/>
+                    <Label  Background="Transparent" FontSize="12" HorizontalContentAlignment="Center" FontWeight="Bold" Foreground="#85409d"  Cursor="Hand" Content="Twofactor Setup" HorizontalAlignment="Center"  Grid.Column="5" Grid.Row="5"     Name="twofactor" VerticalAlignment="Top"/>
+                    
+                </Grid>
+            </StackPanel>
+        </Grid>
+    </StackPanel>
+</UserControl>

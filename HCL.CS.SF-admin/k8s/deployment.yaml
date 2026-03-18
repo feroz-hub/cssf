@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: HCL.CS.SF-admin
+  labels:
+    app: HCL.CS.SF-admin
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: HCL.CS.SF-admin
+  template:
+    metadata:
+      labels:
+        app: HCL.CS.SF-admin
+    spec:
+      containers:
+        - name: HCL.CS.SF-admin
+          image: HCL.CS.SF/HCL.CS.SF-admin:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+          env:
+            - name: NEXTAUTH_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: HCL.CS.SF-admin-config
+                  key: NEXTAUTH_URL
+            - name: NEXTAUTH_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: HCL.CS.SF-admin-secrets
+                  key: NEXTAUTH_SECRET
+            - name: HCL.CS.SF_ISSUER
+              valueFrom:
+                configMapKeyRef:
+                  name: HCL.CS.SF-admin-config
+                  key: HCL.CS.SF_ISSUER
+            - name: HCL.CS.SF_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: HCL.CS.SF-admin-secrets
+                  key: HCL.CS.SF_CLIENT_ID
+            - name: HCL.CS.SF_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: HCL.CS.SF-admin-secrets
+                  key: HCL.CS.SF_CLIENT_SECRET
+            - name: HCL.CS.SF_API_BASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: HCL.CS.SF-admin-config
+                  key: HCL.CS.SF_API_BASE_URL
+            - name: HCL.CS.SF_SCOPES
+              valueFrom:
+                configMapKeyRef:
+                  name: HCL.CS.SF-admin-config
+                  key: HCL.CS.SF_SCOPES
+            - name: HCL.CS.SF_POST_LOGOUT_REDIRECT_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: HCL.CS.SF-admin-config
+                  key: HCL.CS.SF_POST_LOGOUT_REDIRECT_URI
+          readinessProbe:
+            httpGet:
+              path: /api/health
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 15
+          livenessProbe:
+            httpGet:
+              path: /api/health
+              port: 3000
+            initialDelaySeconds: 30
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi

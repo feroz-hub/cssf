@@ -1,0 +1,49 @@
+version: '3.9'
+
+services:
+  identity-api:
+    build:
+      context: ..
+      dockerfile: docker/identity-api.Dockerfile
+    image: HCL.CS.SF/identity-api:local
+    ports:
+      - '8080:8080'
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+
+  admin-api:
+    build:
+      context: ..
+      dockerfile: docker/admin-api.Dockerfile
+    image: HCL.CS.SF/admin-api:local
+    ports:
+      - '8081:8080'
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+
+  gateway:
+    build:
+      context: ..
+      dockerfile: docker/gateway.Dockerfile
+    image: HCL.CS.SF/gateway:local
+    command: ["dotnet", "--info"]
+
+  HCL.CS.SF-admin:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: HCL.CS.SF/HCL.CS.SF-admin:local
+    ports:
+      - '3000:3000'
+    depends_on:
+      - identity-api
+    environment:
+      NEXTAUTH_URL: ${NEXTAUTH_URL:-https://localhost:3000}
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-replace-with-long-random-secret}
+      HCL.CS.SF_ISSUER: ${HCL.CS.SF_ISSUER:-https://localhost:5001}
+      HCL.CS.SF_CLIENT_ID: ${HCL.CS.SF_CLIENT_ID:-}
+      HCL.CS.SF_CLIENT_SECRET: ${HCL.CS.SF_CLIENT_SECRET:-}
+      HCL.CS.SF_API_BASE_URL: ${HCL.CS.SF_API_BASE_URL:-https://localhost:5001}
+      HCL.CS.SF_SCOPES: ${HCL.CS.SF_SCOPES:-openid profile email offline_access phone HCL.CS.SF.apiresource.manage HCL.CS.SF.client.manage HCL.CS.SF.user.read HCL.CS.SF.user.write HCL.CS.SF.role.manage HCL.CS.SF.identityresource.manage HCL.CS.SF.adminuser.manage HCL.CS.SF.securitytoken.manage HCL.CS.SF.notification.read HCL.CS.SF.notification.manage}
+      HCL.CS.SF_POST_LOGOUT_REDIRECT_URI: ${HCL.CS.SF_POST_LOGOUT_REDIRECT_URI:-https://localhost:3000/login}
+      HCL.CS.SF_ALLOW_INSECURE_TLS: ${HCL.CS.SF_ALLOW_INSECURE_TLS:-false}

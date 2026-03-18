@@ -1,0 +1,165 @@
+﻿<Window x:Class="HCL.CS.SF.DemoClientWpfApp.View.ClientPopup"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HCL.CS.SF.DemoClientWpfApp.View"
+        mc:Ignorable="d"
+        Title="ClientPopup" Height="550" Width="auto" WindowStartupLocation="CenterScreen">
+    <Grid Background="#5D6D7E">
+        <Grid  Height="auto" Width="auto" Background="#5D6D7E" Margin="5,5,5,5">
+            <Grid.ColumnDefinitions></Grid.ColumnDefinitions>
+            <Grid.RowDefinitions></Grid.RowDefinitions>
+            <Grid Height="auto" Width="auto" Background="White" Margin="0,0,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"></ColumnDefinition>
+                    <ColumnDefinition Width="200"></ColumnDefinition>
+                    <ColumnDefinition Width="200"></ColumnDefinition>
+                    <ColumnDefinition Width="200"></ColumnDefinition>
+                    <ColumnDefinition Width="40"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition  Height="40"></RowDefinition>
+                    <RowDefinition  Height="40"></RowDefinition>
+                    <RowDefinition  Height="40"></RowDefinition>
+                    <RowDefinition  Height="40"></RowDefinition>
+                    <RowDefinition  Height="40"></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition  Height="40"></RowDefinition>
+                    <RowDefinition  Height="40"></RowDefinition>
+                    <RowDefinition  Height="40"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label   Name="lblClientName" Content="Client Name"  Foreground="#1493D6" FontWeight="Bold"  Grid.Row="0" Grid.Column="0"/>
+                <TextBox  Height="35" Name="txtClientName" Text=""  TextWrapping="Wrap"  Grid.Row="0" Grid.Column="1" />
+
+                <Label Name="lblClientUri" Content="Client Uri" Foreground="#1493D6" FontWeight="Bold"  Grid.Row="1" Grid.Column="0"/>
+                <TextBox Height="35" Name="txtClientUri" TextWrapping="Wrap" Grid.Row="1" Grid.Column="1" />
+
+                <Label Name="lblAllowedScopes" Content="AllowedScopes" Foreground="#1493D6" FontWeight="Bold"  Grid.Row="2" Grid.Column="0"/>
+                <TextBox Height="35" Name="txtAllowedScopes" TextWrapping="Wrap" Grid.Row="2" Grid.Column="1" />
+
+                <Label Name="lblAllowedSigningAlgorithm" Content="Allowed Signing Algorithm" Foreground="#1493D6" FontWeight="Bold"  Grid.Row="3" Grid.Column="0" Height="30"  VerticalAlignment="Bottom"/>
+                <TextBox  Height="35" Name="txtAllowedSigningAlgorithm" TextWrapping="Wrap" Grid.Row="3" Grid.Column="1" >
+                </TextBox>
+
+                <Label Name="lblIdentityTokenExpiration" Content="Identity Token Expiration" Foreground="#1493D6" FontWeight="Bold" Grid.Row="4" Grid.Column="0"/>
+                <TextBox Height="35" Name="txtIdentityTokenExpiration" Grid.Row="4" Grid.Column="1"/>
+
+                <Label Name="lblRedirectUri" Content="RedirectUri" Foreground="#1493D6" FontWeight="Bold"  Grid.Row="6" Grid.Column="0" Height="30" VerticalAlignment="Bottom" />
+                <ListBox  Grid.Row="6" Grid.RowSpan="2"  Grid.ColumnSpan="2" Grid.Column="1" Name="listRedirectUri" >
+                </ListBox>
+
+                <TextBox Height="35" ToolTip ="Add RedirectUri"  Name="txtAddRedirectUri" Grid.Row="6" Grid.Column="3" />
+                <StackPanel Orientation="Horizontal"  Grid.Row="6" Grid.Column="4">
+                    <Button x:Name="btnAddRedirct"  ToolTip="Add Redirct Uri" Foreground="Black" Background="Transparent" Click="btnAddRedirct_Click" BorderBrush="Transparent">
+                        <Image Height="15" Stretch="Fill" Width="15" Source="/Image/AddIcon.png" />
+                    </Button>
+                    <Button x:Name="btndeleteRedirct"   ToolTip="Delete Redirct Uri" Foreground="Black" Click="btndeleteRedirct_Click" Background="Transparent" BorderBrush="Transparent" >
+                        <Image Height="15" Width="15" Source="/Image/Deleteicon.png" />
+                    </Button>
+                </StackPanel>
+
+                <Label Name="lblClientPostLogoutUri" Content="Client Post LogoutUri" Foreground="#1493D6" FontWeight="Bold"  Grid.Row="8" Grid.Column="0"  VerticalAlignment="Bottom"/>
+                <ListBox  Grid.RowSpan="2" Grid.ColumnSpan="2" Grid.Row="8" Grid.Column="1" Name="listClientPostLogoutUri"/>
+
+                <TextBox Height="35"  ToolTip ="Add FrontChannelLogoutUri" TextWrapping="Wrap" Name="txtFrontChannelLogoutUri" Grid.Row="8" Grid.Column="3" />
+                <StackPanel Orientation="Horizontal"  Grid.Row="8" Grid.Column="4">
+                    <Button x:Name="btnAddFrontChannelLogoutUri"  ToolTip="Add FrontChannel LogoutUri" Foreground="Black" Click="btnAddFrontChannelLogoutUri_Click" Background="Transparent" BorderBrush="Transparent">
+                        <Image Height="15" Stretch="Fill" Width="15" Source="/Image/AddIcon.png" />
+                    </Button>
+                    <Button x:Name="btndeleteFrontChannelLogoutUri"   ToolTip="Delete Redirct Uri" Foreground="Black" Click="btndeleteFrontChannelLogoutUri_Click" Background="Transparent" BorderBrush="Transparent" >
+                        <Image Height="15" Width="15" Source="/Image/Deleteicon.png" />
+                    </Button>
+                </StackPanel>
+
+                <Label Name="lblSupportedGrantTypes"  Content="Supported GrantTypes"  Foreground="#1493D6" FontWeight="Bold"  Grid.Row="0" Grid.Column="2"/>
+                <ComboBox Height="35" Grid.Row="0" Grid.Column="3" Name="cmbgranttype"  >
+                    <ComboBox.ItemsSource>
+                        <CompositeCollection>
+                            <ComboBoxItem>
+                                <CheckBox x:Name="chkall" Click="All_Click" >All</CheckBox>
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                <CheckBox x:Name="chkAuth">Authorizationcode</CheckBox>
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                <CheckBox x:Name="chkclient">ClientCredential</CheckBox>
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                <CheckBox x:Name="chkRefresh">RefreshToken</CheckBox>
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                <CheckBox x:Name="chkPassword">Password</CheckBox>
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                <CheckBox x:Name="chkHybrid">Hybrid</CheckBox>
+                            </ComboBoxItem>
+                            <CollectionContainer>
+                            </CollectionContainer>
+                        </CompositeCollection>
+                    </ComboBox.ItemsSource>
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <CheckBox Name="chkTask" Content="{Binding}" IsChecked="{Binding ElementName=all, Path=IsChecked, Mode=OneWay}"></CheckBox>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+
+                <Label   Name="lblSupportedResponseTypes" Content="Supported Response Types"  Foreground="#1493D6" FontWeight="Bold"  Grid.Row="1" Grid.Column="2"/>
+                <ComboBox Height="35" Grid.Row="1" Grid.Column="3" Name="cmbresponseType"  >
+                    <ComboBox.ItemsSource>
+                        <CompositeCollection>
+                            <ComboBoxItem>
+                                <CheckBox x:Name="chkallresponcetype" Click="chkallresponcetype_Click" >All</CheckBox>
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                <CheckBox x:Name="chkcode" >Code</CheckBox>
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                <CheckBox x:Name="chkidtoken">Id_Token</CheckBox>
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                <CheckBox x:Name="chktoken">Token</CheckBox>
+                            </ComboBoxItem>
+                            <CollectionContainer>
+                            </CollectionContainer>
+                        </CompositeCollection>
+                    </ComboBox.ItemsSource>
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <CheckBox Name="chkTask" Content="{Binding}" IsChecked="{Binding ElementName=all, Path=IsChecked, Mode=OneWay}"></CheckBox>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+                <Label  Name="lblAuthCodeExpiration" Content="Authorization CodeExpiration" Foreground="#1493D6" FontWeight="Bold"  Grid.Row="2" Grid.Column="2"/>
+                <TextBox Height="35" Name="txtAuthCodeExpiration" Text=""  Grid.Row="2" Grid.Column="3" />
+
+                <Label Name="lblRefreshTokenExpiration" Content="Refresh Token Expiration" Foreground="#1493D6" FontWeight="Bold"  Grid.Row="3" Grid.Column="2"/>
+                <TextBox Height="35"  Name="txtRefreshTokenExpiration" Grid.Row="3" Grid.Column="3" />
+
+                <Label Name="lblAccessTokenExpiration" Content="Access Token Expiration" Foreground="#1493D6" FontWeight="Bold"  Grid.Row="4" Grid.Column="2"/>
+                <TextBox Height="35" Name="txtAccessTokenExpiration" Grid.Row="4" Grid.Column="3" />
+
+               
+
+
+                <StackPanel Name="stkAdd" Grid.Row="10"  Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="2"  Visibility="{Binding AddPanelVisibility}"  Orientation="Horizontal">
+                    <Button Margin="90,10,10,1" Name="btnAdd"  Content="Add" Style="{DynamicResource RoundCorner}" Foreground="White" Height="40" Background="#00C79A" Width="90" Click="Add_Click"/>
+                    <Button Margin="22,10,10,1" Name="btnAddCancel" Content="Cancel" Style="{DynamicResource RoundCorner}" Foreground="White" Height="40" Background="#F07562" Click="AddCancel_Click" Width="90"/>
+                </StackPanel>
+                <StackPanel Name="stkUpdate" Grid.Row="10" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="2"  Orientation="Horizontal">
+                    <Button Margin="90,10,10,1"  Name="btnUpdate" Content="Update" Style="{DynamicResource RoundCorner}" Foreground="White" Height="40" Background="#00C79A" Width="90" Click="btnUpdate_Click" />
+                    <Button Margin="22,10,10,1" Name="btnCancel" Content="Cancel" Style="{DynamicResource RoundCorner}" Foreground="White" Height="40" Background="#F07562" Width="90" Click="btnCancel_Click"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

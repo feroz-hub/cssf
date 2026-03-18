@@ -1,0 +1,91 @@
+﻿<div>
+    <h4>Roles</h4>
+    <hr/>
+    <div class="form-group">
+        <div id="messageDiv"></div>
+        <table id="Roles" cellpadding="0" cellspacing="0"></table>
+        <div id="RolesPager"></div>
+    </div>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            var $resources = $('#Roles');
+            $resources.jqGrid({
+                url: '@Url.Action("GetAllRoles", "ManageApi")',
+                editurl: '@Url.Action("UpdateRoles", "ManageApi")',
+                datatype: 'json',
+                mtype: 'POST',
+                colNames: ['', 'Id', 'Name', 'Description', 'Claims'],
+                colModel: [
+                    {
+                        formatter: 'actions',
+                        formatoptions: {keys: true, delOptions: {url: '@Url.Action("DeleteRoles", "ManageApi")'}},
+                        resizable: false,
+                        width: 60,
+                        name: 'actions'
+                    },
+                    {name: 'Id', sortable: false, editable: false, width: 300},
+                    {name: 'Name', sortable: false, editable: true, editrules: {required: true}, width: 200},
+                    {name: 'Description', sortable: false, editable: true, width: 350},
+                    {name: 'Claims', formatter: claimButton, width: 80, align: 'center'}],
+                loadComplete: function (data) {
+                    let rowDataArray = data.rows;
+                    for (let i = 0, j = rowDataArray.length; i < j; i++) {
+                        let temp = rowDataArray[i];
+                        $("#btn_claims_" + temp.id).click(() => {
+                            var grid = $("#Roles");
+                            var celValue = grid.jqGrid('getCell', temp.id, 'Name');
+                            var baseUrl = "@Html.Raw(Url.Action("RoleClaims", "ManageApi", new { roleId = "_roleId", roleName = "_roleName" }))";
+                            var hrefurl = baseUrl.replace("_roleId", temp.id).replace("_roleName", celValue);
+                            location.href = hrefurl;
+                        });
+                    }
+                },
+                caption: 'Roles',
+                footerrow: true,
+                userDataOnFooter: true,
+                jsonReader: {repeatitems: false, id: 'Id'},
+                pager: $('#RolesPager'),
+                rowNum: 10,
+                viewrecords: true,
+                height: '100%'
+            })
+                .jqGrid('navGrid', '#RolesPager', {add: false, edit: false, del: false, search: false})
+                .jqGrid('inlineNav', '#RolesPager', {
+                    edit: false,
+                    addParams: {
+                        useDefValues: true,
+                        addRowParams: {
+                            keys: true,
+                            extraparam: {},
+                            successfunc: function (val) {
+                                if (val.responseText != "") {
+                                    if (val.responseText == '"Success"') {
+                                        $("#messageDiv").append("<div id='divSuccess' class='alert alert-success alert-dismissible fade show' role='alert'><p id='SuccessMessgage'>Role successfully added.</p> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>");
+                                        $(this).jqGrid('setGridParam', {datatype: 'json'}).trigger('reloadGrid');
+                                    } else {
+                                        $("#messageDiv").append("<div id='divSuccess' class='alert alert-danger alert-dismissible fade show' role='alert'><p id='SuccessMessgage'>" + val.responseText + "</p> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>");
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    editParams: {
+                        keys: false,
+                        oneditfunc: null,
+                        successfunc: function (val) {
+                            if (val.responseText != "") {
+                                $(this).jqGrid('setGridParam', {datatype: 'json'}).trigger('reloadGrid');
+                            }
+                        }
+                    }
+                },)
+
+            function claimButton(cellvalue, options, rowObject) {
+                return "<button id='btn_claims_" + rowObject.id + "' style='background-color: black;color: white;border: 1px solid #e4e4e4;padding: 5px;border-radius: 3px;cursor: pointer;'>Claims</button>"
+            }
+        });
+    </script>
+}

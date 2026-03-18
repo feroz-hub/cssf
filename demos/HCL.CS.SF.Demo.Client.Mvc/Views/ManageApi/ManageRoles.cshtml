@@ -1,0 +1,46 @@
+
+@model List<HCL.CS.SF.DemoClientMvc.Models.ManageRoleModel>
+<div>
+    <h4>Manage Roles</h4>
+    <style>
+        collapse1 {
+            overflow-y: scroll;
+            height: 200px;
+        }
+    </style>
+
+    @using (Html.BeginForm("ManageRoles", "ManageApi", new { userId = TempData["UserId"] }, FormMethod.Post))
+    {
+        <div align="left">
+            <table>
+                <tr>
+                    <td>Select Roles :</td>
+                </tr>
+
+                @for (var i = 0; i < Model.Count; i++)
+                {
+                    <tr>
+                        <td></td>
+                        <td>
+                            @Html.Label("ManageRoles[" + i + "].ClaimValue", Model[i].ClaimValue, new { @readonly = "readonly" })
+                        </td>
+                        <td>
+                            @Html.CheckBox("ManageRoles[" + i + "].IsChecked", Model[i].IsChecked, new { Model[i].ClaimValue })
+                            @Html.Hidden("ManageRoles[" + i + "].ClaimType", Model[i].ClaimType, new { @readonly = "readonly" })
+                            @Html.Hidden("ManageRoles[" + i + "].ClaimValue", Model[i].ClaimValue, new { @readonly = "readonly" })
+                        </td>
+                    </tr>
+                }
+                <tr>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="Submit" class="btn btn-primary"/></td>
+                </tr>
+            </table>
+        </div>
+    }
+
+
+</div>

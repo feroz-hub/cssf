@@ -1,0 +1,3630 @@
+{
+  "info": {
+    "_postman_id": "f57c190d-9c16-4f6f-8b78-1d2baf0e91df",
+    "name": "HCL.CS.SF API Inventory",
+    "description": "Generated from docs/api/all-apis.md",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "External Auth (Demo Server)",
+      "item": [
+        {
+          "name": "GET /auth/external/google/callback - ExternalAuthController.GoogleCallback",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/auth/external/google/callback",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "external",
+                "google",
+                "callback"
+              ]
+            },
+            "description": "ExternalAuthController.GoogleCallback"
+          },
+          "response": []
+        },
+        {
+          "name": "GET /auth/external/google/start - ExternalAuthController.GoogleStart",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/auth/external/google/start",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "external",
+                "google",
+                "start"
+              ]
+            },
+            "description": "ExternalAuthController.GoogleStart"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /auth/external/link/google - ExternalAuthController.LinkGoogle",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/auth/external/link/google",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "external",
+                "link",
+                "google"
+              ]
+            },
+            "description": "ExternalAuthController.LinkGoogle"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /auth/external/unlink/google - ExternalAuthController.UnlinkGoogle",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/auth/external/unlink/google",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "external",
+                "unlink",
+                "google"
+              ]
+            },
+            "description": "ExternalAuthController.UnlinkGoogle"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Health APIs",
+      "item": [
+        {
+          "name": "GET /health - Installer MVC Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "health"
+              ]
+            },
+            "description": "Installer MVC Health"
+          },
+          "response": []
+        },
+        {
+          "name": "GET /health/live - Demo Server Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/health/live",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "health",
+                "live"
+              ]
+            },
+            "description": "Demo Server Health"
+          },
+          "response": []
+        },
+        {
+          "name": "GET /health/live - Resource Server Demo Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/health/live",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "health",
+                "live"
+              ]
+            },
+            "description": "Resource Server Demo Health"
+          },
+          "response": []
+        },
+        {
+          "name": "GET /health/ready - Demo Server Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/health/ready",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "health",
+                "ready"
+              ]
+            },
+            "description": "Demo Server Health"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Identity Management APIs (Gateway)",
+      "item": [
+        {
+          "name": "POST /Security/Api/ApiResource/AddApiResource - AddApiResource",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/ApiResource/AddApiResource",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "ApiResource",
+                "AddApiResource"
+              ]
+            },
+            "description": "AddApiResource"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/ApiResource/AddApiResourceClaim - AddApiResourceClaim",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/ApiResource/AddApiResourceClaim",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "ApiResource",
+                "AddApiResourceClaim"
+              ]
+            },
+            "description": "AddApiResourceClaim"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/ApiResource/AddApiScope - AddApiScope",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/ApiResource/AddApiScope",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "ApiResource",
+                "AddApiScope"
+              ]
+            },
+            "description": "AddApiScope"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/ApiResource/AddApiScopeClaim - AddApiScopeClaim",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/ApiResource/AddApiScopeClaim",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "ApiResource",
+                "AddApiScopeClaim"
+              ]
+            },
+            "description": "AddApiScopeClaim"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/ApiResource/DeleteApiResourceById - DeleteApiResourceById",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/ApiResource/DeleteApiResourceById",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "ApiResource",
+                "DeleteApiResourceById"
+              ]
+            },
+            "description": "DeleteApiResourceById"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/ApiResource/DeleteApiResourceByName - DeleteApiResourceByName",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/ApiResource/DeleteApiResourceByName",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "ApiResource",
+                "DeleteApiResourceByName"
+              ]
+            },
+            "description": "DeleteApiResourceByName"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/ApiResource/DeleteApiResourceClaimById - DeleteApiResourceClaimById",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/ApiResource/DeleteApiResourceClaimById",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "ApiResource",
+                "DeleteApiResourceClaimById"
+              ]
+            },
+            "description": "DeleteApiResourceClaimById"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/ApiResource/DeleteApiResourceClaimByResourceIdAsync - DeleteApiResourceClaimByResourceIdAsync",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/ApiResource/DeleteApiResourceClaimByResourceIdAsync",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "ApiResource",
+                "DeleteApiResourceClaimByResourceIdAsync"
+              ]
+            },
+            "description": "DeleteApiResourceClaimByResourceIdAsync"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/ApiResource/DeleteApiResourceClaimModel - DeleteApiResourceClaimModel",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/ApiResource/DeleteApiResourceClaimModel",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "ApiResource",
+                "DeleteApiResourceClaimModel"
+              ]
+            },
+            "description": "DeleteApiResourceClaimModel"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/ApiResource/DeleteApiScopeById - DeleteApiScopeById",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/ApiResource/DeleteApiScopeById",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "ApiResource",
+                "DeleteApiScopeById"
+              ]
+            },
+            "description": "DeleteApiScopeById"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/ApiResource/DeleteApiScopeByName - DeleteApiScopeByName",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/ApiResource/DeleteApiScopeByName",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "ApiResource",
+                "DeleteApiScopeByName"
+              ]
+            },
+            "description": "DeleteApiScopeByName"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/ApiResource/DeleteApiScopeClaimById - DeleteApiScopeClaimById",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/ApiResource/DeleteApiScopeClaimById",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "ApiResource",
+                "DeleteApiScopeClaimById"
+              ]
+            },
+            "description": "DeleteApiScopeClaimById"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/ApiResource/DeleteApiScopeClaimByScopeId - DeleteApiScopeClaimByScopeId",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/ApiResource/DeleteApiScopeClaimByScopeId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "ApiResource",
+                "DeleteApiScopeClaimByScopeId"
+              ]
+            },
+            "description": "DeleteApiScopeClaimByScopeId"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/ApiResource/DeleteApiScopeClaimModel - DeleteApiScopeClaimModel",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/ApiResource/DeleteApiScopeClaimModel",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "ApiResource",
+                "DeleteApiScopeClaimModel"
+              ]
+            },
+            "description": "DeleteApiScopeClaimModel"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/ApiResource/GetAllApiResources - GetAllApiResources",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/ApiResource/GetAllApiResources",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "ApiResource",
+                "GetAllApiResources"
+              ]
+            },
+            "description": "GetAllApiResources"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/ApiResource/GetAllApiResourcesByScopesAsync - GetAllApiResourcesByScopesAsync",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/ApiResource/GetAllApiResourcesByScopesAsync",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "ApiResource",
+                "GetAllApiResourcesByScopesAsync"
+              ]
+            },
+            "description": "GetAllApiResourcesByScopesAsync"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/ApiResource/GetAllApiScopes - GetAllApiScopes",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/ApiResource/GetAllApiScopes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "ApiResource",
+                "GetAllApiScopes"
+              ]
+            },
+            "description": "GetAllApiScopes"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/ApiResource/GetApiResourceById - GetApiResourceById",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/ApiResource/GetApiResourceById",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "ApiResource",
+                "GetApiResourceById"
+              ]
+            },
+            "description": "GetApiResourceById"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/ApiResource/GetApiResourceByName - GetApiResourceByName",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/ApiResource/GetApiResourceByName",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "ApiResource",
+                "GetApiResourceByName"
+              ]
+            },
+            "description": "GetApiResourceByName"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/ApiResource/GetApiResourceClaimsById - GetApiResourceClaimsById",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/ApiResource/GetApiResourceClaimsById",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "ApiResource",
+                "GetApiResourceClaimsById"
+              ]
+            },
+            "description": "GetApiResourceClaimsById"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/ApiResource/GetApiScopeById - GetApiScopeById",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/ApiResource/GetApiScopeById",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "ApiResource",
+                "GetApiScopeById"
+              ]
+            },
+            "description": "GetApiScopeById"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/ApiResource/GetApiScopeByName - GetApiScopeByName",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/ApiResource/GetApiScopeByName",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "ApiResource",
+                "GetApiScopeByName"
+              ]
+            },
+            "description": "GetApiScopeByName"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/ApiResource/GetApiScopeClaims - GetApiScopeClaims",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/ApiResource/GetApiScopeClaims",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "ApiResource",
+                "GetApiScopeClaims"
+              ]
+            },
+            "description": "GetApiScopeClaims"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/ApiResource/UpdateApiResource - UpdateApiResource",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/ApiResource/UpdateApiResource",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "ApiResource",
+                "UpdateApiResource"
+              ]
+            },
+            "description": "UpdateApiResource"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/ApiResource/UpdateApiScope - UpdateApiScope",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/ApiResource/UpdateApiScope",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "ApiResource",
+                "UpdateApiScope"
+              ]
+            },
+            "description": "UpdateApiScope"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/Audittrail/AddAuditTrail - AddAuditTrail",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/Audittrail/AddAuditTrail",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "Audittrail",
+                "AddAuditTrail"
+              ]
+            },
+            "description": "AddAuditTrail"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/Audittrail/AddAuditTrailModel - AddAuditTrailModel",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/Audittrail/AddAuditTrailModel",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "Audittrail",
+                "AddAuditTrailModel"
+              ]
+            },
+            "description": "AddAuditTrailModel"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/Audittrail/GetAuditDetails - GetAuditDetailsAsync",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/Audittrail/GetAuditDetails",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "Audittrail",
+                "GetAuditDetails"
+              ]
+            },
+            "description": "GetAuditDetailsAsync"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/Authentication/CountRecoveryCodesAsync - CountRecoveryCodesAsync",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/Authentication/CountRecoveryCodesAsync",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "Authentication",
+                "CountRecoveryCodesAsync"
+              ]
+            },
+            "description": "CountRecoveryCodesAsync"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/Authentication/GenerateRecoveryCodes - GenerateRecoveryCodes",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/Authentication/GenerateRecoveryCodes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "Authentication",
+                "GenerateRecoveryCodes"
+              ]
+            },
+            "description": "GenerateRecoveryCodes"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/Authentication/IsUserSignedIn - IsUserSignedIn",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/Authentication/IsUserSignedIn",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "Authentication",
+                "IsUserSignedIn"
+              ]
+            },
+            "description": "IsUserSignedIn"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/Authentication/PasswordSignIn - PasswordSignIn",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/Authentication/PasswordSignIn",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "Authentication",
+                "PasswordSignIn"
+              ]
+            },
+            "description": "PasswordSignIn"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/Authentication/PasswordSignInByTwoFactorAuthenticatorToken - PasswordSignInByTwoFactorAuthenticatorToken",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/Authentication/PasswordSignInByTwoFactorAuthenticatorToken",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "Authentication",
+                "PasswordSignInByTwoFactorAuthenticatorToken"
+              ]
+            },
+            "description": "PasswordSignInByTwoFactorAuthenticatorToken"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/Authentication/ResetAuthenticatorApp - ResetAuthenticatorApp",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/Authentication/ResetAuthenticatorApp",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "Authentication",
+                "ResetAuthenticatorApp"
+              ]
+            },
+            "description": "ResetAuthenticatorApp"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/Authentication/RopValidateCredentials - RopValidateCredentials",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/Authentication/RopValidateCredentials",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "Authentication",
+                "RopValidateCredentials"
+              ]
+            },
+            "description": "RopValidateCredentials"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/Authentication/SetupAuthenticatorApp - SetupAuthenticatorApp",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/Authentication/SetupAuthenticatorApp",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "Authentication",
+                "SetupAuthenticatorApp"
+              ]
+            },
+            "description": "SetupAuthenticatorApp"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/Authentication/SignOut - SignOut",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/Authentication/SignOut",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "Authentication",
+                "SignOut"
+              ]
+            },
+            "description": "SignOut"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/Authentication/TwoFactorAuthenticatorAppSignIn - TwoFactorAuthenticatorAppSignIn",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/Authentication/TwoFactorAuthenticatorAppSignIn",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "Authentication",
+                "TwoFactorAuthenticatorAppSignIn"
+              ]
+            },
+            "description": "TwoFactorAuthenticatorAppSignIn"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/Authentication/TwoFactorEmailSignIn - TwoFactorEmailSignIn",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/Authentication/TwoFactorEmailSignIn",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "Authentication",
+                "TwoFactorEmailSignIn"
+              ]
+            },
+            "description": "TwoFactorEmailSignIn"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/Authentication/TwoFactorRecoveryCodeSignIn - TwoFactorRecoveryCodeSignIn",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/Authentication/TwoFactorRecoveryCodeSignIn",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "Authentication",
+                "TwoFactorRecoveryCodeSignIn"
+              ]
+            },
+            "description": "TwoFactorRecoveryCodeSignIn"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/Authentication/TwoFactorSmsSignInAsync - TwoFactorSmsSignInAsync",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/Authentication/TwoFactorSmsSignInAsync",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "Authentication",
+                "TwoFactorSmsSignInAsync"
+              ]
+            },
+            "description": "TwoFactorSmsSignInAsync"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/Authentication/VerifyAuthenticatorAppSetup - VerifyAuthenticatorAppSetup",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/Authentication/VerifyAuthenticatorAppSetup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "Authentication",
+                "VerifyAuthenticatorAppSetup"
+              ]
+            },
+            "description": "VerifyAuthenticatorAppSetup"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/Client/DeleteClient - DeleteClient",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/Client/DeleteClient",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "Client",
+                "DeleteClient"
+              ]
+            },
+            "description": "DeleteClient"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/Client/GenerateClientSecret - GenerateClientSecret",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/Client/GenerateClientSecret",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "Client",
+                "GenerateClientSecret"
+              ]
+            },
+            "description": "GenerateClientSecret"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/Client/GetAllClient - GetAllClient",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/Client/GetAllClient",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "Client",
+                "GetAllClient"
+              ]
+            },
+            "description": "GetAllClient"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/Client/GetClient - GetClient",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/Client/GetClient",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "Client",
+                "GetClient"
+              ]
+            },
+            "description": "GetClient"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/Client/RegisterClient - RegisterClient",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/Client/RegisterClient",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "Client",
+                "RegisterClient"
+              ]
+            },
+            "description": "RegisterClient"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/Client/UpdateClient - UpdateClient",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/Client/UpdateClient",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "Client",
+                "UpdateClient"
+              ]
+            },
+            "description": "UpdateClient"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/IdentityResource/AddIdentityResource - AddIdentityResource",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/IdentityResource/AddIdentityResource",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "IdentityResource",
+                "AddIdentityResource"
+              ]
+            },
+            "description": "AddIdentityResource"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/IdentityResource/AddIdentityResourceClaim - AddIdentityResourceClaim",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/IdentityResource/AddIdentityResourceClaim",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "IdentityResource",
+                "AddIdentityResourceClaim"
+              ]
+            },
+            "description": "AddIdentityResourceClaim"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/IdentityResource/DeleteIdentityResourceById - DeleteIdentityResourceById",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/IdentityResource/DeleteIdentityResourceById",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "IdentityResource",
+                "DeleteIdentityResourceById"
+              ]
+            },
+            "description": "DeleteIdentityResourceById"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/IdentityResource/DeleteIdentityResourceByName - DeleteIdentityResourceByName",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/IdentityResource/DeleteIdentityResourceByName",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "IdentityResource",
+                "DeleteIdentityResourceByName"
+              ]
+            },
+            "description": "DeleteIdentityResourceByName"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/IdentityResource/DeleteIdentityResourceClaimById - DeleteIdentityResourceClaimByIdAsync",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/IdentityResource/DeleteIdentityResourceClaimById",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "IdentityResource",
+                "DeleteIdentityResourceClaimById"
+              ]
+            },
+            "description": "DeleteIdentityResourceClaimByIdAsync"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/IdentityResource/DeleteIdentityResourceClaimByResourceIdAsync - DeleteIdentityResourceClaimByResourceIdAsync",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/IdentityResource/DeleteIdentityResourceClaimByResourceIdAsync",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "IdentityResource",
+                "DeleteIdentityResourceClaimByResourceIdAsync"
+              ]
+            },
+            "description": "DeleteIdentityResourceClaimByResourceIdAsync"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/IdentityResource/DeleteIdentityResourceClaimModel - DeleteIdentityResourceClaimModel",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/IdentityResource/DeleteIdentityResourceClaimModel",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "IdentityResource",
+                "DeleteIdentityResourceClaimModel"
+              ]
+            },
+            "description": "DeleteIdentityResourceClaimModel"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/IdentityResource/GetAllIdentityResources - GetAllIdentityResources",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/IdentityResource/GetAllIdentityResources",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "IdentityResource",
+                "GetAllIdentityResources"
+              ]
+            },
+            "description": "GetAllIdentityResources"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/IdentityResource/GetIdentityResourceById - GetIdentityResourceById",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/IdentityResource/GetIdentityResourceById",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "IdentityResource",
+                "GetIdentityResourceById"
+              ]
+            },
+            "description": "GetIdentityResourceById"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/IdentityResource/GetIdentityResourceByName - GetIdentityResourceByName",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/IdentityResource/GetIdentityResourceByName",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "IdentityResource",
+                "GetIdentityResourceByName"
+              ]
+            },
+            "description": "GetIdentityResourceByName"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/IdentityResource/GetIdentityResourceClaims - GetIdentityResourceClaims",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/IdentityResource/GetIdentityResourceClaims",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "IdentityResource",
+                "GetIdentityResourceClaims"
+              ]
+            },
+            "description": "GetIdentityResourceClaims"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/IdentityResource/UpdateIdentityResource - UpdateIdentityResource",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/IdentityResource/UpdateIdentityResource",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "IdentityResource",
+                "UpdateIdentityResource"
+              ]
+            },
+            "description": "UpdateIdentityResource"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/Role/AddRoleClaim - AddRoleClaim",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/Role/AddRoleClaim",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "Role",
+                "AddRoleClaim"
+              ]
+            },
+            "description": "AddRoleClaim"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/Role/AddRoleClaimList - AddRoleClaimList",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/Role/AddRoleClaimList",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "Role",
+                "AddRoleClaimList"
+              ]
+            },
+            "description": "AddRoleClaimList"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/Role/CreateRole - CreateRole",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/Role/CreateRole",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "Role",
+                "CreateRole"
+              ]
+            },
+            "description": "CreateRole"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/Role/DeleteRoleById - DeleteRoleById",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/Role/DeleteRoleById",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "Role",
+                "DeleteRoleById"
+              ]
+            },
+            "description": "DeleteRoleById"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/Role/DeleteRoleByName - DeleteRoleByName",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/Role/DeleteRoleByName",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "Role",
+                "DeleteRoleByName"
+              ]
+            },
+            "description": "DeleteRoleByName"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/Role/GetAllRoles - GetAllRoles",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/Role/GetAllRoles",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "Role",
+                "GetAllRoles"
+              ]
+            },
+            "description": "GetAllRoles"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/Role/GetRoleById - GetRoleById",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/Role/GetRoleById",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "Role",
+                "GetRoleById"
+              ]
+            },
+            "description": "GetRoleById"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/Role/GetRoleByName - GetRoleByName",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/Role/GetRoleByName",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "Role",
+                "GetRoleByName"
+              ]
+            },
+            "description": "GetRoleByName"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/Role/GetRoleClaim - GetRoleClaim",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/Role/GetRoleClaim",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "Role",
+                "GetRoleClaim"
+              ]
+            },
+            "description": "GetRoleClaim"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/Role/RemoveRoleClaim - RemoveRoleClaim",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/Role/RemoveRoleClaim",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "Role",
+                "RemoveRoleClaim"
+              ]
+            },
+            "description": "RemoveRoleClaim"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/Role/RemoveRoleClaimsById - RemoveRoleClaimById",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/Role/RemoveRoleClaimsById",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "Role",
+                "RemoveRoleClaimsById"
+              ]
+            },
+            "description": "RemoveRoleClaimById"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/Role/RemoveRoleClaimsList - RemoveRoleClaimsList",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/Role/RemoveRoleClaimsList",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "Role",
+                "RemoveRoleClaimsList"
+              ]
+            },
+            "description": "RemoveRoleClaimsList"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/Role/UpdateRole - UpdateRoleAsync",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/Role/UpdateRole",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "Role",
+                "UpdateRole"
+              ]
+            },
+            "description": "UpdateRoleAsync"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/SecurityToken/GetActiveSecurityTokensBetweenDates - GetActiveSecurityTokensBetweenDates",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/SecurityToken/GetActiveSecurityTokensBetweenDates",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "SecurityToken",
+                "GetActiveSecurityTokensBetweenDates"
+              ]
+            },
+            "description": "GetActiveSecurityTokensBetweenDates"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/SecurityToken/GetActiveSecurityTokensByClientIds - GetActiveSecurityTokensByClientIds",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/SecurityToken/GetActiveSecurityTokensByClientIds",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "SecurityToken",
+                "GetActiveSecurityTokensByClientIds"
+              ]
+            },
+            "description": "GetActiveSecurityTokensByClientIds"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/SecurityToken/GetActiveSecurityTokensByUserIds - GetActiveSecurityTokensByUserIds",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/SecurityToken/GetActiveSecurityTokensByUserIds",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "SecurityToken",
+                "GetActiveSecurityTokensByUserIds"
+              ]
+            },
+            "description": "GetActiveSecurityTokensByUserIds"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/SecurityToken/GetAllSecurityTokensBetweenDates - GetAllSecurityTokensBetweenDates",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/SecurityToken/GetAllSecurityTokensBetweenDates",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "SecurityToken",
+                "GetAllSecurityTokensBetweenDates"
+              ]
+            },
+            "description": "GetAllSecurityTokensBetweenDates"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/AddAdminClaim - AddAdminClaim",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/AddAdminClaim",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "AddAdminClaim"
+              ]
+            },
+            "description": "AddAdminClaim"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/AddAdminClaimList - AddAdminClaimList",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/AddAdminClaimList",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "AddAdminClaimList"
+              ]
+            },
+            "description": "AddAdminClaimList"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/AddClaim - AddClaim",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/AddClaim",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "AddClaim"
+              ]
+            },
+            "description": "AddClaim"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/AddClaimList - AddClaimList",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/AddClaimList",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "AddClaimList"
+              ]
+            },
+            "description": "AddClaimList"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/AddSecurityQuestion - AddSecurityQuestion",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/AddSecurityQuestion",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "AddSecurityQuestion"
+              ]
+            },
+            "description": "AddSecurityQuestion"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/AddUserRole - AddUserRole",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/AddUserRole",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "AddUserRole"
+              ]
+            },
+            "description": "AddUserRole"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/AddUserRolesList - AddUserRolesList",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/AddUserRolesList",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "AddUserRolesList"
+              ]
+            },
+            "description": "AddUserRolesList"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/AddUserSecurityQuestion - AddUserSecurityQuestion",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/AddUserSecurityQuestion",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "AddUserSecurityQuestion"
+              ]
+            },
+            "description": "AddUserSecurityQuestion"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/AddUserSecurityQuestionList - AddUserSecurityQuestionList",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/AddUserSecurityQuestionList",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "AddUserSecurityQuestionList"
+              ]
+            },
+            "description": "AddUserSecurityQuestionList"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/ChangePassword - ChangePassword",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/ChangePassword",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "ChangePassword"
+              ]
+            },
+            "description": "ChangePassword"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/DeleteSecurityQuestion - DeleteSecurityQuestion",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/DeleteSecurityQuestion",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "DeleteSecurityQuestion"
+              ]
+            },
+            "description": "DeleteSecurityQuestion"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/DeleteUserById - DeleteUserById",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/DeleteUserById",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "DeleteUserById"
+              ]
+            },
+            "description": "DeleteUserById"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/DeleteUserByName - DeleteUserByName",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/DeleteUserByName",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "DeleteUserByName"
+              ]
+            },
+            "description": "DeleteUserByName"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/DeleteUserSecurityQuestion - DeleteUserSecurityQuestion",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/DeleteUserSecurityQuestion",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "DeleteUserSecurityQuestion"
+              ]
+            },
+            "description": "DeleteUserSecurityQuestion"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/DeleteUserSecurityQuestionList - DeleteUserSecurityQuestionList",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/DeleteUserSecurityQuestionList",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "DeleteUserSecurityQuestionList"
+              ]
+            },
+            "description": "DeleteUserSecurityQuestionList"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/GenerateEmailConfirmationToken - GenerateEmailConfirmationToken",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/GenerateEmailConfirmationToken",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "GenerateEmailConfirmationToken"
+              ]
+            },
+            "description": "GenerateEmailConfirmationToken"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/GenerateEmailTwoFactorToken - GenerateEmailTwoFactorToken",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/GenerateEmailTwoFactorToken",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "GenerateEmailTwoFactorToken"
+              ]
+            },
+            "description": "GenerateEmailTwoFactorToken"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/GeneratePasswordResetToken - GeneratePasswordResetToken",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/GeneratePasswordResetToken",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "GeneratePasswordResetToken"
+              ]
+            },
+            "description": "GeneratePasswordResetToken"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/GeneratePhoneNumberConfirmationToken - GeneratePhoneNumberConfirmationToken",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/GeneratePhoneNumberConfirmationToken",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "GeneratePhoneNumberConfirmationToken"
+              ]
+            },
+            "description": "GeneratePhoneNumberConfirmationToken"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/GenerateSmsTwoFactorToken - GenerateSmsTwoFactorToken",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/GenerateSmsTwoFactorToken",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "GenerateSmsTwoFactorToken"
+              ]
+            },
+            "description": "GenerateSmsTwoFactorToken"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/GenerateUserTokenAsync - GenerateUserTokenAsync",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/GenerateUserTokenAsync",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "GenerateUserTokenAsync"
+              ]
+            },
+            "description": "GenerateUserTokenAsync"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/GetAdminUserClaims - GetAdminUserClaims",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/GetAdminUserClaims",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "GetAdminUserClaims"
+              ]
+            },
+            "description": "GetAdminUserClaims"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/GetAllSecurityQuestions - GetAllSecurityQuestions",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/GetAllSecurityQuestions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "GetAllSecurityQuestions"
+              ]
+            },
+            "description": "GetAllSecurityQuestions"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/GetAllTwoFactorType - GetAllTwoFactorType",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/GetAllTwoFactorType",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "GetAllTwoFactorType"
+              ]
+            },
+            "description": "GetAllTwoFactorType"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/GetAllUsers - GetAllUsers",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/GetAllUsers",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "GetAllUsers"
+              ]
+            },
+            "description": "GetAllUsers"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/GetClaims - GetClaims",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/GetClaims",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "GetClaims"
+              ]
+            },
+            "description": "GetClaims"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/GetUserByEmail - GetUserByEmail",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/GetUserByEmail",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "GetUserByEmail"
+              ]
+            },
+            "description": "GetUserByEmail"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/GetUserById - GetUserById",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/GetUserById",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "GetUserById"
+              ]
+            },
+            "description": "GetUserById"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/GetUserByName - GetUserByName",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/GetUserByName",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "GetUserByName"
+              ]
+            },
+            "description": "GetUserByName"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/GetUserClaims - GetUserClaims",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/GetUserClaims",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "GetUserClaims"
+              ]
+            },
+            "description": "GetUserClaims"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/GetUserRoleClaimsById - GetUserRoleClaimsById",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/GetUserRoleClaimsById",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "GetUserRoleClaimsById"
+              ]
+            },
+            "description": "GetUserRoleClaimsById"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/GetUserRoleClaimsByName - GetUserRoleClaimsByName",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/GetUserRoleClaimsByName",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "GetUserRoleClaimsByName"
+              ]
+            },
+            "description": "GetUserRoleClaimsByName"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/GetUserRoles - GetUserRoles",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/GetUserRoles",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "GetUserRoles"
+              ]
+            },
+            "description": "GetUserRoles"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/GetUserSecurityQuestions - GetUserSecurityQuestions",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/GetUserSecurityQuestions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "GetUserSecurityQuestions"
+              ]
+            },
+            "description": "GetUserSecurityQuestions"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/GetUsersForClaim - GetUsersForClaim",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/GetUsersForClaim",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "GetUsersForClaim"
+              ]
+            },
+            "description": "GetUsersForClaim"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/GetUsersInRole - GetUsersInRole",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/GetUsersInRole",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "GetUsersInRole"
+              ]
+            },
+            "description": "GetUsersInRole"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/IsUserExistsByClaimPrincipal - IsUserExistsByClaimPrincipal",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/IsUserExistsByClaimPrincipal",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "IsUserExistsByClaimPrincipal"
+              ]
+            },
+            "description": "IsUserExistsByClaimPrincipal"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/IsUserExistsById - IsUserExistsById",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/IsUserExistsById",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "IsUserExistsById"
+              ]
+            },
+            "description": "IsUserExistsById"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/IsUserExistsByName - IsUserExistsByName",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/IsUserExistsByName",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "IsUserExistsByName"
+              ]
+            },
+            "description": "IsUserExistsByName"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/LockUser - LockUser",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/LockUser",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "LockUser"
+              ]
+            },
+            "description": "LockUser"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/RegisterUser - RegisterUser",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/RegisterUser",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "RegisterUser"
+              ]
+            },
+            "description": "RegisterUser"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/RemoveAdminClaim - RemoveAdminClaim",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/RemoveAdminClaim",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "RemoveAdminClaim"
+              ]
+            },
+            "description": "RemoveAdminClaim"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/RemoveAdminClaimList - RemoveAdminClaimList",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/RemoveAdminClaimList",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "RemoveAdminClaimList"
+              ]
+            },
+            "description": "RemoveAdminClaimList"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/RemoveClaim - RemoveClaim",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/RemoveClaim",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "RemoveClaim"
+              ]
+            },
+            "description": "RemoveClaim"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/RemoveClaimList - RemoveClaimList",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/RemoveClaimList",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "RemoveClaimList"
+              ]
+            },
+            "description": "RemoveClaimList"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/RemoveUserRole - RemoveUserRole",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/RemoveUserRole",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "RemoveUserRole"
+              ]
+            },
+            "description": "RemoveUserRole"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/RemoveUserRoleList - RemoveUserRoleList",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/RemoveUserRoleList",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "RemoveUserRoleList"
+              ]
+            },
+            "description": "RemoveUserRoleList"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/ReplaceClaim - ReplaceClaim",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/ReplaceClaim",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "ReplaceClaim"
+              ]
+            },
+            "description": "ReplaceClaim"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/ResetPassword - ResetPassword",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/ResetPassword",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "ResetPassword"
+              ]
+            },
+            "description": "ResetPassword"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/SetTwoFactorEnabled - SetTwoFactorEnabled",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/SetTwoFactorEnabled",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "SetTwoFactorEnabled"
+              ]
+            },
+            "description": "SetTwoFactorEnabled"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/UnLockUser - UnLockUser",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/UnLockUser",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "UnLockUser"
+              ]
+            },
+            "description": "UnLockUser"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/UnLockUserByToken - UnLockUserByToken",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/UnLockUserByToken",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "UnLockUserByToken"
+              ]
+            },
+            "description": "UnLockUserByToken"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/UnLockUserByuserSecurityQuestions - UnLockUserByuserSecurityQuestions",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/UnLockUserByuserSecurityQuestions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "UnLockUserByuserSecurityQuestions"
+              ]
+            },
+            "description": "UnLockUserByuserSecurityQuestions"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/UpdateSecurityQuestion - UpdateSecurityQuestion",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/UpdateSecurityQuestion",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "UpdateSecurityQuestion"
+              ]
+            },
+            "description": "UpdateSecurityQuestion"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/UpdateUser - UpdateUser",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/UpdateUser",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "UpdateUser"
+              ]
+            },
+            "description": "UpdateUser"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/UpdateUserSecurityQuestion - UpdateUserSecurityQuestion",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/UpdateUserSecurityQuestion",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "UpdateUserSecurityQuestion"
+              ]
+            },
+            "description": "UpdateUserSecurityQuestion"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/UpdateUserTwoFactorType - UpdateUserTwoFactorType",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/UpdateUserTwoFactorType",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "UpdateUserTwoFactorType"
+              ]
+            },
+            "description": "UpdateUserTwoFactorType"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/VerifyEmailConfirmationToken - VerifyEmailConfirmationToken",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/VerifyEmailConfirmationToken",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "VerifyEmailConfirmationToken"
+              ]
+            },
+            "description": "VerifyEmailConfirmationToken"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/VerifyEmailTwoFactorToken - VerifyEmailTwoFactorToken",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/VerifyEmailTwoFactorToken",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "VerifyEmailTwoFactorToken"
+              ]
+            },
+            "description": "VerifyEmailTwoFactorToken"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/VerifyPhoneNumberConfirmationToken - VerifyPhoneNumberConfirmationToken",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/VerifyPhoneNumberConfirmationToken",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "VerifyPhoneNumberConfirmationToken"
+              ]
+            },
+            "description": "VerifyPhoneNumberConfirmationToken"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/VerifySmsTwoFactorToken - VerifySmsTwoFactorToken",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/VerifySmsTwoFactorToken",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "VerifySmsTwoFactorToken"
+              ]
+            },
+            "description": "VerifySmsTwoFactorToken"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/User/VerifyUserToken - VerifyUserToken",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/User/VerifyUserToken",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "User",
+                "VerifyUserToken"
+              ]
+            },
+            "description": "VerifyUserToken"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /Security/Api/lockuserwithenddate - LockUserWithEndDate",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/Security/Api/lockuserwithenddate",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Security",
+                "Api",
+                "lockuserwithenddate"
+              ]
+            },
+            "description": "LockUserWithEndDate"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Installer APIs",
+      "item": [
+        {
+          "name": "GET / - SetupController.Root",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": []
+            },
+            "description": "SetupController.Root"
+          },
+          "response": []
+        },
+        {
+          "name": "GET /complete - SetupController.Complete",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/complete",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "complete"
+              ]
+            },
+            "description": "SetupController.Complete"
+          },
+          "response": []
+        },
+        {
+          "name": "GET /error - SetupController.Error",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/error",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "error"
+              ]
+            },
+            "description": "SetupController.Error"
+          },
+          "response": []
+        },
+        {
+          "name": "GET /installed - SetupController.Installed",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/installed",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "installed"
+              ]
+            },
+            "description": "SetupController.Installed"
+          },
+          "response": []
+        },
+        {
+          "name": "GET /setup - SetupController.Provider",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/setup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "setup"
+              ]
+            },
+            "description": "SetupController.Provider"
+          },
+          "response": []
+        },
+        {
+          "name": "GET /setup/connection - SetupController.Connection",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/setup/connection",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "setup",
+                "connection"
+              ]
+            },
+            "description": "SetupController.Connection"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /setup/connection - SetupController.SaveConnection",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/setup/connection",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "setup",
+                "connection"
+              ]
+            },
+            "description": "SetupController.SaveConnection"
+          },
+          "response": []
+        },
+        {
+          "name": "GET /setup/migrate - SetupController.Migrate",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/setup/migrate",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "setup",
+                "migrate"
+              ]
+            },
+            "description": "SetupController.Migrate"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /setup/migrate - SetupController.RunMigrations",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/setup/migrate",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "setup",
+                "migrate"
+              ]
+            },
+            "description": "SetupController.RunMigrations"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /setup/provider - SetupController.SaveProvider",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/setup/provider",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "setup",
+                "provider"
+              ]
+            },
+            "description": "SetupController.SaveProvider"
+          },
+          "response": []
+        },
+        {
+          "name": "GET /setup/seed - SetupController.Seed",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/setup/seed",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "setup",
+                "seed"
+              ]
+            },
+            "description": "SetupController.Seed"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /setup/seed - SetupController.Seed",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/setup/seed",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "setup",
+                "seed"
+              ]
+            },
+            "description": "SetupController.Seed"
+          },
+          "response": []
+        },
+        {
+          "name": "GET /setup/validate - SetupController.Validate",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/setup/validate",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "setup",
+                "validate"
+              ]
+            },
+            "description": "SetupController.Validate"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /setup/validate - SetupController.ExecuteValidation",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/setup/validate",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "setup",
+                "validate"
+              ]
+            },
+            "description": "SetupController.ExecuteValidation"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "OAuth/OIDC Endpoints",
+      "item": [
+        {
+          "name": "GET /.well-known/openid-configuration/jwks - JwksEndpoint",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/.well-known/openid-configuration/jwks",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ".well-known",
+                "openid-configuration",
+                "jwks"
+              ]
+            },
+            "description": "JwksEndpoint"
+          },
+          "response": []
+        },
+        {
+          "name": "GET /security/authorize - AuthorizeEndpoint",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/security/authorize",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "security",
+                "authorize"
+              ]
+            },
+            "description": "AuthorizeEndpoint"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /security/authorize - AuthorizeEndpoint",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/security/authorize",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "security",
+                "authorize"
+              ]
+            },
+            "description": "AuthorizeEndpoint"
+          },
+          "response": []
+        },
+        {
+          "name": "GET /security/authorize/authorizecallback - AuthorizeCallBackEndpoint",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/security/authorize/authorizecallback",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "security",
+                "authorize",
+                "authorizecallback"
+              ]
+            },
+            "description": "AuthorizeCallBackEndpoint"
+          },
+          "response": []
+        },
+        {
+          "name": "GET /security/endsession - EndSessionEndpoint",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/security/endsession",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "security",
+                "endsession"
+              ]
+            },
+            "description": "EndSessionEndpoint"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /security/endsession - EndSessionEndpoint",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/security/endsession",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "security",
+                "endsession"
+              ]
+            },
+            "description": "EndSessionEndpoint"
+          },
+          "response": []
+        },
+        {
+          "name": "GET /security/endsession/callback - EndSessionCallbackEndpoint",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/security/endsession/callback",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "security",
+                "endsession",
+                "callback"
+              ]
+            },
+            "description": "EndSessionCallbackEndpoint"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /security/introspect - IntrospectionEndpoint",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/security/introspect",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "security",
+                "introspect"
+              ]
+            },
+            "description": "IntrospectionEndpoint"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /security/revocation - TokenRevocationEndpoint",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/security/revocation",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "security",
+                "revocation"
+              ]
+            },
+            "description": "TokenRevocationEndpoint"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /security/token - TokenEndpoint",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/security/token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "security",
+                "token"
+              ]
+            },
+            "description": "TokenEndpoint"
+          },
+          "response": []
+        },
+        {
+          "name": "GET /security/userinfo - UserInfoEndpoint",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/security/userinfo",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "security",
+                "userinfo"
+              ]
+            },
+            "description": "UserInfoEndpoint"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /security/userinfo - UserInfoEndpoint",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/security/userinfo",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "security",
+                "userinfo"
+              ]
+            },
+            "description": "UserInfoEndpoint"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://localhost:5001",
+      "type": "string"
+    }
+  ]
+}

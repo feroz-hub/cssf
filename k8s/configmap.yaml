@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: HCL.CS.SF-config
+data:
+  ASPNETCORE_ENVIRONMENT: "Production"
+  HCL.CS.SF__LOG_LEVEL: "Information"

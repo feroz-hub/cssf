@@ -1,0 +1,67 @@
+﻿@model HCL.CS.SF.DemoClientMvc.ViewModels.Home.HomeIndexViewModel
+
+<div class="container-fluid px-0">
+    <div class="p-4 p-md-5 mb-4 rounded-3 border bg-light">
+        <h1 class="display-6 mb-2">HCL.CS.SF OAuth 2.0 / OIDC Demo Client</h1>
+        <p class="lead mb-0">
+            Enterprise client for Authorization Code + PKCE, token lifecycle operations, profile introspection, and
+            secured API calls.
+        </p>
+    </div>
+
+    @if (Model.IsAuthenticated)
+    {
+        <div class="alert alert-success" role="alert">
+            <strong>Signed in:</strong> @Model.UserName
+            @if (Model.Roles.Count > 0)
+            {
+                <span class="ms-2"><strong>Roles:</strong> @string.Join(", ", Model.Roles)</span>
+            }
+        </div>
+
+        <div class="row g-3">
+            <div class="col-12 col-md-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Token Center</h5>
+                        <p class="card-text">Inspect access/refresh/id tokens, refresh securely, and review access-token
+                            claims.</p>
+                        <a class="btn btn-primary" asp-controller="Token" asp-action="Index">Open Tokens</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Profile</h5>
+                        <p class="card-text">Review identity claims and role data from the authenticated OIDC
+                            session.</p>
+                        <a class="btn btn-outline-primary" asp-controller="Profile" asp-action="Index">Open Profile</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">API Test</h5>
+                        <p class="card-text">Call protected APIs with automatic bearer token injection and 401 refresh
+                            retry.</p>
+                        <a class="btn btn-outline-primary" asp-controller="Api" asp-action="Index">Open API Test</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning" role="alert">
+            You are not signed in. Start the Authorization Code + PKCE flow to continue.
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+            <a class="btn btn-primary" asp-controller="Account" asp-action="Login">Sign In</a>
+            <a class="btn btn-outline-secondary" asp-controller="Account" asp-action="Register">Register</a>
+            <a class="btn btn-outline-secondary" asp-controller="Account" asp-action="ManuallyVerifyAccount">Verify
+                Account</a>
+        </div>
+    }
+</div>

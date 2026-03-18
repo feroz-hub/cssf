@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: HCL.CS.SF-admin
+  labels:
+    app: HCL.CS.SF-admin
+spec:
+  selector:
+    app: HCL.CS.SF-admin
+  ports:
+    - name: http
+      port: 80
+      targetPort: 3000
+  type: ClusterIP

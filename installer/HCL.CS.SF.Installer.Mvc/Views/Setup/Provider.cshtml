@@ -1,0 +1,58 @@
+@using HCLCSSFInstallerMVC.Application.DTOs
+@model HCLCSSFInstallerMVC.ViewModels.SetupProviderViewModel
+@{
+    ViewData["Title"] = "Setup / Provider";
+    var providers = Enum.GetValues<DatabaseProviderType>();
+}
+
+<section class="surface">
+    <header class="surface-header">
+        <p class="eyebrow">Stage 01</p>
+        <h1>Select Database Fabric</h1>
+        <p>Choose the runtime data engine for this HCL.CS.SF deployment. This choice drives migration strategy,
+            connectivity checks, and baseline seed behavior.</p>
+    </header>
+
+    <div class="info-grid">
+        <article class="info-card">
+            <h2>Enterprise baseline</h2>
+            <p>Use a production-grade provider with managed backups, secured credentials, and monitored replication.</p>
+        </article>
+        <article class="info-card">
+            <h2>Operational impact</h2>
+            <p>Provider selection determines connection templates and migration provider used by the installer.</p>
+        </article>
+        <article class="info-card">
+            <h2>Security posture</h2>
+            <p>Use least-privilege credentials and isolate database access to private network paths where possible.</p>
+        </article>
+    </div>
+
+    <form asp-action="SaveProvider" method="post" novalidate class="stack-lg">
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+        <div class="field-block">
+            <label asp-for="Provider" class="field-label">Database Provider</label>
+            <select asp-for="Provider" class="form-select form-select-lg control-glass"
+                    asp-items="Html.GetEnumSelectList<DatabaseProviderType>()">
+                <option value="">Select a provider</option>
+            </select>
+            <span asp-validation-for="Provider" class="field-error"></span>
+        </div>
+
+        <div class="provider-strip" aria-label="Available providers">
+            @foreach (var provider in providers)
+            {
+                <span class="provider-pill">@provider</span>
+            }
+        </div>
+
+        <div class="action-row">
+            <button type="submit" class="btn btn-accent btn-lg">Continue to Connectivity</button>
+        </div>
+    </form>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial"/>
+}

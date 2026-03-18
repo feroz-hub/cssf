@@ -1,0 +1,342 @@
+@model List<HCL.CS.SF.Admin.UI.Models.Api.ClientsModel>
+
+@{
+    var clients = Model ?? new List<HCL.CS.SF.Admin.UI.Models.Api.ClientsModel>();
+    var allScopes = ViewBag.AllScopes as List<HCL.CS.SF.Admin.UI.Models.Api.ApiScopesModel> ?? new();
+}
+
+<!-- Page Header -->
+<div class="hcl-page-header">
+    <div>
+        <h1 class="hcl-page-title">
+            <span class="hcl-gradient-text">OAuth Clients</span>
+        </h1>
+        <p style="color: var(--hcl-text-secondary); margin-top: 0.25rem; font-size: 0.875rem;">
+            @clients.Count registered clients
+        </p>
+    </div>
+    <div class="hcl-page-actions">
+        <button class="hcl-btn hcl-btn-primary" onclick="HCL.openModal('registerClientModal')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            Register Client
+        </button>
+    </div>
+</div>
+
+<!-- Search Bar -->
+<div class="hcl-search-bar" style="margin-bottom: 1.5rem;">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" style="position: absolute; left: 0.875rem; top: 50%; transform: translateY(-50%); color: var(--hcl-text-tertiary);"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="text" class="hcl-search-input" id="clientSearchInput" placeholder="Search clients by name or client ID..." oninput="filterClients(this.value)" />
+</div>
+
+<!-- Clients Table -->
+<div class="hcl-card hcl-glass">
+    <div class="hcl-table-wrapper">
+        <table class="hcl-table" id="clientsTable">
+            <thead>
+                <tr>
+                    <th>Client Name</th>
+                    <th>Client ID</th>
+                    <th>Type</th>
+                    <th>Grant Types</th>
+                    <th>PKCE</th>
+                    <th style="text-align: right;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!clients.Any())
+                {
+                    <tr>
+                        <td colspan="6">
+                            <div class="hcl-empty-state" style="padding: 3rem 0;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="48" height="48" style="color: var(--hcl-text-tertiary); margin-bottom: 1rem;"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                                <p style="color: var(--hcl-text-tertiary);">No clients found. Register your first OAuth client to get started.</p>
+                                <button class="hcl-btn hcl-btn-primary hcl-btn-sm" style="margin-top: 1rem;" onclick="HCL.openModal('registerClientModal')">Register Client</button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+                @foreach (var client in clients)
+                {
+                    var appTypeLabel = client.ApplicationType switch
+                    {
+                        "1" => "Web",
+                        "2" => "SPA",
+                        "3" => "Native",
+                        "4" => "Machine",
+                        _ => client.ApplicationType ?? "Unknown"
+                    };
+                    var appTypeBadge = client.ApplicationType switch
+                    {
+                        "1" => "hcl-badge-primary",
+                        "2" => "hcl-badge-success",
+                        "3" => "hcl-badge-warning",
+                        "4" => "hcl-badge-purple",
+                        _ => ""
+                    };
+                    var truncatedId = client.ClientId.Length > 20 ? client.ClientId.Substring(0, 20) + "..." : client.ClientId;
+
+                    <tr class="client-row"
+                        data-name="@((client.ClientName ?? "").ToLower())"
+                        data-clientid="@client.ClientId.ToLower()">
+                        <td data-label="Client Name">
+                            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                <div style="width: 36px; height: 36px; border-radius: 0.5rem; background: var(--hcl-bg-tertiary); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                    @if (!string.IsNullOrEmpty(client.LogoUri))
+                                    {
+                                        <img src="@client.LogoUri" alt="" style="width: 24px; height: 24px; border-radius: 4px;" />
+                                    }
+                                    else
+                                    {
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" style="color: var(--hcl-text-tertiary);"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                                    }
+                                </div>
+                                <div>
+                                    <div style="font-weight: 500; color: var(--hcl-text-primary);">@(client.ClientName ?? "Unnamed")</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td data-label="Client ID">
+                            <div style="display: flex; align-items: center; gap: 0.375rem;">
+                                <code style="font-size: 0.8rem; color: var(--hcl-text-secondary); background: var(--hcl-bg-tertiary); padding: 0.125rem 0.375rem; border-radius: 0.25rem;">@truncatedId</code>
+                                <button class="hcl-btn-icon" onclick="HCL.copyToClipboard('@client.ClientId')" title="Copy Client ID" style="width: 24px; height: 24px; font-size: 0.75rem;">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                                </button>
+                            </div>
+                        </td>
+                        <td data-label="Type">
+                            <span class="hcl-badge @appTypeBadge">@appTypeLabel</span>
+                        </td>
+                        <td data-label="Grant Types">
+                            <div style="display: flex; flex-wrap: wrap; gap: 0.25rem;">
+                                @foreach (var grant in client.SupportedGrantTypes)
+                                {
+                                    var grantBadge = grant switch
+                                    {
+                                        "authorization_code" => "hcl-badge-primary",
+                                        "client_credentials" => "hcl-badge-purple",
+                                        "refresh_token" => "background: rgba(6,182,212,0.15); color: #06b6d4;",
+                                        "password" => "hcl-badge-warning",
+                                        _ => ""
+                                    };
+                                    var isStyleBadge = grant == "refresh_token";
+                                    if (isStyleBadge)
+                                    {
+                                        <span class="hcl-badge" style="@grantBadge">@grant</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="hcl-badge @grantBadge">@grant</span>
+                                    }
+                                }
+                            </div>
+                        </td>
+                        <td data-label="PKCE">
+                            @if (client.RequirePkce)
+                            {
+                                <span class="hcl-badge hcl-badge-success">Required</span>
+                            }
+                            else
+                            {
+                                <span class="hcl-badge">Off</span>
+                            }
+                        </td>
+                        <td data-label="Actions" style="text-align: right;">
+                            <div style="display: flex; gap: 0.5rem; justify-content: flex-end;">
+                                <a href="/Admin/Clients/@client.Id" class="hcl-btn hcl-btn-sm" style="background: var(--hcl-bg-tertiary); color: var(--hcl-text-secondary); border: 1px solid var(--hcl-border);">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                                    View
+                                </a>
+                                <button class="hcl-btn hcl-btn-danger hcl-btn-sm" onclick="deleteClient('@client.Id', '@(client.ClientName ?? client.ClientId)')">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                                    Delete
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Register Client Modal -->
+<div class="hcl-modal-backdrop" id="registerClientModal">
+    <div class="hcl-modal" style="max-width: 640px;">
+        <div class="hcl-modal-header">
+            <h3 class="hcl-modal-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20" style="display: inline; vertical-align: text-bottom; margin-right: 0.5rem;"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                Register New Client
+            </h3>
+            <button class="hcl-btn-icon" onclick="HCL.closeModal('registerClientModal')">&times;</button>
+        </div>
+        <div class="hcl-modal-body">
+            <form id="registerClientForm" onsubmit="return false;">
+                <div class="hcl-form-group">
+                    <label class="hcl-label">Client Name <span style="color: #ef4444;">*</span></label>
+                    <input type="text" class="hcl-input" id="reg_clientName" required placeholder="My Application" />
+                </div>
+                <div class="hcl-grid hcl-grid-2">
+                    <div class="hcl-form-group">
+                        <label class="hcl-label">Application Type <span style="color: #ef4444;">*</span></label>
+                        <select class="hcl-input" id="reg_appType">
+                            <option value="1">Web Application</option>
+                            <option value="2">Single Page Application (SPA)</option>
+                            <option value="3">Native / Mobile</option>
+                            <option value="4">Machine / Service</option>
+                        </select>
+                    </div>
+                    <div class="hcl-form-group">
+                        <label class="hcl-label">Client URI</label>
+                        <input type="url" class="hcl-input" id="reg_clientUri" placeholder="https://myapp.example.com" />
+                    </div>
+                </div>
+                <div class="hcl-form-group">
+                    <label class="hcl-label">Grant Types</label>
+                    <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 0.375rem;">
+                        <label class="hcl-checkbox"><input type="checkbox" id="reg_grant_authcode" value="authorization_code" checked /> Authorization Code</label>
+                        <label class="hcl-checkbox"><input type="checkbox" id="reg_grant_clientcred" value="client_credentials" /> Client Credentials</label>
+                        <label class="hcl-checkbox"><input type="checkbox" id="reg_grant_refresh" value="refresh_token" checked /> Refresh Token</label>
+                        <label class="hcl-checkbox"><input type="checkbox" id="reg_grant_password" value="password" /> Password</label>
+                    </div>
+                </div>
+                <div class="hcl-form-group">
+                    <label class="hcl-label">Redirect URIs</label>
+                    <div id="reg_redirectUris">
+                        <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;" class="redirect-uri-row">
+                            <input type="url" class="hcl-input" placeholder="https://myapp.example.com/callback" style="flex: 1;" />
+                            <button type="button" class="hcl-btn hcl-btn-danger hcl-btn-sm" onclick="this.parentElement.remove()" style="flex-shrink: 0;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                    <button type="button" class="hcl-btn hcl-btn-ghost hcl-btn-sm" onclick="addRedirectUriInput('reg_redirectUris')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        Add URI
+                    </button>
+                </div>
+                <div class="hcl-form-group">
+                    <label class="hcl-label">Scopes</label>
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.375rem;" id="reg_scopesList">
+                        @foreach (var scope in allScopes)
+                        {
+                            <label class="hcl-checkbox"><input type="checkbox" value="@scope.Name" class="reg-scope-checkbox" /> @(scope.DisplayName ?? scope.Name)</label>
+                        }
+                    </div>
+                    @if (!allScopes.Any())
+                    {
+                        <p style="color: var(--hcl-text-tertiary); font-size: 0.8rem; margin-top: 0.25rem;">No API scopes available. Configure scopes in API Resources first.</p>
+                    }
+                </div>
+            </form>
+        </div>
+        <div class="hcl-modal-footer">
+            <button class="hcl-btn hcl-btn-ghost" onclick="HCL.closeModal('registerClientModal')">Cancel</button>
+            <button class="hcl-btn hcl-btn-primary" id="registerClientBtn" onclick="registerClient()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                Register Client
+            </button>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+    function filterClients(query) {
+        var q = query.toLowerCase().trim();
+        var rows = document.querySelectorAll('.client-row');
+        rows.forEach(function(row) {
+            var name = row.getAttribute('data-name') || '';
+            var clientId = row.getAttribute('data-clientid') || '';
+            var match = !q || name.indexOf(q) !== -1 || clientId.indexOf(q) !== -1;
+            row.style.display = match ? '' : 'none';
+        });
+    }
+
+    function addRedirectUriInput(containerId) {
+        var container = document.getElementById(containerId);
+        var row = document.createElement('div');
+        row.style.cssText = 'display: flex; gap: 0.5rem; margin-bottom: 0.5rem;';
+        row.className = 'redirect-uri-row';
+        row.innerHTML = '<input type="url" class="hcl-input" placeholder="https://myapp.example.com/callback" style="flex: 1;" />' +
+            '<button type="button" class="hcl-btn hcl-btn-danger hcl-btn-sm" onclick="this.parentElement.remove()" style="flex-shrink: 0;">' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>';
+        container.appendChild(row);
+    }
+
+    async function registerClient() {
+        var clientName = document.getElementById('reg_clientName').value.trim();
+        if (!clientName) {
+            HCL.toastError('Client name is required.');
+            return;
+        }
+
+        var grantTypes = [];
+        if (document.getElementById('reg_grant_authcode').checked) grantTypes.push('authorization_code');
+        if (document.getElementById('reg_grant_clientcred').checked) grantTypes.push('client_credentials');
+        if (document.getElementById('reg_grant_refresh').checked) grantTypes.push('refresh_token');
+        if (document.getElementById('reg_grant_password').checked) grantTypes.push('password');
+
+        var redirectUris = [];
+        document.querySelectorAll('#reg_redirectUris .redirect-uri-row input').forEach(function(input) {
+            var val = input.value.trim();
+            if (val) redirectUris.push({ redirectUri: val });
+        });
+
+        var scopes = [];
+        document.querySelectorAll('.reg-scope-checkbox:checked').forEach(function(cb) {
+            scopes.push(cb.value);
+        });
+
+        var btn = document.getElementById('registerClientBtn');
+        btn.disabled = true;
+        btn.textContent = 'Registering...';
+
+        try {
+            var result = await HCL.apiRequest('/Admin/Clients/Create', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    clientName: clientName,
+                    clientUri: document.getElementById('reg_clientUri').value.trim() || null,
+                    applicationType: document.getElementById('reg_appType').value,
+                    supportedGrantTypes: grantTypes,
+                    redirectUris: redirectUris,
+                    allowedScopes: scopes
+                })
+            });
+
+            if (result.success) {
+                HCL.toastSuccess('Client registered successfully.');
+                HCL.closeModal('registerClientModal');
+                setTimeout(function() { location.reload(); }, 800);
+            } else {
+                var msg = result.errors && result.errors.length > 0
+                    ? result.errors.map(function(e) { return e.description || e.code; }).join(', ')
+                    : 'Failed to register client.';
+                HCL.toastError(msg);
+            }
+        } catch (err) {
+            HCL.toastError('An error occurred during registration.');
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg> Register Client';
+        }
+    }
+
+    async function deleteClient(clientId, clientName) {
+        var ok = await HCL.confirm('Delete Client', 'Are you sure you want to permanently delete client "' + clientName + '"? This action cannot be undone.');
+        if (!ok) return;
+        var result = await HCL.apiRequest('/Admin/Clients/Delete/' + clientId, { method: 'POST' });
+        if (result.success) {
+            HCL.toastSuccess('Client deleted successfully.');
+            setTimeout(function() { location.reload(); }, 800);
+        } else {
+            var msg = result.errors && result.errors.length > 0
+                ? result.errors.map(function(e) { return e.description || e.code; }).join(', ')
+                : 'Failed to delete client.';
+            HCL.toastError(msg);
+        }
+    }
+</script>
+}
